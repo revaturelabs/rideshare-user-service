@@ -18,7 +18,7 @@ import com.google.maps.model.DistanceMatrix;
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
 import com.google.maps.model.TravelMode;
-import com.google.maps.model.Unit;
+import com.google.maps.model.Unit; 
 import com.revature.beans.Coord;
 import com.revature.services.JSONReaderService;
 
@@ -148,6 +148,7 @@ public class DistanceService {
 		return coords;
 	}
 	public static LatLng lookupCoordFromFile(String name) throws ClassNotFoundException, IOException{
+		// TEMP (possibly needed later ...
 		ObjectInputStream objIn=new ObjectInputStream(new FileInputStream("Coords.dat"));
 		Coord obj;
 		LatLng xIn=null;
