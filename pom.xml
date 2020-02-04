@@ -104,24 +104,14 @@
 		    <scope>test</scope>
 		</dependency>
 	 	
+ 
 		<!-- 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 	    </dependency>
 	     -->
-	     
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-		</dependency>
-  		
-  		<dependency>
-		    <groupId>postgresql</groupId>
-		    <artifactId>postgresql</artifactId>
-		    <version>9.1-901-1.jdbc4</version>
-		</dependency>
-  		
+	      		
   		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -133,7 +123,7 @@
     		<version>9.1-901-1.jdbc4</version>
 		</dependency>
  
-		<dependency>
+		<dependency> 
 		    <groupId>io.springfox</groupId>
 		    <artifactId>springfox-swagger2</artifactId>
 		    <version>2.9.2</version>
@@ -149,8 +139,7 @@
 		    <groupId>io.springfox</groupId>
 		    <artifactId>springfox-swagger-ui</artifactId>
 		    <version>2.9.2</version>
-		</dependency>
-		 
+		</dependency> 
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
