@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import com.revature.beans.User;
 import com.revature.services.UserService;
@@ -48,24 +50,42 @@ public class UserController {
 	 * @param isDriver represents if the user is a driver or rider.
 	 * @param username represents the user's username.
 	 * @param location represents the batch's location.
+	 * @return 
 	 * @return A list of all the users, users by is-driver, user by username and users by is-driver and location.
 	 */
 	
-	@ApiOperation(value="Returns all users", tags= {"User"}, notes="Can also filter by is-driver, location and username")
+//	@ApiOperation(value="Returns all users", tags= {"User"}, notes="Can also filter by is-driver, location and username")
+//	@GetMapping
+//	public List<User> getUsers(@RequestParam(name="is-driver",required=false)Boolean isDriver,
+//							   @RequestParam(name="username",required=false)String username,
+//							   @RequestParam(name="location", required=false)String location) {
+//		
+//		if (isDriver != null && location != null) {
+//			return us.getUserByRoleAndLocation(isDriver.booleanValue(), location);
+//		} else if (isDriver != null) {
+//			return us.getUserByRole(isDriver.booleanValue());
+//		} else if (username != null) {
+//			return us.getUserByUsername(username);
+//		}
+//		
+//		return us.getUsers();
+//	}
+	
+//	@ApiOperation(value="Returns top five users or less", tags= {"User"})
+//	@GetMapping("/{passengerhCity}")
+//	public List<User> mydrivers(@PathVariable("passengerhCity") String passengerhCity) {
+//		List<User> topFive = new ArrayList<User>();
+//		us.getActiveDrivers(passengerhCity);
+//		
+//		
+//		return topFive;
+//	}
+	
+	
+	@ApiOperation(value="Returns user drivers", tags= {"User"})
 	@GetMapping
-	public List<User> getUsers(@RequestParam(name="is-driver",required=false)Boolean isDriver,
-							   @RequestParam(name="username",required=false)String username,
-							   @RequestParam(name="location", required=false)String location) {
-		
-		if (isDriver != null && location != null) {
-			return us.getUserByRoleAndLocation(isDriver.booleanValue(), location);
-		} else if (isDriver != null) {
-			return us.getUserByRole(isDriver.booleanValue());
-		} else if (username != null) {
-			return us.getUserByUsername(username);
-		}
-		
-		return us.getUsers();
+	public List<User> getActiveDrivers() {
+		return us.getActiveDrivers();
 	}
 	
 	/**

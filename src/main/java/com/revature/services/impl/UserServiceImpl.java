@@ -33,6 +33,11 @@ public class UserServiceImpl implements UserService {
 	public List<User> getUsers() {
 		return ur.findAll();
 	}
+	
+	@Override
+	public List<User> getActiveDrivers() {
+		return ur.getActiveDrivers();
+	}
 
 	/**
 	 * Calls UserRepository's getOne method found in the JpaRepository.
@@ -43,7 +48,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User getUserById(int id) {
-		return ur.getOne(id);
+		return ur.findById(id).get();
 	}
 	
 	/**
@@ -78,10 +83,11 @@ public class UserServiceImpl implements UserService {
 	 * @return A list of users by isDriver and location.
 	 */
 	
-	@Override
-	public List<User> getUserByRoleAndLocation(boolean isDriver, String location) {
-		return ur.getUserByRoleAndLocation(isDriver, location);
-	}
+//	@Override
+//	public List<User> getActiveDrivers(String hCity) {
+//		// TODO Auto-generated method stub
+//		return ur.getActiveDrivers(hCity);
+//	}
 	
 	/**
 	 * Calls UserRepository's save method found in the JpaRepository.
@@ -119,5 +125,11 @@ public class UserServiceImpl implements UserService {
 		ur.deleteById(id);
 		return "User with id: " + id + " was deleted.";
 	}
+	
+//	@Override
+//	public Iterable<User> save(List<User> users) {
+//        return ur.saveAll(users);
+//    }
 
+	
 }

@@ -1,8 +1,25 @@
 package com.revature;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.services.impl.UserServiceImpl;
+import com.revature.beans.User;
+import com.revature.repositories.UserRepository;
 
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -29,10 +46,15 @@ public class Driver {
 	 * @throws Exception
 	 */
 	
+	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
 		SpringApplication.run(Driver.class, args);
+		
+
 	}
 	
+	
+
 	/**
 	 * apiInfo consists of metadata for the swagger page.
 	 * 

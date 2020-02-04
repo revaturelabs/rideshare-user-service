@@ -10,9 +10,10 @@ public interface UserService {
 	public User getUserById(int id);
 	public List<User> getUserByUsername(String username);
 	public List<User> getUserByRole(boolean isDriver);
-	public List<User> getUserByRoleAndLocation(boolean isDriver, String location);
+	
 	public User addUser(User user);
 	public User updateUser(User user);
 	public String deleteUserById(int id);
-	
+	//public Iterable<User> save(List<User> users);
+	public List<User> getActiveDrivers();
 }

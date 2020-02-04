@@ -34,6 +34,8 @@ public class Car implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="car_id")
 	private int carId;
+	
+	@Column(name="color")
 	private String color;
 	
 	@Positive
