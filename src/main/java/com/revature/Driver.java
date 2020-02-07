@@ -38,7 +38,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableSwagger2
 public class Driver {
-	
 	/**
 	 * The main method of the Driver class.
 	 * 
@@ -83,5 +82,6 @@ public class Driver {
 			.build()
 			.apiInfo(apiInfo());
 	}
+	
 
 }

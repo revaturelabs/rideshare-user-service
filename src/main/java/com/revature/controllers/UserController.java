@@ -1,13 +1,19 @@
 package com.revature.controllers;
 
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.validation.Valid;
+import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +26,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
+import com.revature.Driver;
+import com.revature.beans.Batch;
+
 import com.revature.beans.User;
+import com.revature.services.BatchService;
 import com.revature.services.UserService;
 
 import io.swagger.annotations.Api;
@@ -107,13 +117,104 @@ public class UserController {
 	 * 
 	 * @param user represents the new User object being sent.
 	 * @return The newly created object with a 201 code.
+	 * 
+	 * Sends custom error messages when incorrect input is used
 	 */
 	
 	@ApiOperation(value="Adds a new user", tags= {"User"})
 	@PostMapping
-	public ResponseEntity<User> addUser(@Valid @RequestBody User user) {
+	public Map<String, Set<String>> addUser(@Valid @RequestBody User user, BindingResult result) {
 		
-		return new ResponseEntity<>(us.addUser(user), HttpStatus.CREATED);
+		 Map<String, Set<String>> errors = new HashMap<>();
+		 
+		 for (FieldError fieldError : result.getFieldErrors()) {
+		      String code = fieldError.getCode();
+		      String field = fieldError.getField();
+		      if (code.equals("NotBlank") || code.equals("NotNull")) {
+//		    	  
+		    	  switch (field) {
+		    	  case "userName":
+		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Username field required");
+		    		  break;
+		    	  case "firstName":
+		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("First name field required");
+		    		  break;
+		    	  case "lastName":
+		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Last name field required");
+		    		  break;
+		    	  case "wAddress":
+		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Work address field required");
+		    		  break;
+		    	  case "wState":
+		    	  case "hState":
+		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("State field required");
+		    		  break;
+		    	  case "phoneNumber":
+		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Phone number field required");
+		    		  break;
+		    	  case "hAddress":
+		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Home address field required");
+		    		  break;
+		    	  case "hZip":
+		    	  case "wZip":
+		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Zip code field required");
+		    		  break;
+		    	  case "hCity":
+		    	  case "wCity":
+		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("City field required");
+		    		  break;
+		    	  default:
+		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add(field+" required");
+		    	  }
+		      }
+		      //username custom error message
+		      else if (code.equals("Size") && field.equals("userName")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Username must be between 3 and 12 characters in length");
+		      }
+		      else if (code.equals("Pattern") && field.equals("userName")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Username may not have any illegal characters such as $@-");
+		      }
+		      else if (code.equals("Valid") && field.equals("userName")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid username");
+		      }
+		      //first name custom error message
+		      else if (code.equals("Size") && field.equals("firstName")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("First name cannot be more than 30 characters in length");
+		      }
+		      else if (code.equals("Pattern") && field.equals("firstName")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("First name allows only 1 space or hyphen and no illegal characters");
+		      }
+		      else if (code.equals("Valid") && field.equals("firstName")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid first name");
+		      }
+		      //last name custom error message
+		      else if (code.equals("Size") && field.equals("lastName")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Last name cannot be more than 30 characters in length");
+		      }
+		      else if (code.equals("Pattern") && field.equals("lastName")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Last name allows only 1 space or hyphen and no illegal characters");
+		      }
+		      else if (code.equals("Valid") && field.equals("lastName")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid last name");
+		      }
+		      //email custom error messages
+		      else if (code.equals("Email") && field.equals("email")) {
+		              errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid Email");
+		      }
+		      else if (code.equals("Pattern") && field.equals("email")) {
+	              errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid Email");
+		      }
+		      //phone number custom error messages
+		      else if (code.equals("Pattern") && field.equals("phoneNumber")) {
+	              errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid Phone Number");
+		      }
+		    }
+
+			if (errors.isEmpty()) {
+		 		us.addUser(user);
+		 	}
+		    return errors;
+		
 	}
 	
 	/**
@@ -143,5 +244,6 @@ public class UserController {
 		
 		return us.deleteUserById(id);
 	}
+	
 	
 }

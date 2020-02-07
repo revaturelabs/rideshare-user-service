@@ -12,6 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
@@ -35,6 +36,7 @@ public class Car implements Serializable {
 	@Column(name="car_id")
 	private int carId;
 	
+
 	@Column(name="color")
 	private String color;
 	

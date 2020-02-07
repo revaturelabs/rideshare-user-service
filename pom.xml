@@ -11,6 +11,12 @@
 	</parent>
 
 	<build>
+	<resources>
+    <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+    </resource>
+</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -67,12 +73,15 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>		
 		</dependency>
-		
+		<dependency>
+    <groupId>com.google.maps</groupId>
+    <artifactId>google-maps-services</artifactId>
+    <version>0.11.0</version>
+</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -93,7 +102,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-		
+		<dependency>
+    		<groupId>postgresql</groupId>
+    		<artifactId>postgresql</artifactId>
+    		<version>9.1-901-1.jdbc4</version>
+		</dependency>
 		<dependency>
 		    <groupId>io.springfox</groupId>
 		    <artifactId>springfox-swagger2</artifactId>
@@ -111,9 +124,9 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		
 		<dependency>
-            <groupId>org.projectlombok</groupId>
+            <groupId>org.project
+      </groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
@@ -122,13 +135,11 @@
 			<artifactId>javafaker</artifactId>
 			<version>0.17.2</version>
 		</dependency>
-        
      <dependency>
 	<groupId>com.googlecode.json-simple</groupId>
 	<artifactId>json-simple</artifactId>
 	<version>1.1.1</version>
 </dependency>
 	</dependencies>
-	
-		
+	</dependencies>
 </project>
