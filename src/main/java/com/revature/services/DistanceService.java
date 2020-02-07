@@ -13,8 +13,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
+import java.util.Scanner; 
 import java.util.TreeMap;
+ 
 
 import org.json.simple.parser.ParseException;
 
@@ -33,7 +34,7 @@ import com.revature.beans.Coord;
 import com.revature.services.JSONReaderService;
 
 
-public class DistanceService {
+public class DistanceService { 
  
 	// Place key googleMapAPIKey & value apiKey (to be shared on slack) into Environment Vars.
 	
@@ -48,7 +49,7 @@ public class DistanceService {
         return null;
     }
 	
-	public static  ArrayList<Double> getSorted(Integer userId, String userAddress) {
+	public static  ArrayList<Double> getSorted(Integer userId, String userAddress) { 
 		
 		// WORK ADDRESS DESTINATION: REVATURE @ High Street 
 		//String addrFive = "496 High St., Suite 200, 26505"; 
@@ -113,8 +114,8 @@ public class DistanceService {
 	public static   ArrayList<Double> distanceMatrix(String[] origins, String[] destinations)
 			throws ApiException, InterruptedException, IOException {
 		
-		//set up key
-		String API_KEY = getGoogleMAPKey();
+		//set up key 
+		String API_KEY = getGoogleMAPKey(); 
 		
 		GeoApiContext context = new GeoApiContext.Builder().apiKey(API_KEY).build();
 		ArrayList<Double> arrlist = new ArrayList<Double>();
@@ -153,8 +154,8 @@ public class DistanceService {
 	// Lookups up and returns the address of an batch given its name and  location attributes
 	public static String lookupAddr(String batch) throws ApiException, InterruptedException, IOException {
 		
-		//set up key
-		String API_KEY = getGoogleMAPKey();
+		//set up key 
+		String API_KEY = getGoogleMAPKey(); 
 		
 		GeoApiContext lookupBatch = new GeoApiContext.Builder().apiKey(API_KEY).build();
 		GeocodingResult[] results = GeocodingApi.geocode(lookupBatch, batch).await();
@@ -169,8 +170,8 @@ public class DistanceService {
 	// Lookups up and returns the coordinates of an batch given its name  
 	public static LatLng lookupCoord(String batch) throws ApiException, InterruptedException, IOException {
 			
-		//set up key
-		String API_KEY = getGoogleMAPKey();
+		//set up key 
+		String API_KEY = getGoogleMAPKey(); 
 		
 		GeoApiContext lookupBatch = new GeoApiContext.Builder()
 			    .apiKey(API_KEY)
@@ -214,8 +215,8 @@ public class DistanceService {
 	
 	public static long getDriveDist(String addrOne, String addrTwo)
 			throws ApiException, InterruptedException, IOException {
-
-		String API_KEY = getGoogleMAPKey();
+ 
+		String API_KEY = getGoogleMAPKey(); 
 		
 		GeoApiContext distCalcer = new GeoApiContext.Builder().apiKey(API_KEY).build();
 
