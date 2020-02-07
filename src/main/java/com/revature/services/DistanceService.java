@@ -10,9 +10,12 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
+import java.util.Scanner; 
+import java.util.TreeMap;
+ 
 
 import org.json.simple.parser.ParseException;
 
@@ -31,38 +34,22 @@ import com.revature.beans.Coord;
 import com.revature.services.JSONReaderService;
 
 
-public class DistanceService {
-
-	 
+public class DistanceService { 
  
-
-//	private static long[][] matrix;
-	 
-	public static String getApiKey() {
-		
-		// apikey string in file "distanceapi.txt" in folder "api", located 2 levels above root directory. 
-		// example:  pathSomewhere/api/myFolders/rideshare-user-service/src/main
-		String apiKey = "../../api/distanceapi.txt";
-		
-		try {
-			File textFile = new File(apiKey);
-			Scanner scanText = new Scanner(textFile);
-			String value = scanText.next(); 
-			
-			final String API_KEY = value;
-			scanText.close();
-			return API_KEY;
-			
-		} catch (FileNotFoundException e) {
-			System.out.println("Welcome script file not found: " + apiKey.toString());
-			return null;
-		} 
-
-	}
+	// Place key googleMapAPIKey & value apiKey (to be shared on slack) into Environment Vars.
 	
+	public static String getGoogleMAPKey() {
+        Map<String, String> env = System.getenv();
+        for (Map.Entry <String, String> entry: env.entrySet()) {
+            if(entry.getKey().equals("googleMapAPIKey")) {
+            	System.out.println(env);  // long list 
+                return entry.getValue();
+            }
+        }
+        return null;
+    }
 	
-	
-	public static void getSorted(String[] args) {
+	public static  ArrayList<Double> getSorted(Integer userId, String userAddress) { 
 		
 		// WORK ADDRESS DESTINATION: REVATURE @ High Street 
 		//String addrFive = "496 High St., Suite 200, 26505"; 
@@ -70,27 +57,41 @@ public class DistanceService {
 		//  STEP 1.) FILTER OUT OTHER CITIES FROM SQL 
 
 		//  STEP 2. Post-filter RIDERS ADDRESS ==  data  JSONReader data FROM JSON
-		ArrayList<Object> streetsFromReader = JSONReaderService.dataCleaner(args);
+		ArrayList<Object> streetsFromReader = JSONReaderService.dataCleaner();
 		ArrayList<String> strArray = new ArrayList<String>();
+		
+		// STEP 2. Map UserId's and Addresses
+		Map idAndLocations = JSONReaderService.dataMapper();
+		System.out.println("getting JSON.dataMapper()'s id+locatiosn"+idAndLocations);
 		
 		for(Object o: streetsFromReader) {
 			strArray.add(o.toString());
 		}
 		System.out.println("strArray.toString: "+strArray.toString());
 		strArray.toString();
+		
+		
+		
 		String strToArray[] = new String[strArray.size()];
 		strToArray = strArray.toArray(strToArray);
 		
 		System.out.println("==pre-DistanceMatrix Input==="); 
-		String[] destinations =    strToArray;
+		String[] destinations = strToArray;
 		
 		// STEP 2 (cont'd). DRIVER ADDRESS
-        String origin = "900 Willowdale Road, 26505 "; // Mountaineer Field at Milan-Puskar Stadium
+		int uId = userId;
+        String origin = userAddress;
 		String[] origins = new String[] { origin };
 		
 		try {
 			// READ in Drivers' Home address  &  Riders' Home addresses  
-			distanceMatrix(origins, destinations);
+//			distanceMatrix(origins, destinations);
+			ArrayList<Double> distances = distanceMatrix(origins, destinations);
+			System.out.println("from DistanceService.getSorted: "+ distances);
+			//
+			 
+		   
+			return distances;
 			
 		} catch (ApiException e) {
 			System.out.println("OOPS, API not connecting ....");
@@ -104,21 +105,25 @@ public class DistanceService {
 			System.out.println("OOPS, IO Exception ...");
 			e.printStackTrace();
 		}
+		return null; 
+		
+		 
 
 	}
 
-	public static void distanceMatrix(String[] origins, String[] destinations)
+	public static   ArrayList<Double> distanceMatrix(String[] origins, String[] destinations)
 			throws ApiException, InterruptedException, IOException {
 		
-		//set up key
-		String API_KEY = getApiKey();
+		//set up key 
+		String API_KEY = getGoogleMAPKey(); 
 		
 		GeoApiContext context = new GeoApiContext.Builder().apiKey(API_KEY).build();
-		List<Double> arrlist = new ArrayList<Double>();
+		ArrayList<Double> arrlist = new ArrayList<Double>();
 		DistanceMatrixApiRequest req = DistanceMatrixApi.newRequest(context);
 		DistanceMatrix t = req.origins(origins).destinations(destinations).mode(TravelMode.DRIVING).units(Unit.IMPERIAL)
 				.await();
-
+ 
+		
 		for (int i = 0; i < origins.length; i++) {
 			for (int j = 0; j < destinations.length; j++) {
 				try {
@@ -132,45 +137,25 @@ public class DistanceService {
 		System.out.println("-");
 		Collections.sort(arrlist);
 		System.out.println("SORTED: " + arrlist.toString());
-
-		int i = 0;
+		
+		
+		int i = 0; 
 		for (double x : arrlist) {
 			i++;
 			System.out.println(i + "): " + x / 1609 + " miles");
 		}
-	}
+		System.out.println(arrlist);
+//		return (ArrayList<Double>) arrlist;
+		return arrlist;
+	} 
 
-	public static void locationMap() {
-		
-		 HashMap<Integer, String> map = new HashMap<Integer, String>();
-	        
-	        map.put(5, "Five");
-	        map.put(8, "Eight");
-	        map.put(6, "Six");
-	        map.put(4, "Four");
-	        map.put(2, "Two");
-	        
-	        String text = map.get(6);
-	        
-	        System.out.println(text);
-	        
-	        for(Map.Entry<Integer, String> entry: map.entrySet()) {
-	            int key = entry.getKey();
-	            String value = entry.getValue();
-	            
-	            System.out.println(key + ": " + value);
-	        }
-	}
-	
-	
-	
-	/// CURRENTLY UNUSED/NOT-NECESSARY METHODS BELOW :::: ///////////////////
+	/// Currently not-yet-used Google API's :::: ///////////////////
 	
 	// Lookups up and returns the address of an batch given its name and  location attributes
 	public static String lookupAddr(String batch) throws ApiException, InterruptedException, IOException {
 		
-		//set up key
-		String API_KEY = getApiKey();
+		//set up key 
+		String API_KEY = getGoogleMAPKey(); 
 		
 		GeoApiContext lookupBatch = new GeoApiContext.Builder().apiKey(API_KEY).build();
 		GeocodingResult[] results = GeocodingApi.geocode(lookupBatch, batch).await();
@@ -185,8 +170,8 @@ public class DistanceService {
 	// Lookups up and returns the coordinates of an batch given its name  
 	public static LatLng lookupCoord(String batch) throws ApiException, InterruptedException, IOException {
 			
-		//set up key
-		String API_KEY = getApiKey();
+		//set up key 
+		String API_KEY = getGoogleMAPKey(); 
 		
 		GeoApiContext lookupBatch = new GeoApiContext.Builder()
 			    .apiKey(API_KEY)
@@ -230,8 +215,8 @@ public class DistanceService {
 	
 	public static long getDriveDist(String addrOne, String addrTwo)
 			throws ApiException, InterruptedException, IOException {
-
-		String API_KEY = getApiKey();
+ 
+		String API_KEY = getGoogleMAPKey(); 
 		
 		GeoApiContext distCalcer = new GeoApiContext.Builder().apiKey(API_KEY).build();
 
