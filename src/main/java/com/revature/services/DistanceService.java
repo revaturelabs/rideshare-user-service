@@ -1,17 +1,15 @@
 package com.revature.services;
-
-<<<<<<< HEAD
+ 
 import java.io.IOException;
 
 import com.google.maps.errors.ApiException;
-
-public interface DistanceService {
-	
-	
-	public void  distanceMatrix(String[] origins, String[] destinations) throws ApiException, InterruptedException, IOException;
-
-}
-=======
+//
+//public interface DistanceService {
+//	
+//	
+//	public void  distanceMatrix(String[] origins, String[] destinations) throws ApiException, InterruptedException, IOException;
+//
+//}
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -161,5 +159,4 @@ public class DistanceService {
  
  
 	
-}
->>>>>>> dev-search-thomas
+} 

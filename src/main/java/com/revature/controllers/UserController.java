@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -51,8 +52,8 @@ public class UserController {
 	@Autowired
 	private UserService us;
 	
-	@Autowired
-	private DistanceService ds;
+//	@Autowired
+//	private DistanceService ds;
 	
 	
 	/**
@@ -94,10 +95,10 @@ public class UserController {
 		String [] destinations = new String[destinationList.size()];
 		
 		destinations = destinationList.toArray(destinations);
-		
-		ds.distanceMatrix(origins, destinations){
-			
-		}
+//		
+//		ds.distanceMatrix(origins, destinations){
+//			
+//		}
 		
 		
 		
