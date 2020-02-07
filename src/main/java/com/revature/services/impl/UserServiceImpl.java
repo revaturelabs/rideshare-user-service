@@ -33,6 +33,11 @@ public class UserServiceImpl implements UserService {
 	public List<User> getUsers() {
 		return ur.findAll();
 	}
+	
+	@Override
+	public List<User> getActiveDrivers() {
+		return ur.getActiveDrivers();
+	}
 
 	/**
 	 * Calls UserRepository's getOne method found in the JpaRepository.
