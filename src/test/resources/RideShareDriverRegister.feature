@@ -1,4 +1,4 @@
-	Feature: Ride share Driver Registure
+	Feature: Ride share Driver register
 	Background: On homepage
 		Given The user is on the Rideshare homepage
 		

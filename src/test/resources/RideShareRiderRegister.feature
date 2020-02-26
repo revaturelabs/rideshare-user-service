@@ -1,4 +1,4 @@
-	Feature: Ride share user login
+	Feature: Ride share user register as a rider
 	Background: On homepage
 		Given The user is on the Rideshare homepage
 	

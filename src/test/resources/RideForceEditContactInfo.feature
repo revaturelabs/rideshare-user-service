@@ -3,9 +3,9 @@ Feature: User goes to profile and edits contact info
 		Given The user is on RideShare landing page
 
 	Scenario:
-		When the user clicks on their profile pic
-		When the user clicks profile from dropdown
-		When the user types in first name
-		When the user types in last name
-		When the user clicks save
-		Then the page should say updated successfully 
+		When The user clicks on their profile pic
+		When The user clicks profile from dropdown
+		When The user types in first name
+		When The user types in last name
+		When The user clicks save
+		Then The page should say updated successfully 
