@@ -1,9 +1,9 @@
-	Feature: Ride share user login
+	Feature: Ride share Driver Registure
 	Background: On homepage
 		Given The user is on the Rideshare homepage
-	
-	Scenario: User Sign up as Rider
 		
+		Scenario: User Sign up as Driver
+	
 		When The user clicks on Sign up
 		When The user types in firstname
 		When The user types in lastname
@@ -17,6 +17,6 @@
 		When The user clicks on State 
 		When The user clicks on wv
 		When The user types in ZipCode
-		When The user clicks on Rider
+		When The user clicks on Driver
 		Then The user should be on the Rideshare homepage
 		
