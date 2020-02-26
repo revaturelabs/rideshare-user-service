@@ -42,13 +42,6 @@ public class BatchController {
 	@Autowired
 	private BatchService bs;
 	
-	/**
-	 * HTTP GET method (/batches)
-	 * 
-	 * @param location represents the batch location.
-	 * @return A list of all the batches or batches by the location.
-	 */
-	
 	@ApiOperation(value="Returns all batches", tags= {"Batch"}, notes="Can also filter by location")
 	@GetMapping
 	public List<Batch> getBatches(@RequestParam(name="location",required=false)String location) {
@@ -61,26 +54,12 @@ public class BatchController {
 		return bs.getBatches();
 	}
 	
-	/**
-	 * HTTP GET method (/batches/{number})
-	 * 
-	 * @param number represents the batch number.
-	 * @return A batch that matches the number.
-	 */
-	
 	@ApiOperation(value="Returns batch by number", tags= {"Batch"})
 	@GetMapping("/{number}")
 	public Batch getBatchByNumber(@PathVariable("number")int number) {
 		
 		return bs.getBatchByNumber(number);
 	}
-	
-	/**
-	 * HTTP POST method (/batches)
-	 * 
-	 * @param batch represents the new Batch object being sent.
-	 * @return The newly created object with a 201 code.
-	 */
 	
 	@ApiOperation(value="Adds a new batch", tags= {"Batch"})
 	@PostMapping
@@ -89,26 +68,12 @@ public class BatchController {
 		return new ResponseEntity<>(bs.addBatch(batch), HttpStatus.CREATED);
 	}
 	
-	/**
-	 * HTTP PUT method (/batches)
-	 * 
-	 * @param batch represents the updated Batch object being sent.
-	 * @return The newly updated object.
-	 */
-	
 	@ApiOperation(value="Updates batch by number", tags= {"Batch"})
 	@PutMapping("/{number}")
 	public Batch updateBatch(@Valid @RequestBody Batch batch) {
 		
 		return bs.updateBatch(batch);
 	}
-	
-	/**
-	 * HTTP DELETE method (/batches/{id})
-	 * 
-	 * @param number represents the batch number.
-	 * @return A string that says which batch was deleted.
-	 */
 	
 	@ApiOperation(value="Deletes batch by number", tags= {"Batch"})
 	@DeleteMapping("/{number}")
