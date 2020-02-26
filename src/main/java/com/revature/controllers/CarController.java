@@ -90,9 +90,9 @@ public class CarController {
 	 */
 	
 	@ApiOperation(value="Adds a new car", tags= {"Car"})
-	@PostMapping
+	@PostMapping()
 	public ResponseEntity<Car> addCar(@Valid @RequestBody Car car) {
-		
+		System.out.println(car);
 		return new ResponseEntity<>(cs.addCar(car), HttpStatus.CREATED);
 	}
 	
@@ -104,9 +104,8 @@ public class CarController {
 	 */
 	
 	@ApiOperation(value="Updates car by id", tags= {"Car"})
-	@PutMapping("/{id}")
+	@PutMapping
 	public Car updateCar(@Valid @RequestBody Car car) {
-		
 		return cs.updateCar(car);
 	}
 	
