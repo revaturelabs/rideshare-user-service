@@ -6,12 +6,11 @@ Feature: Ride share user login
 		
 		
 	Scenario: User Logins 
+		When The user clicks on Login
 		When The user types in username
 		When The user types in password
 		When The user clicks on Login Button
-		Then The user should be on the something page
+		Then The user should be on the Landing page
 
 
-	Scenario: User Looks at profile
-		When The user clicks on the profile button 
 			
