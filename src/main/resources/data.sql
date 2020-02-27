@@ -27,6 +27,10 @@ insert into users values
 (19, 'gtootellj@latimes.com', 'Geneva', '27592 La Follette Trail', 'Anaheim', 'CA', '92812', false, false, false, 'Tootell', '714-167-0152', 'gtootellj', '61696 Algoma Park', 'Terre Haute', 'IN', '47812', 1),
 (20, 'cgeertzk@senate.gov', 'Cissy', '5 Spaight Court', 'Spring', 'TX', '77386', false, false, true, 'Geertz', '281-310-3238', 'cgeertzk', '3 Dexter Alley', 'Frederick', 'MD', '21705', 1),
 (21, 'lozintsevl@freewebs.com', 'Lynn', '112 Silo CT', 'Columbia', 'SC', '29201', true, true, true, 'Ozintsev', '704-108-6483', 'lozintsevl', '38 Muir Plaza', 'Pittsburgh', 'PA', '15210', 1);
+(22, 'nattygray@gmail.com', 'Nate', '1205 Milton St', 'Sabraton', 'WV', '26505', true, true, true, 'Gray', '304-353-3485', 'nattygray', '500 Suncrest Towne Centre Drive', 'Morgantown', 'WV', '26505', 1),
+(23, 'drabbits35@gmail.com', 'Dave', '92 Chateau Royale Ct', 'Morgantown', 'WV', '26505', true, true, true, 'Matts', '304-495-3533', 'dmatts', '1501 Deckers Creek Blvd', 'Morgantown', 'WV', '26501', 1),
+(24, 'soccerbll@gmail.com', 'Dak', '454 Park St', 'South Park', 'WV', '26501', true, true, true, 'Johnson', '304-332-7693', 'johnson12', '350 Patteson Drive', 'Morgantown', 'WV', '26508', 1),
+(25, 'mmastar@gmail.com', 'Jeff', '425 Herman Ave', 'Star City', 'WV', '26505', true, true, true, 'Johnson', '304-445-2000', 'jf3800', '114 Holland Ave', 'Morgantown', 'WV', '26505', 1);
 
 insert into cars values 
 (1, 'Teal', 'Ford', 'Thunderbird', 3, 1972, 1),
@@ -48,4 +52,9 @@ insert into cars values
 (17, 'Indigo', 'Volkswagen', 'Golf III', 1, 1994, 17),
 (18, 'Goldenrod', 'Lotus', 'Esprit', 1, 2002, 18),
 (19, 'Red', 'Land Rover', 'Range Rover', 1, 1989, 19),
-(20, 'Pink', 'Mercedes-Benz', 'M-Class', 5, 2000, 20);
+(20, 'Pink', 'Mercedes-Benz', 'M-Class', 5, 2000, 20),
+(21, 'Yellow', 'Ford', 'Mustand', 2, 2019, 21),
+(22, 'Green', 'Chevrolet', 'Silverado', 5, 2005, 22),
+(23, 'White', 'Toyota', 'Corrola', 4, 2000, 23),
+(24, 'Silver', 'Nissan', 'Rogue', 5, 2008, 24),
+(25, 'Red', 'Rolls Royce', 'Coniche', 4, 2020, 25);
