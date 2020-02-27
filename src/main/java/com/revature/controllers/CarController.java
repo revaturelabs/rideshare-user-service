@@ -73,14 +73,14 @@ public class CarController {
 	
 	
 	@Operation(summary = "Update specified car", description="Updates car by id", tags={"Car"})
-	@PutMapping(value = "/{id}", produces = "application/json")
+	@PutMapping(produces = "application/json")
 	public Car updateCar(@Parameter(description="Admin to create", required=true)@Valid @RequestBody(required=true) Car car) {
 		
 		return cs.updateCar(car);
 	}
 	
 	@Operation(summary = "Delete specified car", description="Deletes car by id", tags={"Car"})
-	@DeleteMapping(value = "/{id}", produces = "application/json")
+	@DeleteMapping(produces = "application/json")
 	public String deleteCarById(@PathVariable("id")int id) {
 		
 		return cs.deleteCarById(id);
