@@ -1,0 +1,1017 @@
+openapi: 3.0.1
+info:
+  title: RideShare User Service
+  description: API Documentation for User Service
+  version: "2"
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+tags:
+- name: User
+  description: User Controller
+- name: Login
+  description: Login Controller
+- name: Car
+  description: Car Controller
+- name: Batch
+  description: Batch Controller
+- name: Admin
+  description: Admin Controller
+paths:
+  /admins:
+    get:
+      tags:
+      - Admin
+      summary: Return list of admins
+      description: Returns all admins
+      operationId: getAdmins
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Admin'
+    put:
+      tags:
+      - Admin
+      summary: Update specified admin
+      description: Updates admin by id
+      operationId: updateAdmin
+      requestBody:
+        description: Admin to update
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Admin'
+        required: true
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Admin'
+        "400":
+          description: Input was invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+      - Admin
+      summary: Create admin
+      description: Adds a new admin
+      operationId: createAdmin
+      requestBody:
+        description: Admin to create
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Admin'
+        required: true
+      responses:
+        "201":
+          description: Admin created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Admin'
+        "400":
+          description: Input was invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /admins/{id}:
+    get:
+      tags:
+      - Admin
+      summary: Return specified admin
+      description: Returns admin by id
+      operationId: getAdminById
+      parameters:
+      - name: id
+        in: path
+        description: Id of Admin
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "201":
+          description: Admin created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Admin'
+        "400":
+          description: Input was invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+      - Admin
+      summary: Delete specified admin
+      description: Deletes admin by id
+      operationId: deleteAdmin
+      parameters:
+      - name: id
+        in: path
+        description: Id of Admin
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            '*/*':
+              schema:
+                type: string
+        "400":
+          description: Input was invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /batches:
+    get:
+      tags:
+      - Batch
+      summary: Return all batches
+      description: Returns all batches
+      operationId: getBatches
+      parameters:
+      - name: location
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Batch'
+    put:
+      tags:
+      - Batch
+      summary: Update specified batch
+      description: Updates batch
+      operationId: updateBatch
+      requestBody:
+        description: Batch to update
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Batch'
+        required: true
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Batch'
+        "400":
+          description: Input was invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+      - Batch
+      summary: Create batch
+      description: Adds a new batch
+      operationId: addBatch
+      requestBody:
+        description: User to create
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Batch'
+        required: true
+      responses:
+        "201":
+          description: Batch created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Batch'
+        "400":
+          description: Input was invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /batches/{number}:
+    get:
+      tags:
+      - Batch
+      summary: Return specified batch
+      description: Returns batch by number
+      operationId: getBatchByNumber
+      parameters:
+      - name: number
+        in: path
+        description: Id of batch
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Batch'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+      - Batch
+      summary: Delete specified batch
+      description: Deletes batch by number
+      operationId: deleteBatchByNumber
+      parameters:
+      - name: number
+        in: path
+        description: Batch to delete
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: string
+        "400":
+          description: Input was invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /cars:
+    get:
+      tags:
+      - Car
+      summary: Return list of all cars
+      description: Returns all cars
+      operationId: getCars
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Car'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+      - Car
+      summary: Update specified car
+      description: Updates car by id
+      operationId: updateCar
+      requestBody:
+        description: Admin to create
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Car'
+        required: true
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        "400":
+          description: Input was invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+      - Car
+      summary: Create car
+      description: Adds a new car
+      operationId: addCar
+      requestBody:
+        description: Admin to create
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Car'
+        required: true
+      responses:
+        "201":
+          description: Car created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        "400":
+          description: Input was invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /cars/{id}:
+    get:
+      tags:
+      - Car
+      summary: Return specified car
+      description: Returns car by id
+      operationId: getCarById
+      parameters:
+      - name: id
+        in: path
+        description: Id of Car
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+      - Car
+      summary: Delete specified car
+      description: Deletes car by id
+      operationId: deleteCarById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            '*/*':
+              schema:
+                type: string
+        "400":
+          description: Input was invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /cars/users/{userId}:
+    get:
+      tags:
+      - Car
+      summary: Return car by specified user id
+      description: Returns car by user id
+      operationId: getCarByUserId
+      parameters:
+      - name: userId
+        in: path
+        description: Id of User
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /login:
+    get:
+      tags:
+      - Login
+      - User
+      summary: Log in operation
+      description: Returns id and name of user
+      operationId: login
+      parameters:
+      - name: userName
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: passWord
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  uniqueItems: true
+                  type: array
+                  items:
+                    type: string
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /login/getGoogleApi:
+    get:
+      tags:
+      - Login
+      summary: Get Google API
+      description: Retrieves Google API
+      operationId: getGoogleApi
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  uniqueItems: true
+                  type: array
+                  items:
+                    type: string
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /users:
+    get:
+      tags:
+      - User
+      summary: Return all users
+      description: Can also filter by is-driver, location, and username
+      operationId: getUsers
+      parameters:
+      - name: is-driver
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+      - name: username
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: location
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+      - User
+      summary: Update specified user
+      description: Updates user
+      operationId: updateUser
+      requestBody:
+        description: Admin to update
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: Input was invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+      - User
+      summary: Create user
+      description: Adds a new user
+      operationId: addUser
+      requestBody:
+        description: User to create
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        "201":
+          description: User created
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  uniqueItems: true
+                  type: array
+                  items:
+                    type: string
+        "400":
+          description: Input was invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /users/driver/{address}:
+    get:
+      tags:
+      - User
+      summary: Return five closest drivers
+      description: Returns five closest drivers
+      operationId: getTopFiveDrivers
+      parameters:
+      - name: address
+        in: path
+        description: User's Address
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /users/{id}:
+    get:
+      tags:
+      - User
+      summary: Return specified user
+      description: Returns user by id
+      operationId: getUserById
+      parameters:
+      - name: id
+        in: path
+        description: Id of Admin
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+      - User
+      summary: Delete specified user
+      description: Deletes user by id
+      operationId: deleteUserById
+      parameters:
+      - name: id
+        in: path
+        description: Id of Admin
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: string
+        "400":
+          description: Input was invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    Admin:
+      required:
+      - userName
+      type: object
+      properties:
+        adminId:
+          type: integer
+          format: int32
+          example: 1
+        userName:
+          maxLength: 12
+          minLength: 3
+          pattern: ^\w+\.?\w+$
+          type: string
+          example: adminUserName
+    Batch:
+      required:
+      - batchLocation
+      type: object
+      properties:
+        batchNumber:
+          type: integer
+          format: int32
+          example: 1
+        batchLocation:
+          type: string
+          example: Morgantown
+    Car:
+      required:
+      - make
+      - model
+      type: object
+      properties:
+        carId:
+          type: integer
+          format: int32
+          example: 1
+        color:
+          type: string
+          example: Gray
+        seats:
+          type: integer
+          format: int32
+          example: 4
+        make:
+          type: string
+          example: Honda
+        model:
+          type: string
+          example: Civic
+        year:
+          type: integer
+          format: int32
+          example: 2015
+        user:
+          $ref: '#/components/schemas/User'
+    User:
+      required:
+      - email
+      - firstName
+      - gethAddress
+      - gethCity
+      - gethState
+      - gethZip
+      - getwAddress
+      - getwCity
+      - getwState
+      - getwZip
+      - lastName
+      - phoneNumber
+      - userName
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int32
+          example: 1
+        userName:
+          maxLength: 12
+          minLength: 3
+          pattern: ^\w+\.?\w+$
+          type: string
+          example: userNameExample
+        batch:
+          $ref: '#/components/schemas/Batch'
+        firstName:
+          maxLength: 30
+          minLength: 0
+          pattern: ^[a-zA-Z\u00C0-\u017F]+[- ]?[a-zA-Z\u00C0-\u017F]+$
+          type: string
+          example: Peter
+        lastName:
+          maxLength: 30
+          minLength: 0
+          pattern: ^[a-zA-Z\u00C0-\u017F]+[- ]?[a-zA-Z\u00C0-\u017F]+$
+          type: string
+          example: Sherman
+        email:
+          pattern: ^\w+\.?\w+@\w+\.[a-zA-Z]{2,4}$
+          type: string
+          example: psherman@email.com
+        phoneNumber:
+          pattern: ^\(?([0-9]{3})\)?[-.\s]?([0-9]{3})[-.\s]?([0-9]{4})$
+          type: string
+          example: "5555555555"
+        gethAddress:
+          type: string
+          example: "42"
+        gethCity:
+          type: string
+          example: Blaxland
+        gethZip:
+          type: string
+          example: "2774"
+        gethState:
+          type: string
+          example: Sydney
+        getwAddress:
+          type: string
+          example: "496"
+        getwCity:
+          type: string
+          example: Morgantown
+        getwZip:
+          type: string
+          example: "26508"
+        getwState:
+          type: string
+          example: West Virginia
+        active:
+          type: boolean
+        driver:
+          type: boolean
+        acceptingRides:
+          type: boolean
+  responses:
+    InvalidInput:
+      description: Input was invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

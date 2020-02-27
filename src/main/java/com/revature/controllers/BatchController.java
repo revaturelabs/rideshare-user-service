@@ -21,8 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.beans.Batch;
 import com.revature.services.BatchService;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
  * BatchController takes care of handling our requests to /batches.
@@ -36,14 +37,14 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/batches")
 @CrossOrigin
-@Api(tags= {"Batch"})
+@Tag(name = "Batch", description = "Batch Controller")
 public class BatchController {
 	
 	@Autowired
 	private BatchService bs;
 	
-	@ApiOperation(value="Returns all batches", tags= {"Batch"}, notes="Can also filter by location")
-	@GetMapping
+	@Operation(summary = "Return all batches",  description="Returns all batches", tags={"Batch"})
+	@GetMapping(produces="application/json")
 	public List<Batch> getBatches(@RequestParam(name="location",required=false)String location) {
 		
 		if (location != null) {
@@ -54,30 +55,31 @@ public class BatchController {
 		return bs.getBatches();
 	}
 	
-	@ApiOperation(value="Returns batch by number", tags= {"Batch"})
-	@GetMapping("/{number}")
-	public Batch getBatchByNumber(@PathVariable("number")int number) {
+	@Operation(summary = "Return specified batch", description="Returns batch by number", tags={"Batch"})
+	@GetMapping(value = "/{number}", produces = "application/json")
+	public Batch getBatchByNumber(@Parameter(description="Id of batch", required = true)@PathVariable("number")int number) {
 		
 		return bs.getBatchByNumber(number);
 	}
 	
-	@ApiOperation(value="Adds a new batch", tags= {"Batch"})
-	@PostMapping
-	public ResponseEntity<Batch> addBatch(@Valid @RequestBody Batch batch) {
+	@Operation(summary = "Create batch",description="Adds a new batch", tags={"Batch"})
+	@PostMapping(produces="application/json")
+	public ResponseEntity<Batch> addBatch(@Parameter(description="User to create", required=true) 
+										@Valid @RequestBody(required = true) Batch batch) {
 		
 		return new ResponseEntity<>(bs.addBatch(batch), HttpStatus.CREATED);
 	}
 	
-	@ApiOperation(value="Updates batch by number", tags= {"Batch"})
-	@PutMapping("/{number}")
-	public Batch updateBatch(@Valid @RequestBody Batch batch) {
+	@Operation(summary = "Update specified batch", description="Updates batch", tags={"Batch"})
+	@PutMapping(value = "/{number}", produces = "application/json")
+	public Batch updateBatch(@Parameter(description="Batch to update", required=true) @Valid @RequestBody(required = true) Batch batch) {
 		
 		return bs.updateBatch(batch);
 	}
 	
-	@ApiOperation(value="Deletes batch by number", tags= {"Batch"})
-	@DeleteMapping("/{number}")
-	public String deleteBatchByNumber(@PathVariable("number")int number) {
+	@Operation(summary = "Delete specified batch", description="Deletes batch by number", tags={"Batch"})
+	@DeleteMapping(value = "/{number}", produces = "application/json")
+	public String deleteBatchByNumber(@Parameter(description="Batch to delete", required=true) @PathVariable("number")int number) {
 		
 		return bs.deleteBatchByNumber(number);
 	}

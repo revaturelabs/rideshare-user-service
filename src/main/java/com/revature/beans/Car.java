@@ -12,9 +12,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * Car class that represents a user's car. All cars have an id, color, seats, make, model, year
@@ -34,25 +35,32 @@ public class Car implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="car_id")
+	@Schema(example = "1")
 	private int carId;
 	
+	@Schema(example = "Gray")
 	private String color;
 	
 	@Positive
+	@Schema(example = "4")
 	private int seats;
 	
 	@NotBlank
+	@Schema(example = "Honda")
 	private String make;
 	
 	@NotBlank
+	@Schema(example = "Civic")
 	private String model;
 	
 	@Positive
 	@Column(name="car_year")
+	@Schema(example = "2015")
 	private int year;
 	
 	@OneToOne
 	@JoinColumn(name="user_id", unique=true)
+	@Schema(implementation = User.class)
 	private User user;
 	
 	public Car() {

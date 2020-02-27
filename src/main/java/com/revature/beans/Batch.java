@@ -10,6 +10,8 @@ import javax.validation.constraints.NotBlank;
 
 import org.springframework.stereotype.Component;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * Batch class that represents a user's batch. All batches have a batch number and a location.
  * 
@@ -26,10 +28,12 @@ public class Batch implements Serializable {
 	
 	@Id
 	@Column(name="batch_number")
+	@Schema(example = "1")
 	private int batchNumber;
 	
 	@NotBlank
 	@Column(name="batch_location")
+	@Schema(example = "Morgantown")
 	private String batchLocation;
 	
 	public Batch() {
