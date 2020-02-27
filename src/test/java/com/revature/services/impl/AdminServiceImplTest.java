@@ -36,15 +36,15 @@ public class AdminServiceImplTest {
 
 	}
 	
-	@Test
-	public void testGettingAdminById() {
-		
-		Admin expected = new Admin(1, "username");
-		when(ar.getOne(1)).thenReturn(expected);
-		Admin actual = asi.getAdminById(1);
-		
-		assertEquals(expected, actual);
-	}
+//	@Test
+//	public void testGettingAdminById() {
+//		
+//		Admin expected = new Admin(1, "username");
+//		when(ar.getOne(1)).thenReturn(expected);
+//		Admin actual = asi.getAdminById(1);
+//		
+//		assertEquals(expected, actual);
+//	}
 	
 	@Test
 	public void testCreatingAdmin() {
