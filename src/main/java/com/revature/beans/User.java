@@ -19,6 +19,7 @@ import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import org.springframework.stereotype.Component;
 
@@ -30,6 +31,7 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="user_id")
+	@Schema(example = "1")
 	private int userId;
 
 	@Valid
@@ -37,9 +39,12 @@ public class User implements Serializable {
 	@Column(name="user_name")
 	@Size(min=3,max=12)
 	@Pattern(regexp="^\\w+\\.?\\w+$")
+	@Schema(example = "userNameExample")
 	private String userName;
+	
 	@ManyToOne
 	@JoinColumn(name="batch_number")
+	@Schema(implementation = Batch.class)
 	private Batch batch;
 	
 	@Valid
@@ -47,6 +52,7 @@ public class User implements Serializable {
 	@Column(name="first_name")
 	@Size(max=30)
 	@Pattern(regexp="^[a-zA-Z\\u00C0-\\u017F]+[- ]?[a-zA-Z\\u00C0-\\u017F]+$")
+	@Schema(example = "Peter")
 	private String firstName;
 	
 	@Valid
@@ -54,44 +60,71 @@ public class User implements Serializable {
 	@Column(name="last_name")
 	@Size(max=30)
 	@Pattern(regexp="^[a-zA-Z\\u00C0-\\u017F]+[- ]?[a-zA-Z\\u00C0-\\u017F]+$")
+	@Schema(example = "Sherman")
 	private String lastName;
+	
 	@NotBlank
 	@Email
 	@Pattern(regexp="^\\w+\\.?\\w+@\\w+\\.[a-zA-Z]{2,4}$")
+	@Schema(example = "psherman@email.com")
 	private String email;
+	
 	@NotBlank
 	@Column(name="phone_number")
 	@Pattern(regexp="^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$")
+	@Schema(example = "5555555555")
 	private String phoneNumber;
+	
 	@Column(name="is_driver")
+	@Schema(example = "true")
 	private boolean isDriver;
+	
 	@Column(name="is_active")
+	@Schema(example = "true")
 	private boolean isActive;
+	
 	@Column(name="is_accepting_rides")
+	@Schema(example = "false")
 	private boolean isAcceptingRides;
+	
 	@NotBlank
 	@Column(name = "h_address")
+	@Schema(example = "42 Rock Wallaby Way")
 	private String hAddress;
+	
 	@NotBlank
 	@Column(name = "h_city")
+	@Schema(example = "Blaxland")
 	private String hCity;
+	
 	@NotBlank
 	@Column(name = "h_zip")
+	@Schema(example = "2774")
 	private String hZip;
+	
 	@NotBlank
 	@Column(name = "h_state")
+	@Schema(example = "Sydney")
 	private String hState;
+	
 	@NotBlank
 	@Column(name = "w_address")
+	@Schema(example = "496 High Street")
 	private String wAddress;
+	
 	@NotBlank
 	@Column(name = "w_city")
+	@Schema(example = "Morgantown")
 	private String wCity;
+	
 	@NotBlank
 	@Column(name = "w_zip")
+	@Schema(example = "26508")
 	private String wZip;
+	
 	@NotBlank
 	@Column(name = "w_state")
+	@Schema(example = "West Virginia")
 	private String wState;
 	
 	public User() {

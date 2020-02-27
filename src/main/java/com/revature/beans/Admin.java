@@ -14,6 +14,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * Admin class that represents the admins. All admins have an id and a username.
  * 
@@ -31,12 +33,14 @@ public class Admin implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="admin_id")
+	@Schema(example = "1")
 	private int adminId;
 	
 	@NotBlank
 	@Column(name="user_name")
 	@Size(min=3,max=12)
 	@Pattern(regexp="^\\w+\\.?\\w+$")
+	@Schema(example = "adminUserName")
 	private String userName;
 	
 	public Admin() {

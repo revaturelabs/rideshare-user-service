@@ -17,37 +17,31 @@ public class LoginSteps {
 
 	@Given("^The user is on the Rideshare homepage$")
 	public void the_user_is_on_the_Rideshare_homepage() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+		driver.get("localhost:4200");
 	}
 
 	@When("^The user clicks on Login$")
 	public void the_user_clicks_on_Login() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+		homepage.loginBtn.click();
 	}
 
 	@When("^The user types in username$")
 	public void the_user_types_in_username() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+		homepage.userNameInputBox.sendKeys("Speed");
 	}
 
 	@When("^The user types in password$")
 	public void the_user_types_in_password() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+		homepage.loginPasswordTextbox.sendKeys("Racer");
 	}
 
 	@When("^The user clicks on Login Button$")
 	public void the_user_clicks_on_Login_Button() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+		homepage.loginSubmitBtn.click();
 	}
 
 	@Then("^The user should be on the Landing page$")
 	public void the_user_should_be_on_the_Landing_page() throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+		assert(driver.getCurrentUrl() == "localhost:4200/landingPage");
 	}
 }

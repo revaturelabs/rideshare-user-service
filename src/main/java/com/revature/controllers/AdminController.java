@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.beans.Admin;
 import com.revature.services.AdminService;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
  * AdminController takes care of handling our requests to /admins.
@@ -35,44 +35,45 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/admins")
 @CrossOrigin
-@Api(tags= {"Admin"})
+@Tag(name = "Admin", description = "Admin Controller")
 public class AdminController {
 	
 	@Autowired
 	private AdminService as;
 	
-	@ApiOperation(value="Returns all admins", tags= {"Admin"})
-	@GetMapping
+
+	@Operation(summary = "Return list of admins", description="Returns all admins", tags={"Admin"})
+	@GetMapping(produces = "application/json")
 	public List<Admin> getAdmins() {
 		
 		return as.getAdmins();
 	}
 	
-	@ApiOperation(value="Returns admin by id", tags= {"Admin"})
-	@GetMapping("/{id}")
-	public Admin getAdminById(@PathVariable("id")int id) {
+	@Operation(summary = "Return specified admin", description="Returns admin by id", tags={"Admin"})
+	@GetMapping(value = "/{id}", produces = "application/json")
+	public Admin getAdminById(@Parameter(description="Id of Admin", required=true) @PathVariable("id")int id) {
 		
 		return as.getAdminById(id);
 	}
 
-	@ApiOperation(value="Adds a new admin", tags= {"Admin"})
-	@PostMapping
-	public ResponseEntity<Admin> createAdmin(@Valid @RequestBody Admin admin) {
+	@Operation(summary = "Create admin", description="Adds a new admin", tags={"Admin"})
+	@PostMapping(produces = "application/json")
+	public ResponseEntity<Admin> createAdmin(@Parameter(description="Admin to create", required=true)@Valid @RequestBody(required = true) Admin admin) {
 		
 		return new ResponseEntity<>(as.createAdmin(admin), HttpStatus.CREATED);
 	}
 	
-	@ApiOperation(value="Updates admin by id", tags= {"Admin"})
-	@PutMapping("/{id}")
-	public Admin updateAdmin(@Valid @RequestBody Admin admin) {
+	@Operation(summary = "Update specified admin", description="Updates admin by id", tags={"Admin"})
+	@PutMapping(value = "/{id}", produces = "application/json")
+	public Admin updateAdmin(@Parameter(description="Admin to update", required=true) @Valid @RequestBody(required = true) Admin admin) {
 		
 		return as.updateAdmin(admin);
 	}
 	
 	
-	@ApiOperation(value="Deletes an admin by id", tags= {"Admin"})
-	@DeleteMapping("/{id}")
-	public String deleteAdmin(@PathVariable("id")int id) {
+	@Operation(summary = "Delete specified admin", description="Deletes admin by id", tags={"Admin"})
+	@DeleteMapping(value = "/{id}", produces = "application/json")
+	public String deleteAdmin(@Parameter(description="Id of Admin", required=true) @PathVariable("id")int id) {
 		
 		return as.deleteAdminById(id);
 	}
