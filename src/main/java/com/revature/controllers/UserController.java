@@ -60,15 +60,6 @@ public class UserController {
 	@Autowired
 	private DistanceService ds;
 	
-	/**
-	 * HTTP GET method (/users)
-	 * 
-	 * @param isDriver represents if the user is a driver or rider.
-	 * @param username represents the user's username.
-	 * @param location represents the batch's location.
-	 * @return A list of all the users, users by is-driver, user by username and users by is-driver and location.
-	 */
-	
 	
 	/*@ApiOperation(value="Returns user drivers", tags= {"User"})
 	@GetMapping
@@ -114,15 +105,6 @@ public class UserController {
 		
 	}
 	
-	/**
-	 * HTTP GET method (/users)
-	 * 
-	 * @param isDriver represents if the user is a driver or rider.
-	 * @param username represents the user's username.
-	 * @param location represents the batch's location.
-	 * @return A list of all the users, users by is-driver, user by username and users by is-driver and location.
-	 */
-	
 	@ApiOperation(value="Returns all users", tags= {"User"}, notes="Can also filter by is-driver, location and username")
 	@GetMapping
 	public List<User> getUsers(@RequestParam(name="is-driver",required=false)Boolean isDriver,
@@ -140,28 +122,12 @@ public class UserController {
 		return us.getUsers();
 	}
 	
-	/**
-	 * HTTP GET (users/{id})
-	 * 
-	 * @param id represents the user's id.
-	 * @return A user that matches the id.
-	 */
-	
 	@ApiOperation(value="Returns user by id", tags= {"User"})
 	@GetMapping("/{id}")
 	public User getUserById(@PathVariable("id")int id) {
 		
 		return us.getUserById(id);
 	}
-	
-	/**
-	 * HTTP POST method (/users)
-	 * 
-	 * @param user represents the new User object being sent.
-	 * @return The newly created object with a 201 code.
-	 * 
-	 * Sends custom error messages when incorrect input is used
-	 */
 	
 	@ApiOperation(value="Adds a new user", tags= {"User"})
 	@PostMapping
@@ -264,26 +230,12 @@ public class UserController {
 		
 	}
 	
-	/**
-	 * HTTP PUT method (/users)
-	 * 
-	 * @param user represents the updated User object being sent.
-	 * @return The newly updated object.
-	 */
-	
 	@ApiOperation(value="Updates user by id", tags= {"User"})
 	@PutMapping
 	public User updateUser(@Valid @RequestBody User user) {
 		//System.out.println(user);
 		return us.updateUser(user);
 	}
-	
-	/**
-	 * HTTP DELETE method (/users)
-	 * 
-	 * @param id represents the user's id.
-	 * @return A string that says which user was deleted.
-	 */
 	
 	@ApiOperation(value="Deletes user by id", tags= {"User"})
 	@DeleteMapping("/{id}")
