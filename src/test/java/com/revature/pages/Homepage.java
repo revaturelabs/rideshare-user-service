@@ -12,6 +12,14 @@ public class Homepage {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
+//The elements that are on the Login/SignUp Page
+	
+	
+	
+	
+	
+// These are the elements that are found on the Landing Page
+	
 	
 	//search button on landing page
 	@FindBy(className = "register")
@@ -27,6 +35,10 @@ public class Homepage {
 	
 	@FindBy(css = "#navbarSupportedContent")
 	public WebElement toggleIcon;
+	
+// the element
+	
+	
 	
 	
 }
