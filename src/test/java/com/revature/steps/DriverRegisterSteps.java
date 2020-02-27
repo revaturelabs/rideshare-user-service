@@ -1,5 +1,6 @@
 package com.revature.steps;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import com.revature.pages.Homepage;
@@ -17,44 +18,38 @@ public class DriverRegisterSteps {
 
 @When("^The user clicks on Sign up$")
 public void the_user_clicks_on_Sign_up() throws Throwable {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
+   homepage.signupBtn.click();
 }
+
 
 @When("^The user types in firstname$")
 public void the_user_types_in_firstname() throws Throwable {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
+  driver.findElement(By.id("firstname")).sendKeys("oof");
 }
 
 @When("^The user types in lastname$")
 public void the_user_types_in_lastname() throws Throwable {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
+	  driver.findElement(By.id("lastname")).sendKeys("oofoof");
 }
 
 @When("^The user types in email$")
 public void the_user_types_in_email() throws Throwable {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
+	  driver.findElement(By.id("email")).sendKeys("oofoof@gmail.com");
 }
 
 @When("^The user types in phone$")
 public void the_user_types_in_phone() throws Throwable {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
+	  driver.findElement(By.id("phoneNumber")).sendKeys("0004444444");
 }
 
 @When("^The user click on batch$")
 public void the_user_click_on_batch() throws Throwable {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
+   driver.findElement(By.xpath("/html/body/modal-container/div/div/div[2]/select[1]"));
 }
 
 @When("^The user click on Morgantown$")
 public void the_user_click_on_Morgantown() throws Throwable {
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException();
+  
 }
 
 @When("^The user types in Adress$")
