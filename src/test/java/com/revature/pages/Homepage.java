@@ -15,10 +15,73 @@ public class Homepage {
 //The elements that are on the Login/SignUp Page
 	
 	
+	//login button on homepage
+	@FindBy(xpath = "//a[contains(.,'Login')]")
+	public WebElement loginBtn;
 	
+	//sign up button on homepage
+	@FindBy(xpath = "//a[contains(.,'Sign up')]")
+	public WebElement signupBtn;
+
+	//first name input box
+	@FindBy(id = "firstname")
+	public WebElement firstNameInputBox;
 	
+	//last name input box
+	@FindBy(id = "lastname")
+	public WebElement lastNameInputBox;
 	
-// These are the elements that are found on the Landing Page
+	//email input box
+	@FindBy(id = "email")
+	public WebElement emailInputBox;
+	
+	//phone # input box
+	@FindBy(id = "phoneNumber")
+	public WebElement phoneNumberInputBox;
+
+	//username input box
+	@FindBy(id = "userName")
+	public WebElement userNameInputBox;
+
+	//batch dropdown
+	@FindBy(xpath = "/html/body/modal-container/div/div/div[2]/select[1]")
+	public WebElement batchDropdown;
+
+	//address input box
+	@FindBy(id = "hAddress")
+	public WebElement addressInputBox;
+
+	//city input box
+	@FindBy(id = "hCity")
+	public WebElement cityInputBox;
+
+	//state dropdown
+	@FindBy(id = "hState")
+	public WebElement stateDropdown;
+
+	//state input box
+	//** Mayyy work?
+	@FindBy(css = "#option[value='WV']")
+	public WebElement WVSelection;
+
+	//zipcode input box
+	@FindBy(xpath = "//input[contains(.,'Zip Code')]")
+	public WebElement zipcodeInputBox;
+
+	//driver button
+	@FindBy(id = "driver")
+	public WebElement driverButton;
+
+	//riderbutton
+	@FindBy(id = "rider")
+	public WebElement riderButton;
+
+	//submit button
+	@FindBy(css = "#button[type='submit']")
+	public WebElement submitButton;
+
+	
+	// These are the elements that are found on the Landing Page
 	
 	
 	//search button on landing page
