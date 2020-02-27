@@ -18,5 +18,6 @@
 		When The user clicks on wv
 		When The user types in ZipCode
 		When The user clicks on Driver
+		When The user clicks on Submit
 		Then The user should be on the Rideshare homepage
 		
