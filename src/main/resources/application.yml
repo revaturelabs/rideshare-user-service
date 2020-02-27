@@ -13,6 +13,8 @@ spring:
     platform: org.hibernate.dialect.H2Dialect
     initialization-mode: embedded
 
+server:
+  port: 9999  
 management:
   endpoint:
     health:
