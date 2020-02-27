@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.validation.Valid;
-import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -26,15 +25,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.maps.errors.ApiException;
-import com.revature.Driver;
-import com.revature.beans.Batch;
 import com.revature.beans.User;
 import com.revature.services.BatchService;
 import com.revature.services.DistanceService;
 import com.revature.services.UserService;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
  * UserController takes care of handling our requests to /users.
@@ -48,7 +46,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/users")
 @CrossOrigin
-@Api(tags= {"User"})
+@Tag(name = "User", description = "User Controller")
 public class UserController {
 	
 	@Autowired
@@ -61,16 +59,16 @@ public class UserController {
 	private DistanceService ds;
 	
 	
-	/*@ApiOperation(value="Returns user drivers", tags= {"User"})
+	/*
 	@GetMapping
 	public List<User> getActiveDrivers() {
 		return us.getActiveDrivers();
 	}*/
 	
 	
-	@ApiOperation(value="Returns user drivers", tags= {"User"})
-	@GetMapping("/driver/{address}")
-	public List <User> getTopFiveDrivers(@PathVariable("address")String address) throws ApiException, InterruptedException, IOException {
+	@Operation(summary = "Return five closest drivers", description="Returns five closest drivers", tags={"User"})
+	@GetMapping(value = "/driver/{address}", produces = "application/json")
+	public List <User> getTopFiveDrivers(@Parameter(description="User's Address", required=true)@PathVariable("address")String address) throws ApiException, InterruptedException, IOException {
 		//List<User> aps =  new ArrayList<User>();
 		System.out.println(address);
 		List<String> destinationList = new ArrayList<String>();
@@ -105,8 +103,8 @@ public class UserController {
 		
 	}
 	
-	@ApiOperation(value="Returns all users", tags= {"User"}, notes="Can also filter by is-driver, location and username")
-	@GetMapping
+	@Operation(summary="Return all users", description="Can also filter by is-driver, location, and username", tags={"User"})
+    @GetMapping(produces="application/json")
 	public List<User> getUsers(@RequestParam(name="is-driver",required=false)Boolean isDriver,
 							   @RequestParam(name="username",required=false)String username,
 							   @RequestParam(name="location", required=false)String location) {
@@ -122,16 +120,18 @@ public class UserController {
 		return us.getUsers();
 	}
 	
-	@ApiOperation(value="Returns user by id", tags= {"User"})
-	@GetMapping("/{id}")
-	public User getUserById(@PathVariable("id")int id) {
+	@Operation(summary = "Return specified user", description="Returns user by id", tags={"User"})
+    @GetMapping(value = "/{id}", produces = "application/json")
+	public User getUserById(@Parameter(description="Id of Admin", required=true) @PathVariable("id")int id) {
 		
 		return us.getUserById(id);
 	}
 	
-	@ApiOperation(value="Adds a new user", tags= {"User"})
-	@PostMapping
-	public Map<String, Set<String>> addUser(@Valid @RequestBody User user, BindingResult result) {
+	@Operation(summary = "Create user", description="Adds a new user", tags={"User"})
+    @PostMapping(produces = "application/json")
+	public Map<String, Set<String>> addUser(@Parameter(description="User to create", required=true) 
+											@Valid @RequestBody(required=true) User user, 
+											@Parameter(description="Field Errors to check", required=true) BindingResult result) {
 		
 		System.out.println(user.isDriver());
 		 Map<String, Set<String>> errors = new HashMap<>();
@@ -139,8 +139,7 @@ public class UserController {
 		 for (FieldError fieldError : result.getFieldErrors()) {
 		      String code = fieldError.getCode();
 		      String field = fieldError.getField();
-		      if (code.equals("NotBlank") || code.equals("NotNull")) {
-//		    	  
+		      if (code.equals("NotBlank") || code.equals("NotNull")) {	    	  
 		    	  switch (field) {
 		    	  case "userName":
 		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Username field required");
@@ -230,16 +229,15 @@ public class UserController {
 		
 	}
 	
-	@ApiOperation(value="Updates user by id", tags= {"User"})
-	@PutMapping
-	public User updateUser(@Valid @RequestBody User user) {
-		//System.out.println(user);
+	@Operation(summary = "Update specified user", description="Updates user", tags={"User"})
+    @PutMapping(produces = "application/json")
+	public User updateUser(@Parameter(description="Admin to update", required=true) @Valid @RequestBody(required=true) User user) {
 		return us.updateUser(user);
 	}
 	
-	@ApiOperation(value="Deletes user by id", tags= {"User"})
-	@DeleteMapping("/{id}")
-	public String deleteUserById(@PathVariable("id")int id) {
+	@Operation(summary = "Delete specified user", description="Deletes user by id", tags={"User"})
+    @DeleteMapping(value = "/{id}", produces = "application/json")
+	public String deleteUserById(@Parameter(description="Id of Admin", required=true) @PathVariable("id")int id) {
 		
 		return us.deleteUserById(id);
 	}
