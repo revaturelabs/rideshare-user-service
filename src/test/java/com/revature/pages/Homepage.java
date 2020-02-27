@@ -23,6 +23,24 @@ public class Homepage {
 	@FindBy(xpath = "//a[contains(.,'Sign up')]")
 	public WebElement signupBtn;
 
+	
+	// Login dialog box
+	
+	//login username
+	@FindBy(id = "formGroupExampleInput")
+	public WebElement loginUserNameTextbox;
+	
+	//login password
+	@FindBy(id = "formGroupExampleInput2")
+	public WebElement loginPasswordTextbox;
+	
+	//submits login
+	@FindBy(id = "sign-in-btn")
+	public WebElement loginSubmitBtn;
+	
+	
+	// Sign up (register) dialog box
+	
 	//first name input box
 	@FindBy(id = "firstname")
 	public WebElement firstNameInputBox;
@@ -72,7 +90,7 @@ public class Homepage {
 	@FindBy(id = "driver")
 	public WebElement driverButton;
 
-	//riderbutton
+	//rider button
 	@FindBy(id = "rider")
 	public WebElement riderButton;
 
@@ -99,6 +117,8 @@ public class Homepage {
 	@FindBy(css = "#navbarSupportedContent")
 	public WebElement toggleIcon;
 	
+	@FindBy(xpath = "/html/body/app-root/app-navbar/nav/button")
+	public WebElement hamburgerIcon;
 // the element
 	
 	
