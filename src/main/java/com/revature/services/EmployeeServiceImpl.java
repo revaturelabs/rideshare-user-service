@@ -88,14 +88,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Employee loginEmployee(String username, String password) {
 		Employee e = er.findByUsername(username);
-		
-		StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
-		
-		if (passwordEncryptor.checkPassword(password, e.getPassword())) {
+		if (e.getPassword().equals(password)) {
 			return e;
-		}else {
-			return null;
 		}
+		else return null;
+//		System.out.println("Employee " + e);
+//		
+//		StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+//		
+//		System.out.println(passwordEncryptor.checkPassword(password, e.getPassword()));
+//		if (passwordEncryptor.checkPassword(password, e.getPassword())) {
+//			System.out.println("This is returning correctly " + e);
+//			return e;
+//		}else {
+//			System.out.println("This is returning null");
+//			return null;
+//		}
 		
 	}
 
