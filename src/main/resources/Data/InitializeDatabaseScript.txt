@@ -1,0 +1,69 @@
+
+
+CREATE TABLE office(	-- used to be batch
+office_id int PRIMARY KEY AUTO_INCREMENT,
+office_address varchar(200)
+);
+
+CREATE TABLE employee(
+employee_id int PRIMARY KEY AUTO_INCREMENT,
+email varchar(200),
+first_name varchar(200),
+last_name varchar(200),
+phone_number varchar(200),
+user_name varchar(200),
+password varchar(200),
+user_address varchar(200),
+is_accepting_rides boolean,
+is_active boolean,
+is_driver boolean,
+is_manager boolean,
+office_id int,
+FOREIGN KEY(office_id) REFERENCES office(office_id)
+);
+
+
+
+
+CREATE TABLE car(
+car_id int PRIMARY KEY AUTO_INCREMENT,
+color varchar(200),
+make varchar(200),
+model varchar(200),
+available_seats int, -- datatype changed from int(4)
+car_year int,
+employee_id int,
+FOREIGN KEY (employee_id) REFERENCES employee(employee_id)
+);
+
+-- load your api key into this later, and label it API_KEY
+CREATE TABLE configuration (
+	configuration_id int PRIMARY KEY AUTO_INCREMENT,
+	label varchar(200),
+	value varchar(200)
+);
+
+INSERT INTO office VALUES(0, '496 High Street, Morgantown, WV 26506');
+INSERT INTO office VALUES(0, '11730 Plaza America Drive, Reston, VA 20190');
+
+
+
+INSERT INTO employee VALUES(0, 'lgood@aol.com','Leah','Goodfellow','265-370-5534','LGoodfellow','fellowgood','1205 Milton Street, Morgantown, WV 26505',false, true,false,false, 1);
+INSERT INTO employee VALUES(0, 'mcrilly@gmail.com','Michelle','Crilly','725-989-8309','MCrilly','crillymc','92 Chateau Royal Court, Morgantown, WV 26505',true, true,true,false, 1);
+INSERT INTO employee VALUES(0, 'sjans@photobucket.com','Sheryl','Jans','901-525-4766','SJans','sherylja','425 Herman Avenue, Morgantown, WV 26505',false, true,false,true, 1);
+INSERT INTO employee VALUES(0, 'mtad@yahoo.com','Mindel','Tad','417-104-9188','MTad','Tadminde','114 Holland Avenue, Westover, WV 26501',true, true,true,false, 1);
+INSERT INTO employee VALUES(0, 'rory@gmail.com','Rebecca','Ohr','598-437-9155','ROhr','beccaohr','350 Patteson Drive, Morgantown, WV 26505',false, true,false,false, 1);
+INSERT INTO employee VALUES(0, 'slob@gmail.com','Saba','Lob','614-239-9449','SLob','slobster','1951 Reston Valley Way, Reston, VA 20191',true, true,true,false, 2);
+INSERT INTO employee VALUES(0, 'emacks@aol.com','Estel','Mckenzie','614-268-8188','EMckenzie','kenziees','12032 Waterside View Drive, Reston, VA 20194',false, true,false,false, 2);
+INSERT INTO employee VALUES(0, 'jkittens@yahoo.com','Janeva','Kittens','351-438-1486','JKittens','catsahoy','13161 Fox Hunt Lane, Herndon, VA 20171',true, true,true,false, 2);
+INSERT INTO employee VALUES(0, 'mclander@gmu.edu','Molly','Lander','940-216-7256','MLander','moonland','2416 Black Cap Lane, Reston, VA 20191',false, true,false,false, 2);
+INSERT INTO employee VALUES(0, 'toodles@hotmail.com','Daniel','Toodles','423-636-8305','DToodle','toodolu','1800 Jonathan Way, Reston, VA 20190',true, true,true,true, 2);
+
+
+select * from car;
+
+INSERT INTO car VALUES(0, 'gray','Honda','Civic',4,2001,3);
+INSERT INTO car VALUES(0, 'blue','Toyota','Yaris',3,2010,5);
+INSERT INTO car VALUES(0, 'red','Dodge','Ram',5,2010,7);
+INSERT INTO car VALUES(0, 'navy','Jeep','Liberty',4,2018,9);
+INSERT INTO car VALUES(0, 'green','Rolls Royce','Coniche',4,2020,11);
