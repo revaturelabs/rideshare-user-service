@@ -47,9 +47,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Employee addEmployee(Employee employee) {
 		
-		StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
-		String encryptedPassword = passwordEncryptor.encryptPassword(employee.getPassword());
-		employee.setPassword(encryptedPassword);
+//		StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+//		String encryptedPassword = passwordEncryptor.encryptPassword(employee.getPassword());
+//		employee.setPassword(encryptedPassword);
 		
 		return er.save(employee);
 	}
@@ -57,9 +57,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Employee updateEmployee(Employee employee) {
 		
-		StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
-		String encryptedPassword = passwordEncryptor.encryptPassword(employee.getPassword());
-		employee.setPassword(encryptedPassword);
+//		StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+//		String encryptedPassword = passwordEncryptor.encryptPassword(employee.getPassword());
+//		employee.setPassword(encryptedPassword);
 		
 		return er.save(employee);
 	}
