@@ -25,4 +25,52 @@ public class Homepage {
 
 	
 	
+	//Register menu:
+	//first name input box
+	@FindBy(id = "fname")
+	public WebElement registerFNameInput;
+	
+	//last name input box
+	@FindBy(id = "lname")
+	public WebElement registerLastNameInput;
+	
+	//emal input box
+	@FindBy(id = "email")
+	public WebElement registerEmailInput;
+	
+	//phone input box
+	@FindBy(id = "phone")
+	public WebElement registerPhoneInput;
+	
+	//register username input box
+	@FindBy(id = "username")
+	public WebElement registerUsernameInput;
+	
+	//register pass input box
+	@FindBy(id = "password")
+	public WebElement registerPassInput;
+	
+	//register street input box
+	@FindBy(id = "street")
+	public WebElement registerStreetInput;
+	
+	//register city input box
+	@FindBy(id = "city")
+	public WebElement registerCityInput;
+	
+	//state input box
+	@FindBy(id = "state")
+	public WebElement registerStateInput;
+	
+	//zip code input box
+	@FindBy(id = "zip")
+	public WebElement registerZipInput;
+	
+	//register submit button
+	@FindBy(id = "submit")
+	public WebElement registerSubmitBtn;
+	
+	
+
+
 }
