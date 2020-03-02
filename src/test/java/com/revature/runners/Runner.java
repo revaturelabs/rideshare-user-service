@@ -9,8 +9,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import com.revature.pages.Homepage;
 
-import cucumber.api.CucumberOptions;
-import cucumber.api.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+import io.cucumber.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/resources", glue = "com.revature.steps")
@@ -27,7 +27,7 @@ public class Runner {
 	}
 	
 	@AfterClass
-	public void shutdown() {
+	public static void shutdown() {
 		driver.quit();
 	}
 }
