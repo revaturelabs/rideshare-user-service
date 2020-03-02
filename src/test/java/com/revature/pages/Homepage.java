@@ -23,6 +23,26 @@ public class Homepage {
 	@FindBy(id = "register")
 	public WebElement signupBtn;
 
+
+//User login
 	
+	@FindBy(id="username")
+	public WebElement usernameInput;
+	
+	@FindBy(id="password")
+	public WebElement passwordInput;
+	
+	@FindBy(id="submit")
+	public WebElement submitBtn;
+	
+	
+//Admin Page
+	
+	@FindBy(id="editEmployee")
+	public WebElement editEmployeeBtn;
+	
+	@FindBy(id="editLocation")
+	public WebElement editLocationBtn;
+
 	
 }
