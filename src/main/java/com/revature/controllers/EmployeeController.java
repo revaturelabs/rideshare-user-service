@@ -64,10 +64,10 @@ public class EmployeeController {
 
 	@LogIt
 	@Operation(summary = "Delete specified employee", description = "Deletes employee", tags = { "Employee" })
-	@DeleteMapping(produces = "application/json")
+	@DeleteMapping(value = "/{id}", produces = "application/json")
 	public boolean deleteEmployee(
-			@Parameter(description = "Employee to delete", required = true) @Valid @RequestBody(required = true) Employee employee) {
-		return es.deleteEmployee(employee);
+			@Parameter(description = "Employee to delete", required = true) @PathVariable("id") int id) {
+		return es.deleteEmployee(es.getEmployeeById(id));
 	}
 
 	@Operation(summary = "Return specified employee", description = "Returns user by id", tags = { "Employee" })
