@@ -10,3 +10,19 @@ This folder contains the script necessary to create and populate tables for the 
 
 ## Running API Documentation on the Localhost
 [Swagger-UI](http://localhost:9999/swagger-ui/index.html?url=/v3/api-docs): To see the API Documentation when running the localhost. Note: The errors aren't appropriately documented here. 
+
+#### Password Encryption
+In the EmployeeServiceImpl, uncomment the functions in addEmployee and updateEmployee to have password encryption.   
+`StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+String encryptedPassword = passwordEncryptor.encryptPassword(employee.getPassword());
+employee.setPassword(encryptedPassword);`  
+
+You'll need to edit the login method to check the plaintext vs the database's encryption. 
+
+`		StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+		
+		if (passwordEncryptor.checkPassword(password, e.getPassword())) {
+			return e;
+		}else {
+			return null;
+		}`
