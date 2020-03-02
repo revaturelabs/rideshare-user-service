@@ -41,11 +41,18 @@ public class EmployeeController {
 	@Autowired
 	private DistanceService ds;
 
-	@PostMapping
+	@PostMapping(value = "/login")
 	@Operation(summary = "Log in operation", description = "Returns employee", tags = { "Employee" })
-	public Employee login(@RequestParam(name = "username") String username,
-			@RequestParam(name = "password") String password) {
-		return es.loginEmployee(username, password);
+	public Employee login(@RequestBody Employee employee) {
+		return es.loginEmployee(employee.getUsername(), employee.getPassword());
+	}
+	
+	@LogIt
+	@Operation(summary = "Add specified employee", description="Adds employee", tags={"Employee"})
+    @PostMapping(value = "/register")
+	public Employee addEmployee(@Parameter(description="Employee to add", required=true) @Valid @RequestBody(required=true) Employee employee) {
+		System.out.println(employee);
+		return es.addEmployee(employee);
 	}
 
 	@Operation(summary = "Return all employees", description = "Returns all employees", tags = { "Employee" })
