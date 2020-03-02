@@ -15,9 +15,9 @@ This folder contains the script necessary to create and populate tables for the 
 In the EmployeeServiceImpl, uncomment the functions in addEmployee and updateEmployee to have password encryption.
 
 ```
-StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
-String encryptedPassword = passwordEncryptor.encryptPassword(employee.getPassword());
-employee.setPassword(encryptedPassword);
+        StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+        String encryptedPassword = passwordEncryptor.encryptPassword(employee.getPassword());
+        employee.setPassword(encryptedPassword);
 ``` 
 
 You'll need to edit the login method to check the plaintext vs the database's encryption. 
