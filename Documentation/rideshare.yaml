@@ -1,10 +1,793 @@
-openapi: 3.0.0
+openapi: 3.0.1
 info:
-  version: '2'
-  title: 'RideShareAPI'
-  description: ''
-paths: {}
-# Added by API Auto Mocking Plugin
+  title: OpenAPI definition
+  version: "2"
 servers:
-  - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/khairston/RideShare/2
+- url: http://localhost:9999
+  description: Generated server url
+tags:
+- name: Office
+  description: Office Controller
+- name: Employee
+  description: Employee Controller
+- name: Configuration
+  description: Configuration Controller
+- name: Car
+  description: Car Controller
+paths:
+  /cars:
+    get:
+      tags:
+      - Car
+      summary: Return list of all cars
+      description: Returns all cars
+      operationId: getCars
+      responses:
+        "200":
+          description: default response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Car'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+      - Car
+      summary: Update specified car
+      description: Updates car
+      operationId: updateCar
+      requestBody:
+        description: Car to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Car'
+        required: true
+      responses:
+        "200":
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+      - Car
+      summary: Create car
+      description: Adds a new car
+      operationId: addCar
+      requestBody:
+        description: Car to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Car'
+        required: true
+      responses:
+        "200":
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /cars/{id}:
+    get:
+      tags:
+      - Car
+      summary: Return specified car
+      description: Returns car by id
+      operationId: getCarById
+      parameters:
+      - name: id
+        in: path
+        description: Id of Car
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+      - Car
+      summary: Delete specified car
+      description: Deletes car
+      operationId: deleteCar
+      parameters:
+      - name: id
+        in: path
+        description: Car to delete
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            application/json:
+              schema:
+                type: boolean
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /cars/cars/{employeeId}:
+    get:
+      tags:
+      - Car
+      summary: Return car by specified employee id
+      description: Returns car by employee id
+      operationId: getCarByEmployeeId
+      parameters:
+      - name: employeeId
+        in: path
+        description: Id of Employee
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /configurations/{labelId}:
+    get:
+      tags:
+      - Configuration
+      summary: Return API key
+      description: Returns API key
+      operationId: getConfiguration
+      parameters:
+      - name: labelId
+        in: path
+        description: Label
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: default response
+          content:
+            application/json:
+              schema:
+                type: string
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /employees:
+    get:
+      tags:
+      - Employee
+      summary: Return all employees
+      description: Returns all employees
+      operationId: getEmployees
+      responses:
+        "200":
+          description: default response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+      - Employee
+      summary: Update specified employee
+      description: Updates employee
+      operationId: updateEmployee
+      requestBody:
+        description: Employee to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+        required: true
+      responses:
+        "200":
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+      - Employee
+      summary: Log in operation
+      description: Returns employee
+      operationId: login
+      parameters:
+      - name: username
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: password
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Employee'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /employees/{id}:
+    get:
+      tags:
+      - Employee
+      summary: Return specified employee
+      description: Returns user by id
+      operationId: getEmployeeById
+      parameters:
+      - name: id
+        in: path
+        description: Id of Employee
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+      - Employee
+      summary: Delete specified employee
+      description: Deletes employee
+      operationId: deleteEmployee
+      parameters:
+      - name: id
+        in: path
+        description: Employee to delete
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            application/json:
+              schema:
+                type: boolean
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /employees/driver/{address}:
+    get:
+      tags:
+      - Employee
+      summary: Return five closest drivers
+      description: Returns five closest drivers
+      operationId: getDriverByLocation
+      parameters:
+      - name: address
+        in: path
+        description: Address of driver
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: default response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /offices:
+    get:
+      tags:
+      - Office
+      summary: Return all offices
+      description: Returns all offices
+      operationId: getOffices
+      responses:
+        "200":
+          description: default response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Office'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+      - Office
+      summary: Update specified office
+      description: Updates office
+      operationId: updateOffice
+      requestBody:
+        description: Office to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Office'
+        required: true
+      responses:
+        "200":
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Office'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+      - Office
+      summary: Create office
+      description: Adds a new Office
+      operationId: addOffice
+      requestBody:
+        description: Office to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Office'
+        required: true
+      responses:
+        "200":
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Office'
+  /offices/{id}:
+    get:
+      tags:
+      - Office
+      summary: Return specified batch
+      description: Returns batch by number
+      operationId: getOfficeById
+      parameters:
+      - name: id
+        in: path
+        description: Id of batch
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Office'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+      - Office
+      summary: Delete specified office
+      description: Updates office
+      operationId: deleteOffice
+      parameters:
+      - name: id
+        in: path
+        description: Office to update
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: default response
+          content:
+            application/json:
+              schema:
+                type: boolean
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: The specified resource was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    Car:
+      type: object
+      properties:
+        car_id:
+          type: integer
+          format: int32
+          example: 1
+        color:
+          type: string
+          example: red
+        make:
+          type: string
+          example: Honda
+        model:
+          type: string
+          example: Accord
+        available_seats:
+          type: integer
+          format: int32
+          example: 4
+        car_year:
+          type: integer
+          format: int32
+          example: 1998
+        employee:
+          $ref: '#/components/schemas/Employee'
+    Employee:
+      type: object
+      properties:
+        employee_id:
+          type: integer
+          format: int32
+          example: 1
+        email:
+          type: string
+          example: example@gmail.com
+        first_name:
+          type: string
+          example: Michelle
+        last_name:
+          type: string
+          example: Obama
+        phone_number:
+          type: string
+          example: 555-555-5555
+        username:
+          type: string
+          example: asdf
+        password:
+          type: string
+          example: password
+        user_address:
+          type: string
+          example: 92 Chateau Royal Court, Morgantown, WV 26505
+        is_accepting_rides:
+          type: boolean
+          example: true
+        is_active:
+          type: boolean
+          example: true
+        isDriver:
+          type: boolean
+          example: true
+        is_manager:
+          type: boolean
+          example: true
+        office:
+          $ref: '#/components/schemas/Office'
+    Office:
+      required:
+      - office_address
+      type: object
+      properties:
+        office_id:
+          type: integer
+          format: int32
+          example: 1
+        office_address:
+          type: string
+          example: 496 High Street, Morgantown, WV 26505
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
