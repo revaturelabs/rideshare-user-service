@@ -41,7 +41,7 @@ public class EmployeeController {
 	@Autowired
 	private DistanceService ds;
 
-	@PostMapping
+	@PostMapping(value = "/login")
 	@Operation(summary = "Log in operation", description = "Returns employee", tags = { "Employee" })
 	public Employee login(@RequestBody Employee employee) {
 		return es.loginEmployee(employee.getUsername(), employee.getPassword());
