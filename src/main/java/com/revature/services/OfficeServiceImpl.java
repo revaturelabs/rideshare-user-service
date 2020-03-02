@@ -38,8 +38,11 @@ public class OfficeServiceImpl implements OfficeService{
 
 	@Override
 	public boolean deleteOffice(Office office) {
-		or.delete(office);
-		return true;
+		if (!(or.findById(office.getOffice_id()) == null)) {
+			or.delete(office);
+			return true;
+		}
+		return false;
 	}
 
 }

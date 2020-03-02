@@ -66,8 +66,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public boolean deleteEmployee(Employee employee) {
-		er.delete(employee);
-		return true;
+		if (!(er.findById(employee.getEmployee_id()) == null)) {
+			er.delete(employee);
+			return true;
+		}
+		return false;
 	}
 
 	@Override

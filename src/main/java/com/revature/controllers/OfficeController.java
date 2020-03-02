@@ -35,14 +35,14 @@ public class OfficeController {
 	OfficeService os;
 	
 	
-	@Operation(summary = "Return all batches",  description="Returns all batches", tags={"Batch"})
+	@Operation(summary = "Return all offices",  description="Returns all offices", tags={"Office"})
 	@GetMapping(produces="application/json")
 	public List<Office> getOffices() {
 		return os.getOffices();
 	}
 	
 	@LogIt
-	@Operation(summary = "Create batch",description="Adds a new Office", tags={"Batch"})
+	@Operation(summary = "Create office",description="Adds a new Office", tags={"Office"})
 	@PostMapping(produces="application/json")
 	public Office addOffice(@Parameter(description="Office to create", required=true) 
 										@Valid @RequestBody(required = true) Office office) {
@@ -50,18 +50,11 @@ public class OfficeController {
 	}
 	
 	@LogIt
-	@Operation(summary = "Update specified batch", description="Updates batch", tags={"Batch"})
+	@Operation(summary = "Update specified office", description="Updates office", tags={"Office"})
 	@PutMapping(produces = "application/json")
-	public Office updateOffice(@Parameter(description="Batch to update", required=true) @Valid @RequestBody(required = true) Office office) {
+	public Office updateOffice(@Parameter(description="Office to update", required=true) @Valid @RequestBody(required = true) Office office) {
 		return os.updateOffice(office);
 	}
-	
-	// @LogIt
-	// @Operation(summary = "Update specified batch", description="Updates batch", tags={"Batch"})
-	// @DeleteMapping(produces = "application/json")
-	// public boolean deleteOffice(@Parameter(description="Batch to update", required=true) @Valid @RequestBody(required = true) Office office) {
-	// 	return os.deleteOffice(office);
-	// }
 
 	@LogIt
 	@Operation(summary = "Delete specified office", description="Updates office", tags={"Office"})

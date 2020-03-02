@@ -46,8 +46,11 @@ public class CarServiceImpl implements CarService{
 
 	@Override
 	public boolean deleteCar(Car car) {
-		cr.delete(car);
-		return true;
+		if (!(cr.findById(car.getCar_id()) == null)) {
+			cr.delete(car);
+			return true;
+		}
+		return false;
 	}
 
 }

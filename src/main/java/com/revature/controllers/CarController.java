@@ -54,13 +54,6 @@ public class CarController {
 		return cs.updateCar(car);
 	}
 	
-	// @LogIt
-	// @Operation(summary = "Delete specified car", description="Deletes car", tags={"Car"})
-	// @DeleteMapping(produces = "application/json")
-	// public boolean deleteCar(@Parameter(description="Car to delete", required=true)@Valid @RequestBody(required=true) Car car) {
-	// 	return cs.deleteCar(car);
-	// }
-	
 	@LogIt
 	@Operation(summary = "Delete specified car", description="Deletes car", tags={"Car"})
 	@DeleteMapping(value = "/{id}", produces = "application/json")
