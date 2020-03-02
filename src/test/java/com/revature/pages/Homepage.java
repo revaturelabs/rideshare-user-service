@@ -12,7 +12,16 @@ public class Homepage {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
-//The elements that are on the Login/SignUp Page
+//User login
+
+		@FindBy(id="username")
+		public WebElement usernameInput;
+
+		@FindBy(id="password")
+		public WebElement passwordInput;
+
+		@FindBy(id="submit")
+		public WebElement submitBtn;
 	
 	
 	//login button on homepage
