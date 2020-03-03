@@ -1,0 +1,452 @@
+{
+	"info": {
+		"_postman_id": "38434a62-f0e3-4a20-8b75-c64e7d9eefe7",
+		"name": "Project3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getAllCars",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9999/cars",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllEmployees",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9999/employees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addOffice",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"office_id\":0,\"office_address\":\"300 Fifth Ave, Pittsburgh, PA 15222\"}"
+				},
+				"url": {
+					"raw": "http://localhost:9999/offices",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"offices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addCar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"car_id\": 0,\n    \"color\": \"green\",\n    \"make\": \"Chevrolet\",\n    \"model\": \"Camaro\",\n    \"available_seats\": 4,\n    \"car_year\": 2018,\n    \"employee\": {\n        \"employee_id\": 2,\n        \"email\": \"lgood@aol.com\",\n        \"first_name\": \"Leah\",\n        \"last_name\": \"Goodfellow\",\n        \"phone_number\": \"265-370-5534\",\n        \"username\": \"LGoodfellow\",\n        \"password\": \"\",\n        \"user_address\": \"1205 Milton Street, Morgantown, WV 26505\",\n        \"is_accepting_rides\": false,\n        \"is_active\": true,\n        \"isDriver\": false,\n        \"is_manager\": false,\n        \"office\": {\n            \"office_id\": 1,\n            \"office_address\": \"496 High Street, Morgantown, WV 26506\"\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9999/cars",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateCar",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"car_id\": 19,\n    \"color\": \"purple\",\n    \"make\": \"Chevrolet\",\n    \"model\": \"Camaro\",\n    \"available_seats\": 4,\n    \"car_year\": 2007,\n    \"employee\": {\n        \"employee_id\": 2,\n        \"email\": \"lgood@aol.com\",\n        \"first_name\": \"Leah\",\n        \"last_name\": \"Goodfellow\",\n        \"phone_number\": \"265-370-5534\",\n        \"username\": \"LGoodfellow\",\n        \"password\": \"\",\n        \"user_address\": \"1205 Milton Street, Morgantown, WV 26505\",\n        \"is_accepting_rides\": false,\n        \"is_active\": true,\n        \"isDriver\": false,\n        \"is_manager\": false,\n        \"office\": {\n            \"office_id\": 1,\n            \"office_address\": \"496 High Street, Morgantown, WV 26506\"\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9999/cars",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteCar",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"car_id\": 19,\n    \"color\": \"purple\",\n    \"make\": \"Chevrolet\",\n    \"model\": \"Camaro\",\n    \"available_seats\": 4,\n    \"car_year\": 2007,\n    \"employee\": {\n        \"employee_id\": 2,\n        \"email\": \"lgood@aol.com\",\n        \"first_name\": \"Leah\",\n        \"last_name\": \"Goodfellow\",\n        \"phone_number\": \"265-370-5534\",\n        \"username\": \"LGoodfellow\",\n        \"password\": \"\",\n        \"user_address\": \"1205 Milton Street, Morgantown, WV 26505\",\n        \"is_accepting_rides\": false,\n        \"is_active\": true,\n        \"isDriver\": false,\n        \"is_manager\": false,\n        \"office\": {\n            \"office_id\": 1,\n            \"office_address\": \"496 High Street, Morgantown, WV 26506\"\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9999/cars",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCarByID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9999/cars/18",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"cars",
+						"18"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCarByEmployeeId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9999/cars/cars/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"cars",
+						"cars",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllOffices",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9999/offices",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"offices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateOffice",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"office_id\":106,\"office_address\":\"postman test\"}"
+				},
+				"url": {
+					"raw": "http://localhost:9999/offices",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"offices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getOfficebyId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9999/offices/62",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"offices",
+						"62"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllemployees",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9999/employees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateEMployee",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n    {\r\n        \"employee_id\": 8,\r\n        \"email\": \"emacks@aol.com\",\r\n        \"first_name\": \"Estel\",\r\n        \"last_name\": \"Mckenzie\",\r\n        \"phone_number\": \"614-268-8188\",\r\n        \"username\": \"testing\",\r\n        \"password\":\"\",\r\n        \"user_address\": \"12032 Waterside View Drive, Reston, VA 20194\",\r\n        \"is_accepting_rides\": false,\r\n        \"is_active\": true,\r\n        \"isDriver\": false,\r\n        \"is_manager\": false,\r\n        \"office\": {\r\n            \"office_id\": 2,\r\n            \"office_address\": \"11730 Plaza America Drive, Reston, VA 20190\"\r\n        }\r\n        \r\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:9999/employees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteEmployee",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"employee_id\": 8,\r\n        \"email\": \"emacks@aol.com\",\r\n        \"first_name\": \"Estel\",\r\n        \"last_name\": \"Mckenzie\",\r\n        \"phone_number\": \"614-268-8188\",\r\n        \"username\": \"testing\",\r\n        \"password\":\"\",\r\n        \"user_address\": \"12032 Waterside View Drive, Reston, VA 20194\",\r\n        \"is_accepting_rides\": false,\r\n        \"is_active\": true,\r\n        \"isDriver\": false,\r\n        \"is_manager\": false,\r\n        \"office\": {\r\n            \"office_id\": 2,\r\n            \"office_address\": \"11730 Plaza America Drive, Reston, VA 20190\"\r\n        }\r\n        \r\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:9999/employees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getEmployeebyID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9999/employees/9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"employees",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addEmployee",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n \t\"employee_id\": 0,\r\n        \"email\": \"test@test.com\",\r\n        \"first_name\": \"TEST\",\r\n        \"last_name\": \"TEST\",\r\n        \"phone_number\": \"55050505\",\r\n        \"username\": \"username\",\r\n        \"password\":\"qwef\",\r\n        \"user_address\": \"cboibwendsinc;l\",\r\n        \"is_accepting_rides\": false,\r\n        \"is_active\": true,\r\n        \"isDriver\": false,\r\n        \"is_manager\": false,\r\n        \"office\": {\r\n            \"office_id\": 2,\r\n            \"office_address\": \"11730 Plaza America Drive, Reston, VA 20190\"\r\n        }\r\n       }"
+				},
+				"url": {
+					"raw": "http://localhost:9999/employees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loginEmployee",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\": \"username\",\r\n        \"password\":\"qwef\"\r\n\t\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9999/employees/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"employees",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getConfigurationByLabel",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9999//configurations/API_KEY",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9999",
+					"path": [
+						"",
+						"configurations",
+						"API_KEY"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
