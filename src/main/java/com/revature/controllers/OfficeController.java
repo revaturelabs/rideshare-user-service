@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.revature.aspects.LogIt;
 import com.revature.entities.Office;
+import com.revature.logging.LogMaker;
 import com.revature.services.OfficeService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,25 +41,25 @@ public class OfficeController {
 		return os.getOffices();
 	}
 	
-	@LogIt
 	@Operation(summary = "Create office",description="Adds a new Office", tags={"Office"})
 	@PostMapping(produces="application/json")
 	public Office addOffice(@Parameter(description="Office to create", required=true) 
 										@Valid @RequestBody(required = true) Office office) {
+		LogMaker.writeLog("AddOffice: " + office.toString());
 		return os.addOffice(office);
 	}
 	
-	@LogIt
 	@Operation(summary = "Update specified office", description="Updates office", tags={"Office"})
 	@PutMapping(produces = "application/json")
 	public Office updateOffice(@Parameter(description="Office to update", required=true) @Valid @RequestBody(required = true) Office office) {
+		LogMaker.writeLog("UpdateOffice: " + office.toString());
 		return os.updateOffice(office);
 	}
 
-	@LogIt
 	@Operation(summary = "Delete specified office", description="Updates office", tags={"Office"})
 	@DeleteMapping(value = "/{id}", produces = "application/json")
 	public boolean deleteOffice(@Parameter(description="Office to update", required=true)@PathVariable("id")int id) {
+		LogMaker.writeLog("DeleteOffice: " + os.getOfficeById(id).toString());
 		return os.deleteOffice(os.getOfficeById(id));
 	}
 

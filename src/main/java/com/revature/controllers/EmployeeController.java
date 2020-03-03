@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.google.maps.errors.ApiException;
-import com.revature.aspects.LogIt;
 import com.revature.entities.Employee;
+import com.revature.logging.LogMaker;
 import com.revature.services.DistanceService;
 import com.revature.services.EmployeeService;
 
@@ -47,11 +47,10 @@ public class EmployeeController {
 		return es.loginEmployee(employee.getUsername(), employee.getPassword());
 	}
 	
-	@LogIt
 	@Operation(summary = "Add specified employee", description="Adds employee", tags={"Employee"})
     @PostMapping(value = "/register")
 	public Employee addEmployee(@Parameter(description="Employee to add", required=true) @Valid @RequestBody(required=true) Employee employee) {
-		System.out.println(employee);
+		LogMaker.writeLog("AddEmployee: " + employee.toString());
 		return es.addEmployee(employee);
 	}
 
@@ -61,19 +60,19 @@ public class EmployeeController {
 		return es.getEmployees();
 	}
 
-	@LogIt
 	@Operation(summary = "Update specified employee", description = "Updates employee", tags = { "Employee" })
 	@PutMapping(produces = "application/json")
 	public Employee updateEmployee(
 			@Parameter(description = "Employee to update", required = true) @Valid @RequestBody(required = true) Employee employee) {
+		LogMaker.writeLog("UpdateEmployee: " + employee.toString());
 		return es.updateEmployee(employee);
 	}
 
-	@LogIt
 	@Operation(summary = "Delete specified employee", description = "Deletes employee", tags = { "Employee" })
 	@DeleteMapping(value = "/{id}", produces = "application/json")
 	public boolean deleteEmployee(
 			@Parameter(description = "Employee to delete", required = true) @PathVariable("id") int id) {
+		LogMaker.writeLog("DeleteEmployee: " + es.getEmployeeById(id).toString());
 		return es.deleteEmployee(es.getEmployeeById(id));
 	}
 
