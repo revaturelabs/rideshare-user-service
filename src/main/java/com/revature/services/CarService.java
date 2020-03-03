@@ -2,14 +2,14 @@ package com.revature.services;
 
 import java.util.List;
 
-import com.revature.beans.Car;
+import com.revature.entities.Car;
 
 public interface CarService {
-	
+
 	public List<Car> getCars();
 	public Car getCarById(int id);
-	public Car getCarByUserId(int userId);
+	public List<Car> getCarByEmployeeId(int employeeId);
 	public Car addCar(Car car);
 	public Car updateCar(Car car);
-	public String deleteCarById(int id);
+	public boolean deleteCar(Car car);
 }
