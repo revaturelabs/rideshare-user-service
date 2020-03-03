@@ -156,6 +156,15 @@ public class Homepage {
 	@FindBy(id = "")
 	public WebElement locationCityOption;
 	
+	//select for office
+	@FindBy(id = "officeSelect")
+	public WebElement locationOfficeSelect;
+	
+	//NEED AN ID FOR THIS
+	//option for office
+	@FindBy(id = "")
+	public WebElement locationOfficeOption;
+	
 	//car page elements
 
 	//make input
