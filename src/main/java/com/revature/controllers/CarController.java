@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.revature.aspects.LogIt;
 import com.revature.entities.Car;
+import com.revature.logging.LogMaker;
 import com.revature.services.CarService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -40,24 +40,24 @@ public class CarController {
 		return cs.getCars();
 	}
 	
-	@LogIt
 	@Operation(summary = "Create car", description="Adds a new car", tags={"Car"})
 	@PostMapping(produces = "application/json")
 	public Car addCar(@Parameter(description="Car to add", required=true)@Valid @RequestBody(required=true) Car car) {
+		LogMaker.writeLog("AddCar: " + car.toString());
 		return cs.addCar(car);
 	}
 	
-	@LogIt
 	@Operation(summary = "Update specified car", description="Updates car", tags={"Car"})
 	@PutMapping(produces = "application/json")
 	public Car updateCar(@Parameter(description="Car to update", required=true)@Valid @RequestBody(required=true) Car car) {
+		LogMaker.writeLog("UpdateCar: " + car.toString());
 		return cs.updateCar(car);
 	}
 	
-	@LogIt
 	@Operation(summary = "Delete specified car", description="Deletes car", tags={"Car"})
 	@DeleteMapping(value = "/{id}", produces = "application/json")
 	public boolean deleteCar(@Parameter(description="Car to delete", required=true)@PathVariable("id")int id) {
+		LogMaker.writeLog("DeleteCar: " + cs.getCarById(id).toString());
 		return cs.deleteCar(cs.getCarById(id));
 	}
 	
