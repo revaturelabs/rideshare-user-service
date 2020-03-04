@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.google.gson.Gson;
 import com.revature.services.ConfigurationService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,9 +26,13 @@ public class ConfigurationController {
 	private ConfigurationService cs;
 	
 	@Operation(summary= "Return API key",description="Returns API key", tags={"Configuration"})
-	@GetMapping(value = "/{labelId}", produces = "application/json")
+	@GetMapping(value = "/{labelId}")
 	public String getConfiguration(@Parameter(description="Label", required=true) @PathVariable("labelId")String label) {
-		return cs.getConfigurationByLabel(label);
+		String holder = cs.getConfigurationByLabel(label);
+		Gson gson = new Gson();
+		String response = gson.toJson(holder);
+		System.out.println(response);
+		return response;
 	}
 	
 	
