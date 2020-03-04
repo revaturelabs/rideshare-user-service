@@ -28,14 +28,16 @@ Feature: Driver logs in and uses driver services
 			Then The user should be on the Profile page
 		
 		Scenario:
-			Given The user is on the Profile page
+			
 			When The user clicks the location button
 			When The user clicks on the office dropdown button
 			When The user clicks on an office
+			When The user clicks on the city dropdown button
+			When The user clicks on a city 
 			Then The user should be on the Profile page
 		
 		Scenario:
-			Given The user is on the Profile page
+			
 			When The user clicks on the car button
 			When The user types in the make
 			When The user types in the model

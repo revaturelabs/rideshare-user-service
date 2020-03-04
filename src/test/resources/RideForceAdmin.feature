@@ -1,11 +1,12 @@
 Feature: Admin pages and things he can do 
 Background: On login page 
-Given The user is on the Login page
+Given The user is on the home page
 
 Scenario: Admin Login
+When The user clicks on the login button 
 When  The user types in the username
 When  The user types in the password
-When  The user clicks on the login button
+When  The user clicks on the submit button
 Then  The user will be on the Admin Page
 
 Scenario: Admin Changes their Contact
@@ -21,12 +22,19 @@ Then The user should still be on the Profile Page
 #Scenario: Admin Changes their Car
 
 
-Scenario: Admin Fires and Promotes a Employee
+Scenario: Admin Fires Employee
+When The user clicks on editEmployee
 When The user clicks on the Delete button
+Then The user is on the Edit employee page 
+
+Scenario: Admin Promotes a Employee
 When The user clicks on the Promote button
 Then The user is on the Edit employee page 
 
-Scenario: Admin Fires and Promotes a Employee
-When The user clicks on the Delete button
-When The user clicks on the Promote button
-Then The user is on the Edit employee page 
+Scenario: Admin edit,delete, and add a location
+When The user clicks on the editLocation button
+When the user 
+
+
+
+
