@@ -5,84 +5,73 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
 
-import com.revature.beans.Car;
+import com.revature.entities.Car;
+import com.revature.logging.LogMaker;
 import com.revature.services.CarService;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
-/**
- * CarController takes care of handling our requests to /cars.
- * It provides methods that can perform tasks like all cars, car by id, car by user id, add car, update car and 
- * delete car by id.
- * 
- * @author Adonis Cabreja
- *
- */
-
+@Component
 @RestController
 @RequestMapping("/cars")
 @CrossOrigin
-@Api(tags= {"Car"})
+@Tag(name = "Car", description = "Car Controller")
 public class CarController {
-	
+
 	@Autowired
-	private CarService cs;
+	private CarService cs; 
 	
-	@ApiOperation(value="Returns all cars", tags= {"Car"})
-	@GetMapping
+	@Operation(summary= "Return list of all cars",description="Returns all cars", tags={"Car"})
+	@GetMapping(produces = "application/json")
 	public List<Car> getCars() {
-		
 		return cs.getCars();
 	}
 	
-	@ApiOperation(value="Returns car by id", tags= {"Car"})
-	@GetMapping("/{id}")
-	public Car getCarById(@PathVariable("id")int id) {
-		
+	@Operation(summary = "Create car", description="Adds a new car", tags={"Car"})
+	@PostMapping(produces = "application/json")
+	public Car addCar(@Parameter(description="Car to add", required=true)@Valid @RequestBody(required=true) Car car) {
+		LogMaker.writeLog("AddCar: " + car.toString());
+		return cs.addCar(car);
+	}
+	
+	@Operation(summary = "Update specified car", description="Updates car", tags={"Car"})
+	@PutMapping(produces = "application/json")
+	public Car updateCar(@Parameter(description="Car to update", required=true)@Valid @RequestBody(required=true) Car car) {
+		LogMaker.writeLog("UpdateCar: " + car.toString());
+		return cs.updateCar(car);
+	}
+	
+	@Operation(summary = "Delete specified car", description="Deletes car", tags={"Car"})
+	@DeleteMapping(value = "/{id}", produces = "application/json")
+	public boolean deleteCar(@Parameter(description="Car to delete", required=true)@PathVariable("id")int id) {
+		LogMaker.writeLog("DeleteCar: " + cs.getCarById(id).toString());
+		return cs.deleteCar(cs.getCarById(id));
+	}
+	
+	@Operation(summary = "Return specified car", description="Returns car by id", tags={"Car"})
+	@GetMapping(value = "/{id}", produces = "application/json")
+	public Car getCarById(@Parameter(description="Id of Car", required=true) @PathVariable("id")int id) {
 		return cs.getCarById(id);
 	}
 	
 	
-	@ApiOperation(value="Returns car by user id", tags= {"Car"})
-	@GetMapping("/users/{userId}")
-	public Car getCarByUserId(@PathVariable("userId")int userId) {
-		
-		return cs.getCarByUserId(userId);
+	@Operation(summary = "Return car by specified employee id", description="Returns car by employee id", tags={"Car"})
+	@GetMapping(value = "/cars/{employeeId}", produces = "application/json")
+	public Car getCarByEmployeeId(@Parameter(description="Id of Employee", required=true) @PathVariable("employeeId")int employeeId) {
+		return cs.getCarByEmployeeId(employeeId).get(0);
 	}
 	
-	
-	@ApiOperation(value="Adds a new car", tags= {"Car"})
-	@PostMapping
-	public ResponseEntity<Car> addCar(@Valid @RequestBody Car car) {
-		
-		return new ResponseEntity<>(cs.addCar(car), HttpStatus.CREATED);
-	}
-	
-	
-	@ApiOperation(value="Updates car by id", tags= {"Car"})
-	@PutMapping("/{id}")
-	public Car updateCar(@Valid @RequestBody Car car) {
-		
-		return cs.updateCar(car);
-	}
-	
-	@ApiOperation(value="Deletes car by id", tags= {"Car"})
-	@DeleteMapping("/{id}")
-	public String deleteCarById(@PathVariable("id")int id) {
-		
-		return cs.deleteCarById(id);
-	}
 }
