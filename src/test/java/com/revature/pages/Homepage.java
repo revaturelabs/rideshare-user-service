@@ -15,34 +15,34 @@ public class Homepage {
 //User login
 	
 	//login button on homepage
-	@FindBy(id = "login")
+	@FindBy(id = "loginButton")
 	public WebElement loginBtn;
 	
 	//sign up button on homepage
-	@FindBy(id = "register")
+	@FindBy(id = "registerButton")
 	public WebElement signupBtn;
 
 	//username input
-	@FindBy(id="username")
+	@FindBy(id="formGroupExampleInput")
 	public WebElement usernameInput;
 
 	//password input
-	@FindBy(id="password")
+	@FindBy(id="formGroupExampleInput2")
 	public WebElement passwordInput;
 
 	//sumbit button for login
-	@FindBy(id="submit")
+	@FindBy(id="sign-in-btn")
 	public WebElement submitBtn;
 	
 	
 //Register menu:
 	
 	//first name input box
-	@FindBy(id = "fname")
+	@FindBy(id = "firstname")
 	public WebElement registerFNameInput;
 	
 	//last name input box
-	@FindBy(id = "lname")
+	@FindBy(id = "lastname")
 	public WebElement registerLastNameInput;
 	
 	//emal input box
@@ -50,58 +50,58 @@ public class Homepage {
 	public WebElement registerEmailInput;
 	
 	//phone input box
-	@FindBy(id = "phone")
+	@FindBy(id = "phoneNumber")
 	public WebElement registerPhoneInput;
 	
 	//register username input box
-	@FindBy(id = "username")
+	@FindBy(id = "userName")
 	public WebElement registerUsernameInput;
 	
 	//register pass input box
 	@FindBy(id = "password")
 	public WebElement registerPassInput;
 	
-	//register street input box
-	@FindBy(id = "street")
-	public WebElement registerStreetInput;
+	//register address input box
+	@FindBy(id = "hAddressInput")
+	public WebElement registerAddressInput;
 	
 	//register city input box
-	@FindBy(id = "city")
+	@FindBy(id = "hCityInput")
 	public WebElement registerCityInput;
 	
 	//state input box
-	@FindBy(id = "state")
-	public WebElement registerStateInput;
+	@FindBy(id = "hStateSelect")
+	public WebElement registerStateSelect;
+	
+	//state option
+	@FindBy(css = "[value='LA']")
+	public WebElement registerStateOption;
 	
 	//zip code input box
-	@FindBy(id = "zip")
+	@FindBy(id = "hZipInput")
 	public WebElement registerZipInput;
 	
-	//office input box
-	@FindBy(id="office")
-	public WebElement registerOfficeInput;
-	
 	//driver checkbox
-	@FindBy(id="isDriver")
+	@FindBy(id="driver")
 	public WebElement registerDriverCheckBox;
 	
 	//register submit button
-	@FindBy(id = "submit")
+	@FindBy(id = "submitButton")
 	public WebElement registerSubmitBtn;
 	
 
 //Employee page/Profile page	
 	
 	//contact button
-	@FindBy(id="showContact")
+	@FindBy(id="contactButton")
 	public WebElement contactEditBtn;
 	
 	//location edit button
-	@FindBy(id="showLocation")
+	@FindBy(id="locationButton")
 	public WebElement locationEditBtn;
 	
 	//car edit button
-	@FindBy(id="showCar")
+	@FindBy(id="carButton")
 	public WebElement carEditBtn;
 	
 	//contact edit page elements
@@ -130,40 +130,66 @@ public class Homepage {
 	@FindBy(id="passwordInput")
 	public WebElement contactPassInput;
 	
-	//address input
-	@FindBy(id="addressInput")
-	public WebElement contactAddressInput;
+//	//address input
+//	@FindBy(id="addressInput")
+//	public WebElement contactAddressInput;
 	
 	//driver checkbox
-	@FindBy(id="driverCheck")
+	@FindBy(id="driverInput")
 	public WebElement driverCheckBox;
 	
 	//active checkbox
-	@FindBy(id="activeCheck")
+	@FindBy(id="activeInput")
 	public WebElement activeCheckBox;
 	
-	//update contact
+	//save contact button
 	@FindBy(id="updateButton")
-	public WebElement contactUpdateBtn;
+	public WebElement contactSaveBtn;
 	
 	//location page elements
 	
+	
+	//Street input box
+	@FindBy(id = "employeeStreetInput")
+	public WebElement locationStreetInput;
+	
+	//City input box
+	@FindBy(id = "employeeCityInput")
+	public WebElement locationCityInput;
+	
+	//State select
+	@FindBy(id ="employeeStateSelect")
+	public WebElement locationStateSelect;
+	
+	//State option 
+	@FindBy(css = "[value='FL']")
+	public WebElement locationStateOption;
+	
+	//update button
+	@FindBy(id = "updateButton")
+	public WebElement locationUpdateBtn;
+	
 	//select for city
 	@FindBy(id="citySelect")
-	public WebElement locationCitySelect;
+	public WebElement locationOfficeCitySelect;
 
-	//NEED ID ON OPTION UNDER THE CITY SELECT FOR THIS
-	@FindBy(id = "")
-	public WebElement locationCityOption;
+	//city option
+	@FindBy(css = "[value='Pittsburgh']")
+	public WebElement locationOfficeCityOption;
 	
-	//select for office
-	@FindBy(id = "officeSelect")
+	//office select
+	@FindBy(id ="officeSelect")
 	public WebElement locationOfficeSelect;
 	
-	//NEED AN ID FOR THIS
-	//option for office
-	@FindBy(id = "")
+	//office option
+	@FindBy(css = "[value='496 High Street, Morgantown, WV 26506']")
 	public WebElement locationOfficeOption;
+	
+	//offices update button
+	@FindBy(id = "updateButton")
+	public WebElement locationOfficeUpdateBtn;
+	
+	
 	
 	//car page elements
 

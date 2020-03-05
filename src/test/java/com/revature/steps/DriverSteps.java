@@ -16,165 +16,234 @@ public class DriverSteps {
 
 	@Given("The user is on the homepage")
 	public void the_user_is_on_the_homepage() {
-		driver.get("http://localhost:4200/");
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
-	@When("The user clicks on the login button")
-	public void the_user_clicks_on_the_login_button() {
-	    homepage.loginBtn.click();
+	@When("The user types in the login username")
+	public void the_user_types_in_the_login_username() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
-	@When("The user types in the username")
-	public void the_user_types_in_the_username() {
-	    homepage.usernameInput.sendKeys("JKittens");
-	}
-
-	@When("The user types in the password")
-	public void the_user_types_in_the_password() {
-		homepage.passwordInput.sendKeys("catsahoy");
+	@When("The user types in the login password")
+	public void the_user_types_in_the_login_password() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
 	@When("The user clicks log in")
 	public void the_user_clicks_log_in() {
-		homepage.submitBtn.click();
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
-	//NEEDS A TITLE!!!!!
 	@Then("The user should be on the Profile page")
 	public void the_user_should_be_on_the_Profile_page() {
-	    Assert.assertEquals("Profile Page - RideShare", driver.getTitle());
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
-	
 	@Given("The user is on the Profile page")
 	public void the_user_is_on_the_Profile_page() {
-	    // was just checked
-	}
-
-	@When("The user clicks the contact button")
-	public void the_user_clicks_the_contact_button() {
-	    homepage.contactEditBtn.click();
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
 	@When("The user types in the first name")
 	public void the_user_types_in_the_first_name() {
-	    homepage.contactFNameInput.sendKeys("Yogi");
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
 	@When("The user types in the last name")
 	public void the_user_types_in_the_last_name() {
-	    homepage.contactLNameInput.sendKeys("Bear");
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
 	@When("The user types in the email")
 	public void the_user_types_in_the_email() {
-	    homepage.contactEmailInput.sendKeys("jellystone@gmail.com");
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
 	@When("The user types in the phone number")
 	public void the_user_types_in_the_phone_number() {
-	    homepage.contactPhoneInput.sendKeys("500-909-8483");
-	}
-
-	@When("The user types in the updated username")
-	public void the_user_types_in_the_updated_username() {
 	    // Write code here that turns the phrase above into concrete actions
 	    throw new io.cucumber.java.PendingException();
 	}
 
-	@When("The user types in the updated password")
-	public void the_user_types_in_the_updated_password() {
+	@When("The user types in the new username")
+	public void the_user_types_in_the_new_username() {
 	    // Write code here that turns the phrase above into concrete actions
 	    throw new io.cucumber.java.PendingException();
 	}
 
-	@When("The user types in the address")
-	public void the_user_types_in_the_address() {
-	   homepage.contactAddressInput.sendKeys("112 Statepark Lane JellyStone, National Park 80000");
+	@When("The user types in the new password")
+	public void the_user_types_in_the_new_password() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
 	@When("The user clicks the driver checkbox")
 	public void the_user_clicks_the_driver_checkbox() {
-	    homepage.driverCheckBox.click();
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
 	@When("The user clicks the active checkbox")
 	public void the_user_clicks_the_active_checkbox() {
-	    homepage.activeCheckBox.click();
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
-	@When("The user clicks the update button")
-	public void the_user_clicks_the_update_button() {
-	    homepage.contactUpdateBtn.click();
+	@When("The user clicks the save button")
+	public void the_user_clicks_the_save_button() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
+	
 
 	@When("The user clicks the location button")
 	public void the_user_clicks_the_location_button() {
-	    homepage.locationEditBtn.click();
-	}
-	
-
-	@When("The user clicks on the office dropdown button")
-	public void the_user_clicks_on_the_office_dropdown_button() {
-	    homepage.locationOfficeSelect.click();
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
-	///NEED ID FOR OPTION
-	@When("The user clicks on an office")
-	public void the_user_clicks_on_an_office() {
-	    homepage.locationCityOption.click();
+	@When("The user types in the street")
+	public void the_user_types_in_the_street() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
+	@When("The user types in the ciy")
+	public void the_user_types_in_the_ciy() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
+	@When("The user clicks on the state dropdown button")
+	public void the_user_clicks_on_the_state_dropdown_button() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
+	@When("The user clicks on a state")
+	public void the_user_clicks_on_a_state() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
+	@When("The user types in the zipcode")
+	public void the_user_types_in_the_zipcode() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
+	@When("The user clicks the address update button")
+	public void the_user_clicks_the_address_update_button() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
 
 	@When("The user clicks on the city dropdown button")
 	public void the_user_clicks_on_the_city_dropdown_button() {
-	    homepage.locationCitySelect.click();
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
+
+	@When("The user clicks on the city")
+	public void the_user_clicks_on_the_city() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
+	@When("The user clicks on the office dropdown button")
+	public void the_user_clicks_on_the_office_dropdown_button() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
+	@When("The user clicks on an office")
+	public void the_user_clicks_on_an_office() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
+	@When("The user clicks on the offices update button")
+	public void the_user_clicks_on_the_offices_update_button() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
 	
-	@When("The user clicks on a city")
-	public void the_user_clicks_on_a_city() {
-	    homepage.locationCityOption.click();
-	}
 
 	@When("The user clicks on the car button")
 	public void the_user_clicks_on_the_car_button() {
-	    homepage.carEditBtn.click();
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
 	@When("The user types in the make")
 	public void the_user_types_in_the_make() {
-		homepage.carMakeInput.sendKeys("Ford");
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
 	@When("The user types in the model")
 	public void the_user_types_in_the_model() {
-	    homepage.carModelInput.sendKeys("Focus");;
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
 	@When("The user types in the year")
 	public void the_user_types_in_the_year() {
-	    homepage.carYearInput.sendKeys("2020");
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
-	@When("The user types in the colour")
-	public void the_user_types_in_the_colour() {
-	    homepage.carColourInput.sendKeys("yellow");
+	@When("The user types in the color")
+	public void the_user_types_in_the_color() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
 	@When("The user clicks on the seats dropdown button")
 	public void the_user_clicks_on_the_seats_dropdown_button() {
-	    homepage.seatSelect.click();
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
 	@When("The user clicks on the number of seats")
 	public void the_user_clicks_on_the_number_of_seats() {
-	    homepage.seatOption.click();
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
-	@When("The user clicks on the update button")
-	public void the_user_clicks_on_the_update_button() {
-	    homepage.carUpdateBtn.click();
+	@When("The user clicks on the car update button")
+	public void the_user_clicks_on_the_car_update_button() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
+	@When("The user clicks on the profile picture")
+	public void the_user_clicks_on_the_profile_picture() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
+	@When("The user clicks the logout button")
+	public void the_user_clicks_the_logout_button() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
+	@Then("The user should be on the Home page")
+	public void the_user_should_be_on_the_Home_page() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
 	
