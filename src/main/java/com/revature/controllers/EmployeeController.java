@@ -82,6 +82,14 @@ public class EmployeeController {
 			@Parameter(description = "Id of Employee", required = true) @PathVariable("id") int id) {
 		return es.getEmployeeById(id);
 	}
+	
+	@Operation(summary = "Return specified username", description = "Returns employee by username", tags = { "Employee" })
+	@GetMapping(value = "username/{user_name}", produces = "application/json")
+	public Employee getEmployeeByUsername(
+			@Parameter(description = "Username of Employee", required = true) @PathVariable("user_name") String username)
+	{
+		return es.getEmployeeByUsername(username);
+	}
 
 	@Operation(summary = "Return five closest drivers", description="Returns five closest drivers", tags={"Employee"})
 	@GetMapping(value = "/driver/{address}", produces = "application/json")
