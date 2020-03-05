@@ -1,8 +1,9 @@
 Feature: Admin pages and things he can do 
-Background: On login page 
-Given The user is on the home page
+#Background: On login page 
+
 
 Scenario: Admin Login
+Given The user is on the home page
 When The user clicks on the login button 
 When  The user types in the username
 When  The user types in the password
