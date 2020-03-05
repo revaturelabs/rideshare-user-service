@@ -196,7 +196,50 @@ public class Employee {
 	public void setOffice(Office office) {
 		this.office = office;
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + employee_id;
+		result = prime * result + ((first_name == null) ? 0 : first_name.hashCode());
+		result = prime * result + (isDriver ? 1231 : 1237);
+		result = prime * result + (is_accepting_rides ? 1231 : 1237);
+		result = prime * result + (is_active ? 1231 : 1237);
+		result = prime * result + (is_manager ? 1231 : 1237);
+		result = prime * result + ((last_name == null) ? 0 : last_name.hashCode());
+		result = prime * result + ((office == null) ? 0 : office.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((phone_number == null) ? 0 : phone_number.hashCode());
+		result = prime * result + ((user_address == null) ? 0 : user_address.hashCode());
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		return result;
+	}
 
+	@Override
+	public boolean equals(Object o) {
+		  
+        // If the object is compared with itself then return true   
+        if (o == this) { 
+            return true; 
+        } 
+  
+        /* Check if o is an instance of Complex or not 
+          "null instanceof [type]" also returns false */
+        if (!(o instanceof Employee)) { 
+            return false; 
+        } 
+          
+        // typecast o to Complex so that we can compare data members  
+        Employee e = (Employee) o; 
+          
+        // Compare the data members and return accordingly  
+        return Double.compare(employee_id, e.employee_id) == 0
+                && Double.compare(office.getOffice_id(), e.office.getOffice_id()) == 0; 
+	}
+
+	
 	@Override
 	public String toString() {
 		return "Employee [employee_id=" + employee_id + ", email=" + email + ", first_name=" + first_name

@@ -117,6 +117,42 @@ public class Car {
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + available_seats;
+		result = prime * result + car_id;
+		result = prime * result + car_year;
+		result = prime * result + ((color == null) ? 0 : color.hashCode());
+		result = prime * result + ((employee == null) ? 0 : employee.hashCode());
+		result = prime * result + ((make == null) ? 0 : make.hashCode());
+		result = prime * result + ((model == null) ? 0 : model.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		  
+        // If the object is compared with itself then return true   
+        if (o == this) { 
+            return true; 
+        } 
+  
+        /* Check if o is an instance of Complex or not 
+          "null instanceof [type]" also returns false */
+        if (!(o instanceof Car)) { 
+            return false; 
+        } 
+          
+        // typecast o to Complex so that we can compare data members  
+        Car c = (Car) o; 
+          
+        // Compare the data members and return accordingly  
+        return Double.compare(car_id, c.car_id) == 0
+                && Double.compare(employee.getEmployee_id(), c.employee.getEmployee_id()) == 0; 
+	}
 
 	@Override
 	public String toString() {
