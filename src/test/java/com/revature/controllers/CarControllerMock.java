@@ -40,7 +40,7 @@ public class CarControllerMock {
 	CarController cc;
 	    
 	@Test
-	public void getCarById() throws Exception {
+	public void getCarById() {
 
 		Office office1 = new Office(1, "312 Railroad St.");
 		Employee employee1 = new Employee(1, "yo@hotmail.com", "Joe", "Mack", "314-532-3145", "Bro123", "password",
@@ -49,9 +49,15 @@ public class CarControllerMock {
 
 		Mockito.when(cc.getCarById(1)).thenReturn(camry2015);
 
-		ResultActions rs = mvc.perform(get("/cars/1").contentType(MediaType.APPLICATION_JSON).content(""));
-		rs.andExpect(status().isOk());
-		System.out.println(rs.andReturn().getResponse().getContentAsString());
+		ResultActions rs;
+		try {
+			rs = mvc.perform(get("/cars/1").contentType(MediaType.APPLICATION_JSON).content(""));
+			rs.andExpect(status().isOk());
+			System.out.println(rs.andReturn().getResponse().getContentAsString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
@@ -85,7 +91,7 @@ public class CarControllerMock {
 	}
 
 	@Test
-	public void addCar() throws JsonProcessingException {
+	public void addCar() {
 
 		Office office1 = new Office(1, "312 Railroad St.");
 		Employee employee1 = new Employee(1, "yo@hotmail.com", "Joe", "Mack", "314-532-3145", "Bro123", "password",
@@ -93,15 +99,19 @@ public class CarControllerMock {
 		Car camry2015 = new Car(1, "Red", "Toyota", "Camry", 4, 2015, employee1);
 
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		String json = ow.writeValueAsString(camry2015);
-//		System.out.println(json);
-		Mockito.when(cc.addCar(camry2015)).thenReturn(camry2015);
-
+		String json;
 		ResultActions rs;
+		
 		try {
+			json = ow.writeValueAsString(camry2015);
+			Mockito.when(cc.addCar(camry2015)).thenReturn(camry2015);
+			
 			rs = mvc.perform(post("/cars").contentType(MediaType.APPLICATION_JSON).content(json));
 			rs.andExpect(status().isOk());
 			System.out.println(rs.andReturn().getResponse().getContentAsString());
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -109,7 +119,7 @@ public class CarControllerMock {
 	}
 
 	@Test
-	public void updateCar() throws Exception {
+	public void updateCar() {
 
 		Office office1 = new Office(1, "312 Railroad St.");
 		Employee employee1 = new Employee(1, "yo@hotmail.com", "Joe", "Mack", "314-532-3145", "Bro123", "password",
@@ -117,13 +127,44 @@ public class CarControllerMock {
 		Car camry2015 = new Car(1, "Red", "Toyota", "Camry", 4, 2015, employee1);
 
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		String json = ow.writeValueAsString(camry2015);
+		String json;
+		try {
+			json = ow.writeValueAsString(camry2015);
+			Mockito.when(cc.updateCar(camry2015)).thenReturn(camry2015);
 
-		Mockito.when(cc.updateCar(camry2015)).thenReturn(camry2015);
-
-		ResultActions rs = mvc.perform(put("/cars").contentType(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(status().isOk());
-		System.out.println(rs.andReturn().getResponse().getContentAsString());
+			ResultActions rs = mvc.perform(put("/cars").contentType(MediaType.APPLICATION_JSON).content(json))
+					.andExpect(status().isOk());
+			System.out.println(rs.andReturn().getResponse().getContentAsString());
+			
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
+	
+	//does not get the right response
+	@Test
+	public void getCarByEmployeeId() {
+		
+		Office office1 = new Office(1, "312 Railroad St.");
+		Employee employee1 = new Employee(1, "yo@hotmail.com", "Joe", "Mack", "314-532-3145", "Bro123", "password",
+				"123 Morgo town", true, true, false, false, office1);
+		Car camry2015 = new Car(1, "Red", "Toyota", "Camry", 4, 2015, employee1);
 
+		Mockito.when(cc.getCarByEmployeeId(1)).thenReturn(camry2015);
+
+		ResultActions rs;
+		try {
+			rs = mvc.perform(get("/cars/1").contentType(MediaType.APPLICATION_JSON).content(""));
+			rs.andExpect(status().isOk());
+			System.out.println(rs.andReturn().getResponse().getContentAsString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 }

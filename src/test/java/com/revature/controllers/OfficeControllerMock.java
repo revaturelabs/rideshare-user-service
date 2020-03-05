@@ -23,8 +23,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.revature.entities.Car;
-import com.revature.entities.Employee;
 import com.revature.entities.Office;
 
 @WebAppConfiguration
@@ -40,15 +38,21 @@ public class OfficeControllerMock {
 	OfficeController oc;
 	
 	@Test
-	public void getOfficeById() throws Exception {
+	public void getOfficeById() {
 
 		Office office1 = new Office(1, "312 Railroad St.");
 
 		Mockito.when(oc.getOfficeById(1)).thenReturn(office1);
 
-		ResultActions rs = mvc.perform(get("/offices/1").contentType(MediaType.APPLICATION_JSON).content(""));
-		rs.andExpect(status().isOk());
-		System.out.println(rs.andReturn().getResponse().getContentAsString());
+		ResultActions rs;
+		try {
+			rs = mvc.perform(get("/offices/1").contentType(MediaType.APPLICATION_JSON).content(""));
+			rs.andExpect(status().isOk());
+			System.out.println(rs.andReturn().getResponse().getContentAsString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
@@ -75,19 +79,22 @@ public class OfficeControllerMock {
 	}
 	
 	@Test
-	public void addOffice() throws JsonProcessingException {
+	public void addOffice() {
 
 		Office office1 = new Office(1, "312 Railroad St.");
 		
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		String json = ow.writeValueAsString(office1);
-		Mockito.when(oc.addOffice(office1)).thenReturn(office1);
 		
 		ResultActions rs;
 		try {
+			String json = ow.writeValueAsString(office1);
+			Mockito.when(oc.addOffice(office1)).thenReturn(office1);
 			rs = mvc.perform(post("/offices").contentType(MediaType.APPLICATION_JSON).content(json));
 			rs.andExpect(status().isOk());
 			System.out.println(rs.andReturn().getResponse().getContentAsString());
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -95,19 +102,22 @@ public class OfficeControllerMock {
 	}
 	
 	@Test
-	public void updateoffice() throws JsonProcessingException {
+	public void updateoffice() {
 
 		Office office1 = new Office(1, "312 Railroad St.");
 		
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		String json = ow.writeValueAsString(office1);
-		Mockito.when(oc.updateOffice(office1)).thenReturn(office1);
 		
 		ResultActions rs;
 		try {
+			String json = ow.writeValueAsString(office1);
+			Mockito.when(oc.updateOffice(office1)).thenReturn(office1);
 			rs = mvc.perform(put("/offices").contentType(MediaType.APPLICATION_JSON).content(json));
 			rs.andExpect(status().isOk());
 			System.out.println(rs.andReturn().getResponse().getContentAsString());
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
