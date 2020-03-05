@@ -1,9 +1,5 @@
 Feature: Admin pages and things he can do 
-<<<<<<< HEAD
-#Background: On login page 
-=======
 
->>>>>>> 0f577020b00f38d34daa538f7228935edb27cfc0
 
 
 Scenario: Admin Login
@@ -36,6 +32,5 @@ Scenario: The Admin Logout
 When The user clicks on the profile button
 When The user clicks on the logout button 
 Then The user is on the Home Page
-
 
 
