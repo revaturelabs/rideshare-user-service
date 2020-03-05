@@ -219,10 +219,12 @@ public class Homepage {
 	@FindBy(id="update1")
 	public WebElement office1UpdateBtn;
 
+	// not using
 	//location 2 delete button
 	@FindBy(id="delete2")
 	public WebElement office2DeleteBtn;
 	
+	// not using
 	//location 2 update button
 	@FindBy(id="update2")
 	public WebElement office2UpdateBtn;
