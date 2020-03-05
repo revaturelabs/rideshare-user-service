@@ -16,7 +16,7 @@ public class DriverSteps {
 
 	@Given("The user is on the homepage")
 	public void the_user_is_on_the_homepage() {
-		driver.get("http://rideshare.com.s3-website.us-east-2.amazonaws.com/");
+		driver.get("http://localhost:4200/");
 	}
 
 	@When("The user clicks on the login button")
@@ -42,7 +42,7 @@ public class DriverSteps {
 	//NEEDS A TITLE!!!!!
 	@Then("The user should be on the Profile page")
 	public void the_user_should_be_on_the_Profile_page() {
-	    Assert.assertEquals("", driver.getTitle());
+	    Assert.assertEquals("Profile Page - RideShare", driver.getTitle());
 	}
 
 	
@@ -76,14 +76,16 @@ public class DriverSteps {
 	    homepage.contactPhoneInput.sendKeys("500-909-8483");
 	}
 
-	@When("The user types in the username")
+	@When("The user types in the updated username")
 	public void the_user_types_in_the_updated_username() {
-	    homepage.contactUserInput.sendKeys("booboo");
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
-	@When("The user types in the password")
+	@When("The user types in the updated password")
 	public void the_user_types_in_the_updated_password() {
-	    homepage.contactPassInput.sendKeys("isBestBoi");
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 
 	@When("The user types in the address")

@@ -15,8 +15,8 @@ Feature: Driver logs in and uses driver services
 			When The user types in the last name
 			When The user types in the email
 			When The user types in the phone number
-			When The user types in the username
-			When The user types in the password
+			When The user types in the updated username
+			When The user types in the updated password
 			When The user types in the address
 #			When The user types in the street
 #			When The user types in the city

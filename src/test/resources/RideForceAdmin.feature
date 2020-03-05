@@ -34,4 +34,3 @@ When The user clicks on the logout button
 Then The user is on the Home Page
 
 
-
