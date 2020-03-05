@@ -1,5 +1,9 @@
 Feature: Admin pages and things he can do 
+<<<<<<< HEAD
 #Background: On login page 
+=======
+
+>>>>>>> 0f577020b00f38d34daa538f7228935edb27cfc0
 
 
 Scenario: Admin Login
@@ -16,15 +20,10 @@ When The user types in phone number
 When The user clicks on save
 Then The user should still be on the Profile Page 
 
-#Scenario: Admin Changes their location 
-#When The user clicks on the location button
-#Then The user is on the loaction page
 
-#Scenario: Admin Changes their Car
 
 
 Scenario: Admin Fires Employee
-When The user clicks on editEmployee
 When The user clicks on the Delete button
 Then The user is on the Edit employee page 
 
@@ -32,10 +31,11 @@ Scenario: Admin Promotes a Employee
 When The user clicks on the Promote button
 Then The user is on the Edit employee page 
 
-Scenario: Admin edit,delete, and add a location
-When The user clicks on the editLocation button
-When the user 
 
+Scenario: The Admin Logout
+When The user clicks on the profile button
+When The user clicks on the logout button 
+Then The user is on the Home Page
 
 
 
