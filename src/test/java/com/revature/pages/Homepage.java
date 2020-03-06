@@ -78,7 +78,7 @@ public class Homepage {
 	public WebElement registerZipInput;
 	
 	//office input box
-	@FindBy(id="office")
+	@FindBy(id="location")
 	public WebElement registerOfficeInput;
 	
 	//driver checkbox

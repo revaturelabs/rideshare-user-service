@@ -1,5 +1,7 @@
 package com.revature.steps;
 
+import static org.junit.Assert.assertEquals;
+
 import org.openqa.selenium.WebDriver;
 
 import com.revature.pages.Homepage;
@@ -15,86 +17,72 @@ public class RiderSteps {
 
 	@Given("The new rider is on the homepage")
 	public void the_new_rider_is_on_the_homepage() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		driver.get("http://localhost:4200/");
 	}
 
 	@When("The rider clicks on the register button")
 	public void the_rider_clicks_on_the_register_button() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		homepage.signupBtn.click();
 	}
 
 	@When("The rider types in the first name")
 	public void the_rider_types_in_the_first_name() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		homepage.registerFNameInput.sendKeys("Speed");
 	}
 
 	@When("The rider types in the last name")
 	public void the_rider_types_in_the_last_name() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		homepage.registerLastNameInput.sendKeys("Racer");
 	}
 
 	@When("The rider types in the email")
 	public void the_rider_types_in_the_email() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		homepage.registerEmailInput.sendKeys("sr@speed.com");
 	}
 
 	@When("The rider types in the phone number")
 	public void the_rider_types_in_the_phone_number() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		homepage.registerPhoneInput.sendKeys("5554443333");
 	}
 
 	@When("The rider types in the username")
 	public void the_rider_types_in_the_username() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		homepage.registerUsernameInput.sendKeys("SpeedRacer");
 	}
 
 	@When("The rider types in the password")
 	public void the_rider_types_in_the_password() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		homepage.registerPassInput.sendKeys("herehegoes");
 	}
 
 	@When("The rider types in the street")
 	public void the_rider_types_in_the_street() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		homepage.registerStreetInput.sendKeys("123 Jump Street");
 	}
 
 	@When("The rider types in the city")
 	public void the_rider_types_in_the_city() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		homepage.registerCityInput.sendKeys("Townsville");
 	}
 
 	@When("The rider types in the state")
 	public void the_rider_types_in_the_state() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		homepage.registerStateInput.sendKeys("WV");
 	}
 
 	@When("The rider types in the zip code")
 	public void the_rider_types_in_the_zip_code() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		homepage.registerZipInput.sendKeys("12345");
 	}
 
 	@When("The rider types in the office")
 	public void the_rider_types_in_the_office() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		// Need to modify office input to a dropdown
 	}
 
 	@When("The rider clicks the submit button")
 	public void the_rider_clicks_the_submit_button() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		homepage.registerSubmitBtn.click();
 	}
 
 	@Then("It should say registration successful")
@@ -105,37 +93,31 @@ public class RiderSteps {
 
 	@Given("The registered rider is on the homepage")
 	public void the_registered_rider_is_on_the_homepage() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		driver.get("http://localhost:4200/");
 	}
 
 	@When("The rider clicks on the login button")
 	public void the_rider_clicks_on_the_login_button() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		homepage.loginBtn.click();
 	}
 
 	@When("The rider enters in their username")
 	public void the_rider_enters_in_their_username() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		homepage.usernameInput.sendKeys("SpeedRacer");
 	}
 
 	@When("The rider enters in their password")
 	public void the_rider_enters_in_their_password() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		homepage.passwordInput.sendKeys("herehegoes");
 	}
 
 	@When("The rider clicks log in")
 	public void the_rider_clicks_log_in() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		homepage.submitBtn.click();
 	}
 
 	@Then("The rider should be on the Show Driver page")
 	public void the_rider_should_be_on_the_Show_Driver_page() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		assertEquals(driver.getTitle(), "Show Driver - Rideshare");
 	}
 }
