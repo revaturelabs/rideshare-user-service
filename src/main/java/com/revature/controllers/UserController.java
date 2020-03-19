@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.maps.errors.ApiException;
 import com.revature.beans.User;
+import com.revature.dtos.UserCreationRequest;
 import com.revature.services.BatchService;
 import com.revature.services.DistanceService;
 import com.revature.services.UserService;
@@ -52,9 +53,6 @@ public class UserController {
 	
 	@Autowired
 	private UserService us;
-	
-	@Autowired
-	private BatchService bs;
 	
 	@Autowired
 	private DistanceService ds;
@@ -156,7 +154,7 @@ public class UserController {
 	/**
 	 * HTTP POST method (/users)
 	 * 
-	 * @param user represents the new User object being sent.
+	 * @param userRequest represents the new User object being sent.
 	 * @return The newly created object with a 201 code.
 	 * 
 	 * Sends custom error messages when incorrect input is used
@@ -165,9 +163,9 @@ public class UserController {
 	@ApiOperation(value="Adds a new user", tags= {"User"})
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
-	public Map<String, Set<String>> addUser(@Valid @RequestBody User user, BindingResult result) {
+	public Map<String, Set<String>> addUser(@Valid @RequestBody UserCreationRequest userRequest, BindingResult result) {
 		
-		System.out.println(user.isDriver());
+		System.out.println(userRequest.isDriver());
 		 Map<String, Set<String>> errors = new HashMap<>();
 		 
 		 for (FieldError fieldError : result.getFieldErrors()) {
@@ -254,11 +252,7 @@ public class UserController {
 		    }
 
 			if (errors.isEmpty()) {
-				
-				user.setBatch(bs.getBatchByNumber(user.getBatch().getBatchNumber()));
-		 		us.addUser(user);
-		 		
-
+		 		us.addUser(userRequest);
 		 	}
 		    return errors;
 		

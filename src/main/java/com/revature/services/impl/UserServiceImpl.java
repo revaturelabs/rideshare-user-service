@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.revature.beans.User;
+import com.revature.dtos.UserCreationRequest;
 import com.revature.repositories.UserRepository;
+import com.revature.services.BatchService;
 import com.revature.services.UserService;
 
 /**
@@ -24,6 +26,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserRepository ur;
+	
+	@Autowired
+	private BatchService batchService;
 	
 	@Override
 	public List<User> getActiveDrivers() {
@@ -98,7 +103,9 @@ public class UserServiceImpl implements UserService {
 	 */
 	
 	@Override
-	public User addUser(User user) {
+	public User addUser(UserCreationRequest userRequest) {
+		User user = userRequest.toUser();
+		user.setBatch(batchService.getBatchByNumber(userRequest.getBatch().getBatchNumber()));
 		return ur.save(user);
 	}
 
