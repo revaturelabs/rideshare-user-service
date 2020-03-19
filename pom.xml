@@ -66,7 +66,8 @@
 		<sonar.projectKey>revaturelabs_rideshare-user-service</sonar.projectKey>
 		<sonar.organization>revaturelabs-screenforce</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<sonar.coverage.exclusions>com/revature/beans/*.java,com/revature/beans/dtos/*.java</sonar.coverage.exclusions>
+		<sonar.exclusions>com/revature/beans/dtos/*.java</sonar.exclusions>
+		<sonar.coverage.exclusions>com/revature/beans/**/*.java,com/revature/beans/dtos/*.java</sonar.coverage.exclusions>
 	</properties>
 
 	<dependencies>
