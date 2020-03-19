@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,8 @@ import com.revature.services.UserService;
 
 @Service
 public class DistanceServiceImpl implements DistanceService {
+
+	static Logger logger = Logger.getRootLogger();
 	
 	@Autowired
 	private UserService us;
@@ -49,6 +53,8 @@ public class DistanceServiceImpl implements DistanceService {
 		}
 		
 		//System.out.println(destinationList);
+		logger.info("The full destenation ");
+		
 		
 		 destinations = new String[destinationList.size()];
 //		
@@ -56,6 +62,7 @@ public class DistanceServiceImpl implements DistanceService {
 		
 		
 		GeoApiContext context = new GeoApiContext.Builder().apiKey(getGoogleMAPKey()).build();
+		
 		List<Double> arrlist = new ArrayList<Double>();
 		DistanceMatrixApiRequest req = DistanceMatrixApi.newRequest(context);
 		DistanceMatrix t = req.origins(origins).destinations(destinations).mode(TravelMode.DRIVING).units(Unit.IMPERIAL)
