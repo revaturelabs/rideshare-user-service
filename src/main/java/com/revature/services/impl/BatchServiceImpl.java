@@ -1,5 +1,7 @@
 package com.revature.services.impl;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -47,6 +49,10 @@ public class BatchServiceImpl implements BatchService {
 	
 	@Override
 	public Batch getBatchByNumber(int id) {
+		if(id < 1) {
+			logger.warn("Batch ID can't be less than 1" );
+			return null;
+		}
 		return br.findById(id).get();
 	}
 
@@ -59,6 +65,10 @@ public class BatchServiceImpl implements BatchService {
 	
 	@Override
 	public List<Batch> getBatchByLocation(String location) {
+		if(location.equals("")) {
+			logger.warn("The location string can't be empty");
+			return null;
+		}
 		return br.getBatchByLocation(location);
 	}
 	
@@ -71,6 +81,13 @@ public class BatchServiceImpl implements BatchService {
 	
 	@Override
 	public Batch addBatch(Batch batch) {
+		if(batch.getBatchNumber() < 1) {
+			logger.warn("Batch number can't be less than 1");
+			return null;
+		} else if(batch.getBatchLocation().equals("")) {
+			logger.warn("The beatch lcation can't be empty");
+			return null;
+		}
 		return br.save(batch);
 	}
 
@@ -83,6 +100,14 @@ public class BatchServiceImpl implements BatchService {
 	
 	@Override
 	public Batch updateBatch(Batch batch) {
+		if(batch.getBatchLocation().equals("")) {
+			logger.warn("Batch location can't be empty");
+			return null;
+		} else if(batch.getBatchNumber()<1) {
+			logger.warn("Batch number can't be less than 1");
+			return null;
+			
+		}
 		return br.save(batch);
 	}
 
@@ -95,6 +120,10 @@ public class BatchServiceImpl implements BatchService {
 	
 	@Override
 	public String deleteBatchByNumber(int number) {
+		if(number < 1) {
+			logger.warn("Batch number can't be less than 1");
+			return null;
+		}
 		br.deleteById(number);
 		return "Batch number: " + number + " was deleted.";
 	}
