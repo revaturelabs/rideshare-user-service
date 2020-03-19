@@ -1,4 +1,4 @@
-package com.revature.dtos;
+package com.revature.beans.dtos;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Email;

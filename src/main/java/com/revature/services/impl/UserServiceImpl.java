@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.revature.beans.User;
-import com.revature.dtos.UserCreationRequest;
+import com.revature.beans.dtos.UserCreationRequest;
 import com.revature.repositories.UserRepository;
 import com.revature.services.BatchService;
 import com.revature.services.UserService;

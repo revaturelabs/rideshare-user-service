@@ -3,7 +3,7 @@ package com.revature.services;
 import java.util.List;
 
 import com.revature.beans.User;
-import com.revature.dtos.UserCreationRequest;
+import com.revature.beans.dtos.UserCreationRequest;
 
 public interface UserService {
 	

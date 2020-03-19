@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.revature.beans.Batch;
 import com.revature.beans.User;
-import com.revature.dtos.UserCreationRequest;
+import com.revature.beans.dtos.UserCreationRequest;
 import com.revature.repositories.UserRepository;
 import com.revature.services.BatchService;
 
