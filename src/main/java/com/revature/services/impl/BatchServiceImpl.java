@@ -3,7 +3,9 @@ package com.revature.services.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import com.revature.beans.Batch;
 import com.revature.repositories.BatchRepository;
@@ -43,7 +45,7 @@ public class BatchServiceImpl implements BatchService {
 	
 	@Override
 	public Batch getBatchByNumber(int id) {
-		return br.findById(id).get();
+		return br.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
 	}
 
 	/**

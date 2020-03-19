@@ -3,7 +3,9 @@ package com.revature.services.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import com.revature.beans.User;
 import com.revature.repositories.UserRepository;
@@ -48,7 +50,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User getUserById(int id) {
-		return ur.findById(id).get();
+		return ur.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
 	}
 	
 	/**
