@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,7 +40,7 @@ public class BatchServiceImplTest {
 	public void testGettingBatchByNumber() {
 		
 		Batch expected = new Batch(123, "location");
-		when(br.getOne(123)).thenReturn(expected);
+		when(br.findById(123)).thenReturn(Optional.of(expected));
 		Batch actual = bsi.getBatchByNumber(123);
 		
 		assertEquals(expected, actual);
