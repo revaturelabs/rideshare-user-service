@@ -31,7 +31,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.beans.Batch;
 import com.revature.beans.User;
 import com.revature.beans.dtos.UserCreationRequest;
-import com.revature.services.BatchService;
 import com.revature.services.DistanceService;
 import com.revature.services.UserService;
 
