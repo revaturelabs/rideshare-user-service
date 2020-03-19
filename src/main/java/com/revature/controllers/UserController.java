@@ -9,9 +9,9 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.validation.Valid;
-import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,11 +23,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.maps.errors.ApiException;
-import com.revature.Driver;
-import com.revature.beans.Batch;
 import com.revature.beans.User;
 import com.revature.services.BatchService;
 import com.revature.services.DistanceService;
@@ -164,6 +163,7 @@ public class UserController {
 	 */
 	
 	@ApiOperation(value="Adds a new user", tags= {"User"})
+	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
 	public Map<String, Set<String>> addUser(@Valid @RequestBody User user, BindingResult result) {
 		
