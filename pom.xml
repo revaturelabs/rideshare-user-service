@@ -3,21 +3,20 @@
   <groupId>com.revature</groupId>
   <artifactId>rideshare-user-service</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  
       <parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.0.0.RELEASE</version>
 	</parent>
-
 	<build>
-	<resources>
+	<!--  <resources>
     <resource>
         <directory>src/main/resources</directory>
         <filtering>true</filtering>
     </resource>
-</resources>
-		<plugins>
+</resources> -->
+
+			<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -55,25 +54,17 @@
 		</plugins>
 		<finalName>rideshare-user-service</finalName>
 	</build>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
-		
+		<java.version>1.8</java.version>		
 		<sonar.projectKey>revaturelabs_rideshare-user-service</sonar.projectKey>
   		<sonar.organization>revaturelabs-screenforce</sonar.organization>
   		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
   		<sonar.coverage.exclusion>com/revature/beans/*.java</sonar.coverage.exclusion>
-	</properties>
-	
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<optional>true</optional>		
-		</dependency>
-		<dependency>
+	</properties>	
+	<dependencies>	
+    <dependency>
     <groupId>com.google.maps</groupId>
     <artifactId>google-maps-services</artifactId>
     <version>0.11.0</version>
@@ -82,8 +73,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
-        </dependency>
-		
+        </dependency>		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -96,45 +86,37 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-	 	
+		</dependency> 	
 	 	<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-test</artifactId>
 		    <scope>test</scope>
 		</dependency>
-	 	
- 
 		<!-- 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 	    </dependency>
-	     -->
-	      		
+	     -->	      		
   		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
- 
 		<dependency>
     		<groupId>postgresql</groupId>
     		<artifactId>postgresql</artifactId>
     		<version>9.1-901-1.jdbc4</version>
 		</dependency>
- 
 		<dependency> 
 		    <groupId>io.springfox</groupId>
 		    <artifactId>springfox-swagger2</artifactId>
 		    <version>2.9.2</version>
-		</dependency>
-		
+		</dependency>		
 		<dependency>
 		    <groupId>com.googlecode.json-simple</groupId>
 		    <artifactId>json-simple</artifactId>
 		 <!--    <version>1.1.1</version> -->
-		</dependency>
-		
+		</dependency>	
 		<dependency>
 		    <groupId>io.springfox</groupId>
 		    <artifactId>springfox-swagger-ui</artifactId>
@@ -145,7 +127,5 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
- 
-	</dependencies>
-	
+	</dependencies>	
 </project>
