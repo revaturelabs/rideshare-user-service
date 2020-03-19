@@ -1,7 +1,10 @@
 package com.revature.services.impl;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,8 @@ import com.revature.services.AdminService;
 
 @Service
 public class AdminServiceImpl implements AdminService {
+	
+	static Logger logger = Logger.getRootLogger();
 	
 	@Autowired
 	private AdminRepository ar;
@@ -43,7 +48,13 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public Admin getAdminById(int id) {
+		if(id < 1) {
+			logger.warn("User ID should not be less than one");
+			return null;
+		}
+		else {
 		return ar.findById(id).get();
+		}
 	}
 
 	/**
@@ -55,6 +66,12 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public Admin createAdmin(Admin admin) {
+		if(admin.getAdminId() < 1)
+		{
+			logger.warn("Admin ID can't be less than 1");
+		} else if() {
+			
+		}
 		return ar.save(admin);
 	}
 
@@ -67,6 +84,9 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public Admin updateAdmin(Admin admin) {
+		if(admin.getAdminId() < 0 ) {
+			
+		}
 		return ar.save(admin);
 	}
 	

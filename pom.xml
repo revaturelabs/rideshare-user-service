@@ -99,7 +99,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-<<<<<<< HEAD
+
 	 	
 	 	<dependency>
 		    <groupId>org.springframework.boot</groupId>
@@ -115,19 +115,7 @@
 		</dependency>
 	 	
  
-		<!-- 
-=======
 
->>>>>>> fb16a8a11347c8715c88805b195f0c16fe734db7
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-
-		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-security</artifactId> 
-			</dependency> -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
