@@ -1,12 +1,14 @@
 package com.revature.services.impl;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +23,11 @@ import com.revature.beans.User;
 import com.revature.services.DistanceService;
 import com.revature.services.UserService;
 
+
 @Service
 public class DistanceServiceImpl implements DistanceService {
+	
+	Logger logger = Logger.getRootLogger();
 	
 	@Autowired
 	private UserService us;
@@ -40,6 +45,8 @@ public class DistanceServiceImpl implements DistanceService {
 			String city = d.gethCity();
 			String state = d.gethState();
 			
+			
+			
 			String fullAdd = add + ", " + city + ", " + state;
 			
 			destinationList.add(fullAdd);
@@ -48,7 +55,7 @@ public class DistanceServiceImpl implements DistanceService {
 						
 		}
 		
-		//System.out.println(destinationList);
+		    logger.warn(destinationList);
 		
 		 destinations = new String[destinationList.size()];
 //		
@@ -66,16 +73,16 @@ public class DistanceServiceImpl implements DistanceService {
 		for (int i = 0; i < origins.length; i++) {
 			for (int j = 0; j < destinations.length; j++) {
 				try {
-					System.out.println((j+1) + "): " + t.rows[i].elements[j].distance.inMeters + " meters");
+					logger.warn((j+1) + "): " + t.rows[i].elements[j].distance.inMeters + " meters");
 					arrlist.add((double) t.rows[i].elements[j].distance.inMeters);
 					
 					unsortMap.put((double) t.rows[i].elements[j].distance.inMeters, destinations[j]);
 					
-					System.out.println((double) t.rows[i].elements[j].distance.inMeters);
+					logger.warn((double) t.rows[i].elements[j].distance.inMeters);
 					
 					
 				} catch (Exception e) {
-				System.out.println("invalid address");
+					logger.warn("invalid address");
 				}
 			}
 		}
@@ -89,12 +96,12 @@ public class DistanceServiceImpl implements DistanceService {
 		
 		
 		
-		System.out.println("-");
+		logger.warn("-");
 		
 		
 		Collections.sort(arrlist);
 		
-		System.out.println(arrlist);
+		logger.warn(arrlist);
 		List<String> destList = new ArrayList<String>();
 		
 	     arrlist.removeIf(r ->(arrlist.indexOf(r)>4));
@@ -104,7 +111,7 @@ public class DistanceServiceImpl implements DistanceService {
 			
 			arrArray = arrlist.toArray(arrArray);
 			
-			System.out.println(arrArray);
+			logger.warn(arrArray);
 			
 			
 			for(int c=0; c< arrArray.length; c++) {
@@ -112,7 +119,7 @@ public class DistanceServiceImpl implements DistanceService {
 				destList.add(destination);
 			}
 			
-			System.out.println(destList);
+			logger.warn(destList);
 		
 		
 	
@@ -130,12 +137,14 @@ public class DistanceServiceImpl implements DistanceService {
 		
 		for(int x=0; x< destArray.length; x++) {
 			User a = userDestMap.get(destArray[x]);
-			System.out.println(a);
+			logger.warn("User " + a);
+			logger.warn("Destination " + x);
 			userList.add(a);
-			System.out.println(userList);
+			logger.warn(userList);
+			logger.warn(destArray);
 		}
 		
-		
+		logger.warn(userList);
 		return userList;
 
 
@@ -146,10 +155,14 @@ public class DistanceServiceImpl implements DistanceService {
         Map<String, String> env = System.getenv();
         for (Map.Entry <String, String> entry: env.entrySet()) {
             if(entry.getKey().equals("googleMapAPIKey")) {
-                return entry.getValue();
+                logger.warn("entry was a good map API key");
+            	return entry.getValue();
+            	
             }
         }
+        logger.warn("entry was not a google map API key");	
         return null;
+       
     }
 	
 	

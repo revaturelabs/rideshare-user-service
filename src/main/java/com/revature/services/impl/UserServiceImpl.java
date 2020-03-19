@@ -2,6 +2,7 @@ package com.revature.services.impl;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +20,15 @@ import com.revature.services.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
+	Logger logger = Logger.getRootLogger();
 	
 	@Autowired
 	private UserRepository ur;
 	
 	@Override
 	public List<User> getActiveDrivers() {
+	
+		logger.warn("Getting all active drivers");
 		return ur.getActiveDrivers();
 	}
 	
@@ -36,6 +40,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public List<User> getUsers() {
+		logger.warn("Finding all users");
 		return ur.findAll();
 	}
 
@@ -60,6 +65,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public List<User> getUserByUsername(String username) {
+		logger.warn("Getting user by the parameter username");
 		return ur.getUserByUsername(username);
 	}
 	
@@ -72,6 +78,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public List<User> getUserByRole(boolean isDriver) {
+		logger.warn("getting user by role of driver");
 		return ur.getUserByRole(isDriver);
 	}
 	
@@ -85,6 +92,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public List<User> getUserByRoleAndLocation(boolean isDriver, String location) {
+		logger.warn("getting users by role of driver and location");
 		return ur.getUserByRoleAndLocation(isDriver, location);
 	}
 	
@@ -97,6 +105,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User addUser(User user) {
+		logger.warn("Adding user to database");
 		return ur.save(user);
 	}
 
@@ -109,6 +118,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User updateUser(User user) {
+		logger.warn("updating user information in the database");
 		return ur.save(user);
 	}
 
@@ -121,6 +131,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public String deleteUserById(int id) {
+		logger.warn("removing user from database based on ID");
 		ur.deleteById(id);
 		return "User with id: " + id + " was deleted.";
 	}
