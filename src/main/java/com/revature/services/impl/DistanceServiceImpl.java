@@ -30,8 +30,6 @@ public class DistanceServiceImpl implements DistanceService {
 
 	static Logger logger = Logger.getRootLogger();
 	
-	Logger logger = Logger.getRootLogger();
-	
 	@Autowired
 	private UserService us;
 
@@ -140,21 +138,16 @@ public class DistanceServiceImpl implements DistanceService {
 		
         //Map<String, String> env = System.getenv();
         //for (Map.Entry <String, String> entry: env.entrySet()) {
-		   String entry =	System.getenv("googleMapAPIKey");
-            if(entry.equals("googleMapAPIKey")) {
+		   String apiKey =	System.getenv("googleMapAPIKey");
+            if(apiKey.equals("googleMapAPIKey")) {
                 logger.info("entry was a good map API key");
             }
-            else if (entry.equals("")) {
+            else if (apiKey.equals("")) {
                 logger.warn("entry was null");
                 return null;
                     }
-                else {
-                	logger.error("not a valid google map api key");
-                	return null;
-                }
                 
-                    
-            	return entry;
+            	return apiKey;
             }
 	
            
