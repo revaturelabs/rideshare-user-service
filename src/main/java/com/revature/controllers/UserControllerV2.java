@@ -91,7 +91,6 @@ public class UserControllerV2 {
 		String[] destinations = new String[destinationList.size()];
 		destinations = destinationList.toArray(destinations);
 		return ds.distanceMatrix(origins, destinations);
-
 	}
 
 	/**
