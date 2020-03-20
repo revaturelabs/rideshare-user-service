@@ -1,0 +1,4 @@
+2020-03-19 18:22:03 WARN  AdminServiceImpl:52 - User ID should not be less than one
+2020-03-19 18:33:48 WARN  AdminServiceImpl:71 - Admin ID can't be less than 1
+2020-03-19 18:34:01 WARN  AdminServiceImpl:71 - Admin ID can't be less than 1
+2020-03-19 18:43:59 WARN  AdminServiceImpl:107 - Admin ID can't be less than 1 
