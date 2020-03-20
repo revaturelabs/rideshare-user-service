@@ -30,7 +30,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.beans.Batch;
 import com.revature.beans.User;
-import com.revature.services.BatchService;
+import com.revature.beans.dtos.UserCreationRequest;
 import com.revature.services.DistanceService;
 import com.revature.services.UserService;
 
@@ -46,9 +46,6 @@ public class UserControllerTest {
 		
 	@MockBean
 	private UserService us;
-	
-	@MockBean
-	private BatchService bs;
 	
 	@MockBean
 	private DistanceService ds;
@@ -128,7 +125,13 @@ public class UserControllerTest {
 	public void testAddingUser() throws Exception {
 		
 		Batch batch = new Batch(111, "address");
-		User user = new User(1, "userName", batch, "adonis", "cabreja", "adonis@gmail.com", "123-456-7891");
+		UserCreationRequest user = new UserCreationRequest();
+		user.setUserName("userName");
+		user.setBatch(batch);
+		user.setFirstName("adonis");
+		user.setLastName("cabreja");
+		user.setEmail("adonis@gmail.com");
+		user.setPhoneNumber("123-456-7891");
 		user.setDriver(true);
 		user.setActive(true);
 		user.setAcceptingRides(true);
@@ -142,16 +145,17 @@ public class UserControllerTest {
 		user.setwState("FL");
 		user.setwAddress("456 USF Ave");
 		
+		User expected = user.toUser();
+		
 		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-		Set<ConstraintViolation<User>> violations = validator.validate(user);
+		Set<ConstraintViolation<UserCreationRequest>> violations = validator.validate(user);
 		System.out.println(violations);
 		
-		when(us.addUser(user)).thenReturn(user);
+		when(us.addUser(user)).thenReturn(expected);
 		
 		mvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsString(user)))
 		   .andExpect(status().isCreated())
 		   .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
-//		   .andExpect(jsonPath("$.userName").value("userName"));
 	}
 	
 	@Test
