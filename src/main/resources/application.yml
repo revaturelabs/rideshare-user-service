@@ -37,4 +37,10 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+---          
+spring:
+  devtools:
+    livereload:
+      port: 35729
+
 
