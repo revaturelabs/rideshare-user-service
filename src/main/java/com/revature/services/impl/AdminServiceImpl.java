@@ -36,6 +36,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public List<Admin> getAdmins() {
+		logger.trace("Get all admins ");
 		return ar.findAll();
 	}
 
@@ -48,13 +49,10 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public Admin getAdminById(int id) {
-		if(id < 1) {
-			logger.warn("User ID should not be less than one");
-			return null;
-		}
-		else {
+		
+		logger.trace("Get admin with ID number: " + id);
 		return ar.findById(id).get();
-		}
+		
 	}
 
 	/**
@@ -66,15 +64,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public Admin createAdmin(Admin admin) {
-		if(admin.getAdminId() < 1)
-		{
-			logger.warn("Admin ID can't be less than 1");
-			return null;
-		} else if(admin.getUserName().equals("")) {
-			logger.warn("User name can't be empty");
-			return null;
-			
-		}
+		logger.info("Admin created ");
 		return ar.save(admin);
 	}
 
@@ -87,10 +77,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public Admin updateAdmin(Admin admin) {
-		if(admin.getAdminId() < 1 ) {
-			logger.warn("Admin ID can't be less than 1");
-			return null;
-		}
+		logger.info("Admin updated");
 		return ar.save(admin);
 	}
 	
@@ -103,10 +90,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public String deleteAdminById(int id) {
-		if(id < 1) {
-			logger.warn("Admin ID can't be less than 1 ");
-			return null;
-		}
+		logger.info("Admin deleted");
 		ar.deleteById(id);
 		return "Admin with id: " + id + " was deleted.";
 	}
