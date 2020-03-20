@@ -33,7 +33,7 @@ public class CarServiceImpl implements CarService {
 	
 	@Override
 	public List<Car> getCars() {
-		logger.warn("finding all cars");
+		logger.trace("finding all cars");
 		return cr.findAll();
 	}
 
@@ -46,7 +46,7 @@ public class CarServiceImpl implements CarService {
 	
 	@Override
 	public Car getCarById(int id) {
-		logger.warn("Updated car by id");
+		logger.trace("Updated car by id");
 		return cr.findById(id).get();
 	}
 
@@ -59,7 +59,7 @@ public class CarServiceImpl implements CarService {
 	
 	@Override
 	public Car getCarByUserId(int userId) {
-		logger.warn("finding car by user id");
+		logger.trace("finding car by user id");
 		return cr.getCarByUserId(userId);
 	}
 	
@@ -72,7 +72,7 @@ public class CarServiceImpl implements CarService {
 	
 	@Override
 	public Car addCar(Car car) {
-		logger.warn("added car");
+		logger.info("added car");
 		return cr.save(car);
 	}
 
@@ -85,7 +85,7 @@ public class CarServiceImpl implements CarService {
 	
 	@Override
 	public Car updateCar(Car car) {
-		logger.warn("Updated car");
+		logger.info("Updated car");
 		return cr.save(car);
 	}
 
@@ -100,7 +100,7 @@ public class CarServiceImpl implements CarService {
 	public String deleteCarById(int id) {
 		cr.deleteById(id);
 		
-		logger.warn("deleted car with " + id);
+		logger.info("deleted car with " + id);
 		return "Car with id: " + id + " was deleted.";
 	}
 

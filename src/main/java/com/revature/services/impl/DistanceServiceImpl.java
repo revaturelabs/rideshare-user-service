@@ -55,7 +55,7 @@ public class DistanceServiceImpl implements DistanceService {
 						
 		}
 		
-		    logger.warn(destinationList);
+		    logger.info(destinationList);
 		
 		 destinations = new String[destinationList.size()];
 //		
@@ -73,12 +73,12 @@ public class DistanceServiceImpl implements DistanceService {
 		for (int i = 0; i < origins.length; i++) {
 			for (int j = 0; j < destinations.length; j++) {
 				try {
-					logger.warn((j+1) + "): " + t.rows[i].elements[j].distance.inMeters + " meters");
+					
 					arrlist.add((double) t.rows[i].elements[j].distance.inMeters);
 					
 					unsortMap.put((double) t.rows[i].elements[j].distance.inMeters, destinations[j]);
 					
-					logger.warn((double) t.rows[i].elements[j].distance.inMeters);
+					logger.trace("distance to destination " + (double) t.rows[i].elements[j].distance.inMeters + " in meters");
 					
 					
 				} catch (Exception e) {
@@ -94,14 +94,8 @@ public class DistanceServiceImpl implements DistanceService {
 //		
 		
 		
-		
-		
-		logger.warn("-");
-		
-		
 		Collections.sort(arrlist);
-		
-		logger.warn(arrlist);
+
 		List<String> destList = new ArrayList<String>();
 		
 	     arrlist.removeIf(r ->(arrlist.indexOf(r)>4));
@@ -110,23 +104,12 @@ public class DistanceServiceImpl implements DistanceService {
 			Double [] arrArray = new Double[arrlist.size()];
 			
 			arrArray = arrlist.toArray(arrArray);
-			
-			logger.warn(arrArray);
-			
-			
+				
 			for(int c=0; c< arrArray.length; c++) {
 				String destination = unsortMap.get(arrArray[c]);
 				destList.add(destination);
 			}
 			
-			logger.warn(destList);
-		
-		
-	
-		
-		
-		
-		
 		
 		String [] destArray = new String[destList.size()];
 		
@@ -137,35 +120,39 @@ public class DistanceServiceImpl implements DistanceService {
 		
 		for(int x=0; x< destArray.length; x++) {
 			User a = userDestMap.get(destArray[x]);
-			logger.warn("User " + a);
-			logger.warn("Destination " + x);
+			logger.trace("User " + a);
+			logger.trace("Destination " + x);
 			userList.add(a);
-			logger.warn(userList);
-			logger.warn(destArray);
 		}
 		
-		logger.warn(userList);
+		logger.trace("user list was successfully returned");
 		return userList;
-
-
 
 	}
 	
 	public String getGoogleMAPKey() {
-        Map<String, String> env = System.getenv();
-        for (Map.Entry <String, String> entry: env.entrySet()) {
-            if(entry.getKey().equals("googleMapAPIKey")) {
-                logger.warn("entry was a good map API key");
-            	return entry.getValue();
-            	
+		
+        //Map<String, String> env = System.getenv();
+        //for (Map.Entry <String, String> entry: env.entrySet()) {
+		   String entry =	System.getenv("googleMapAPIKey");
+            if(entry.equals("googleMapAPIKey")) {
+                logger.info("entry was a good map API key");
             }
-        }
-        logger.warn("entry was not a google map API key");	
-        return null;
-       
+            else if (entry.equals("")) {
+                logger.warn("entry was null");
+                return null;
+                    }
+                else {
+                	logger.error("not a valid google map api key");
+                	return null;
+                }
+                
+                    
+            	return entry;
+            }
+	
+           
     }
 	
 	
-	
 
-}
