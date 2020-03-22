@@ -4,7 +4,8 @@ package com.revature.services.impl;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.jboss.logging.Logger;
+import org.jboss.logging.Logger.Level;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ import com.revature.services.BatchService;
 @Service
 public class BatchServiceImpl implements BatchService {
 	
-	Logger logger = Logger.getRootLogger();
+	private static Logger logger = Logger.getLogger(BatchServiceImpl.class);
 	
 	@Autowired
 	private BatchRepository br;

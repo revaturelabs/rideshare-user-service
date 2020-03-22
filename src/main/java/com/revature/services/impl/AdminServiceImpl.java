@@ -4,7 +4,8 @@ import static org.hamcrest.CoreMatchers.nullValue;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.jboss.logging.Logger;
+import org.jboss.logging.Logger.Level;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ import com.revature.services.AdminService;
 @Service
 public class AdminServiceImpl implements AdminService {
 	
-	static Logger logger = Logger.getRootLogger();
+	private static Logger logger = Logger.getLogger(AdminServiceImpl.class);
 	
 	@Autowired
 	private AdminRepository ar;

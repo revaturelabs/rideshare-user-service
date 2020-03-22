@@ -8,7 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.jboss.logging.Logger;
+import org.jboss.logging.Logger.Level;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ import com.revature.services.UserService;
 @Service
 public class DistanceServiceImpl implements DistanceService {
 
-	static Logger logger = Logger.getRootLogger();
+	private static Logger logger = Logger.getLogger(DistanceServiceImpl.class);
 	
 	@Autowired
 	private UserService us;
