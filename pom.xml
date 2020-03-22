@@ -12,6 +12,7 @@
 	</parent>
 	<build>
 		<resources>
+		
 			<resource>
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
@@ -137,5 +138,5 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-	</dependencies>
+  </dependencies>
 </project>
