@@ -26,4 +26,6 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
 	
 	@Query("select c from Car c where c.user.userId = ?1")
 	public Car getCarByUserId(int userId);
+	
+
 }
