@@ -59,6 +59,7 @@ public class UserController {
 	@Autowired
 	private DistanceService ds;
 	
+	
 	/**
 	 * HTTP GET method (/users)
 	 * 
@@ -78,13 +79,13 @@ public class UserController {
 	
 	@ApiOperation(value="Returns user drivers", tags= {"User"})
 	@GetMapping("/driver/{address}")
-	public List <User> getTopFiveDrivers(@PathVariable("address")String address) throws ApiException, InterruptedException, IOException {
+	public List<User> getTopFiveDrivers(@PathVariable("address")String address) throws ApiException, InterruptedException, IOException {
 		//List<User> aps =  new ArrayList<User>();
 		System.out.println(address);
-		List<String> destinationList = new ArrayList<String>();
+		List<String> destinationList = new ArrayList<>();
 		String [] origins = {address};
 //		
-	    Map<String, User> topfive = new HashMap<String, User>();
+	    Map<String, User> topfive = new HashMap<>();
 //		
 		for(User d : us.getActiveDrivers()) {
 //			
@@ -105,8 +106,10 @@ public class UserController {
 		String [] destinations = new String[destinationList.size()];
 ////		
 	destinations = destinationList.toArray(destinations);
-//		
-	return	ds.distanceMatrix(origins, destinations);
+//	
+	
+	return  ds.distanceMatrix(origins, destinations);
+	
 //		
 //		
 		//return ds.distanceMatrix();	

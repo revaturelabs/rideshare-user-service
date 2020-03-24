@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -7,7 +8,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.hamcrest.Matchers.hasSize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.beans.Car;
 import com.revature.beans.User;
 import com.revature.services.CarService;
+import com.revature.services.DistanceService;
+import com.revature.services.UserService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(CarController.class)
@@ -38,6 +40,12 @@ public class CarControllerTest {
 	
 	@MockBean
 	private CarService cs;
+	
+	@MockBean
+	private DistanceService ds;
+	
+	@MockBean
+	private UserService us;
 		
 	@Test
 	public void testGettingCars() throws Exception {

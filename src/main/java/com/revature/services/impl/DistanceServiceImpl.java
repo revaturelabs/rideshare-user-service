@@ -22,6 +22,7 @@ import com.google.maps.model.DistanceMatrix;
 import com.google.maps.model.TravelMode;
 import com.google.maps.model.Unit;
 import com.revature.beans.User;
+import com.revature.services.CarService;
 import com.revature.services.DistanceService;
 import com.revature.services.UserService;
 
@@ -33,6 +34,9 @@ public class DistanceServiceImpl implements DistanceService {
 	
 	@Autowired
 	private UserService us;
+	
+	@Autowired
+	private CarService cs;
 
 	@Override
 	public List<User> distanceMatrix(String[] origins, String[] destinations) throws ApiException, InterruptedException, IOException {
@@ -43,6 +47,8 @@ public class DistanceServiceImpl implements DistanceService {
 		
 		for(User d : us.getActiveDrivers()) {
 			
+			if(cs.getCarByUserId(d.getUserId()) != null)
+			{
 			String add = d.gethAddress();
 			String city = d.gethCity();
 			String state = d.gethState();
@@ -54,6 +60,7 @@ public class DistanceServiceImpl implements DistanceService {
 			destinationList.add(fullAdd);
 			
 			userDestMap.put(fullAdd, d);
+			}
 						
 		}
 		
