@@ -2,7 +2,7 @@ package com.revature.services.impl;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ import com.revature.services.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
-	Logger logger = Logger.getRootLogger();
+	Logger logger = Logger.getLogger(UserService.class);
 	
 	@Autowired
 	private UserRepository ur;
