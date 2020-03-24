@@ -82,10 +82,10 @@ public class UserController {
 	public List<User> getTopFiveDrivers(@PathVariable("address")String address) throws ApiException, InterruptedException, IOException {
 		//List<User> aps =  new ArrayList<User>();
 		System.out.println(address);
-		List<String> destinationList = new ArrayList<String>();
+		List<String> destinationList = new ArrayList<>();
 		String [] origins = {address};
 //		
-	    Map<String, User> topfive = new HashMap<String, User>();
+	    Map<String, User> topfive = new HashMap<>();
 //		
 		for(User d : us.getActiveDrivers()) {
 //			

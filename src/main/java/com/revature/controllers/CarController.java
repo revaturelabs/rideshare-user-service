@@ -148,10 +148,10 @@ public class CarController {
 	@ApiOperation(value="Returns user drivers", tags= {"User"})
 	@GetMapping("/driver/{address}")
 	public List <Car> getTopFiveDrivers(@PathVariable("address")String address) throws ApiException, InterruptedException, IOException {
-		List<String> destinationList = new ArrayList<String>();
+		List<String> destinationList = new ArrayList<>();
 		String [] origins = {address};
 		
-	    Map<String, User> topfive = new HashMap<String, User>();
+	    Map<String, User> topfive = new HashMap<>();
 		
 		for(User d : us.getActiveDrivers()) {
 			
@@ -174,7 +174,7 @@ public class CarController {
 		
 	destinations = destinationList.toArray(destinations);
 	
-	List<Car> carList = new ArrayList<Car>();
+	List<Car> carList = new ArrayList<>();
 	
 	for(User u: ds.distanceMatrix(origins, destinations)){
 		carList.add(cs.getCarByUserId(u.getUserId()));
