@@ -1,7 +1,11 @@
 package com.revature.services.impl;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.util.List;
 
+import org.jboss.logging.Logger;
+import org.jboss.logging.Logger.Level;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +24,8 @@ import com.revature.services.AdminService;
 @Service
 public class AdminServiceImpl implements AdminService {
 	
+	private static Logger logger = Logger.getLogger(AdminServiceImpl.class);
+	
 	@Autowired
 	private AdminRepository ar;
 	
@@ -31,6 +37,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public List<Admin> getAdmins() {
+		logger.trace("Get all admins ");
 		return ar.findAll();
 	}
 
@@ -43,7 +50,10 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public Admin getAdminById(int id) {
+		
+		logger.trace("Get admin with ID number: " + id);
 		return ar.findById(id).get();
+		
 	}
 
 	/**
@@ -55,6 +65,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public Admin createAdmin(Admin admin) {
+		logger.info("Admin created ");
 		return ar.save(admin);
 	}
 
@@ -67,6 +78,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public Admin updateAdmin(Admin admin) {
+		logger.info("Admin updated");
 		return ar.save(admin);
 	}
 	
@@ -79,6 +91,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public String deleteAdminById(int id) {
+		logger.info("Admin deleted");
 		ar.deleteById(id);
 		return "Admin with id: " + id + " was deleted.";
 	}

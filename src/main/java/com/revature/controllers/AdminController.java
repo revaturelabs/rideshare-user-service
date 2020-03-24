@@ -42,7 +42,7 @@ public class AdminController {
 	private AdminService as;
 	
 	/**
-	 * HTTP GET method (/users)
+	 * HTTP GET method (/admins)
 	 * 
 	 * @return A list of all the admins.
 	 */
@@ -55,7 +55,7 @@ public class AdminController {
 	}
 	
 	/**
-	 * HTTP GET method (/users/{id})
+	 * HTTP GET method (/admins/{id})
 	 * 
 	 * @param id represents the admin's id.
 	 * @return An admin that matches the id.
@@ -69,7 +69,7 @@ public class AdminController {
 	}
 	
 	/**
-	 * HTTP POST method (/users)
+	 * HTTP POST method (/admins)
 	 * 
 	 * @param admin represents the new Admin object being sent.
 	 * @return The newly created object with a 201 code.
@@ -83,7 +83,7 @@ public class AdminController {
 	}
 	
 	/**
-	 * HTTP PUT method (/users)
+	 * HTTP PUT method (/admins)
 	 * 
 	 * @param admin represents the updated Admin object being sent.
 	 * @return The newly updated object.
@@ -97,7 +97,7 @@ public class AdminController {
 	}
 	
 	/**
-	 * HTTP DELETE method (/users/{id})
+	 * HTTP DELETE method (/admins/{id})
 	 * 
 	 * @param id represents the admin's id.
 	 * @return A string that says which admin was deleted.
