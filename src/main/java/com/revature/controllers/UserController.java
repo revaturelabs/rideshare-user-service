@@ -27,11 +27,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.maps.errors.ApiException;
-import com.revature.beans.Car;
 import com.revature.beans.User;
-import com.revature.repositories.CarRepository;
 import com.revature.services.BatchService;
-import com.revature.services.CarService;
 import com.revature.services.DistanceService;
 import com.revature.services.UserService;
 
@@ -62,14 +59,6 @@ public class UserController {
 	@Autowired
 	private DistanceService ds;
 	
-	@Autowired
-	private CarService cs;
-	
-	@Autowired
-	private CarController cc;
-	
-	@Autowired
-	private CarRepository cr;
 	
 	/**
 	 * HTTP GET method (/users)
@@ -90,7 +79,7 @@ public class UserController {
 	
 	@ApiOperation(value="Returns user drivers", tags= {"User"})
 	@GetMapping("/driver/{address}")
-	public List <Car> getTopFiveDrivers(@PathVariable("address")String address) throws ApiException, InterruptedException, IOException {
+	public List<User> getTopFiveDrivers(@PathVariable("address")String address) throws ApiException, InterruptedException, IOException {
 		//List<User> aps =  new ArrayList<User>();
 		System.out.println(address);
 		List<String> destinationList = new ArrayList<String>();
@@ -118,14 +107,9 @@ public class UserController {
 ////		
 	destinations = destinationList.toArray(destinations);
 //	
-	List<Car> carList = new ArrayList<Car>();
 	
-	for(User u: ds.distanceMatrix(origins, destinations)){
-		System.out.println(u.getUserId());
-		carList.add(cr.getCarByUserId(u.getUserId()));
-	}
+	return  ds.distanceMatrix(origins, destinations);
 	
-	return	carList;
 //		
 //		
 		//return ds.distanceMatrix();	
