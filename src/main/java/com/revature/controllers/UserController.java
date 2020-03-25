@@ -82,9 +82,13 @@ public class UserController {
 	@GetMapping("/driver/{address}")
 	public List <User> getTopFiveDrivers(@PathVariable("address")String address, HttpSession session) throws ApiException, InterruptedException, IOException {
 		//List<User> aps =  new ArrayList<User>();
+		User u = (User) session.getAttribute("loggedUser");
+
 		System.out.println(address);
 		List<String> destinationList = new ArrayList<String>();
 		String [] origins = {address};
+		String [] work = {u.getwAddress()};
+	
 //		
 	    Map<String, User> topfive = new HashMap<String, User>();
 //		
