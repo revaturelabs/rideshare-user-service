@@ -10,29 +10,49 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * Car class that represents a user's car. All cars have an id, color, seats, make, model, year
+ * and the corresponding user.
+ * 
+ * @author Adonis Cabreja
+ *
+ */
+
 @Component
 @Entity
-@Table(name="car_table")
+@Table(name="cars")
 public class Car implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="car_id")
 	private int carId;
+	
 	private String color;
+	
+	@Positive
 	private int seats;
+	
+	@NotBlank
 	private String make;
+	
+	@NotBlank
 	private String model;
 	
-	@Column(name="year_")
+	@Positive
+	@Column(name="car_year")
 	private int year;
 	
 	@OneToOne
-	@JoinColumn(name="userId")
+	@JoinColumn(name="user_id", unique=true)
 	private User user;
 	
 	public Car() {
@@ -134,28 +154,30 @@ public class Car implements Serializable {
 		if (color == null) {
 			if (other.color != null)
 				return false;
-		} else if (!color.equals(other.color))
+		} 
+		else if (!color.equals(other.color))
 			return false;
 		if (make == null) {
 			if (other.make != null)
 				return false;
-		} else if (!make.equals(other.make))
+		} 
+		else if (!make.equals(other.make))
 			return false;
 		if (model == null) {
 			if (other.model != null)
 				return false;
-		} else if (!model.equals(other.model))
+		} 
+		else if (!model.equals(other.model))
 			return false;
 		if (seats != other.seats)
 			return false;
 		if (user == null) {
 			if (other.user != null)
 				return false;
-		} else if (!user.equals(other.user))
+		} 
+		else if (!user.equals(other.user))
 			return false;
-		if (year != other.year)
-			return false;
-		return true;
+		return year == other.year;
 	}
 
 	@Override

@@ -2,31 +2,44 @@ package com.revature.beans;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * Batch class that represents a user's batch. All batches have a batch number and a location.
+ * 
+ * @author Adonis Cabreja
+ *
+ */
+
 @Component
 @Entity
-@Table(name="batch_table")
+@Table(name="batches")
 public class Batch implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+	@Column(name="batch_number")
 	private int batchNumber;
-	private String address;
+	
+	@NotBlank
+	@Column(name="batch_location")
+	private String batchLocation;
 	
 	public Batch() {
 		super();
 	}
 
-	public Batch(int batchNumber, String address) {
+	public Batch(int batchNumber, @NotBlank String batchLocation) {
 		super();
 		this.batchNumber = batchNumber;
-		this.address = address;
+		this.batchLocation = batchLocation;
 	}
 
 	public int getBatchNumber() {
@@ -37,19 +50,19 @@ public class Batch implements Serializable {
 		this.batchNumber = batchNumber;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getBatchLocation() {
+		return batchLocation;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setBatchLocation(String batchLocation) {
+		this.batchLocation = batchLocation;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((batchLocation == null) ? 0 : batchLocation.hashCode());
 		result = prime * result + batchNumber;
 		return result;
 	}
@@ -63,19 +76,18 @@ public class Batch implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Batch other = (Batch) obj;
-		if (address == null) {
-			if (other.address != null)
+		if (batchLocation == null) {
+			if (other.batchLocation != null)
 				return false;
-		} else if (!address.equals(other.address))
+		} 
+		else if (!batchLocation.equals(other.batchLocation))
 			return false;
-		if (batchNumber != other.batchNumber)
-			return false;
-		return true;
+		return batchNumber == other.batchNumber;
 	}
 
 	@Override
 	public String toString() {
-		return "Batch [batchNumber=" + batchNumber + ", address=" + address + "]";
+		return "Batch [batchNumber=" + batchNumber + ", batchLocation=" + batchLocation + "]";
 	}
 	
 }
