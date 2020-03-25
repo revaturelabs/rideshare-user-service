@@ -19,6 +19,7 @@ import com.google.maps.model.TravelMode;
 import com.google.maps.model.Unit;
 import com.revature.beans.User;
 import com.revature.services.DistanceService;
+import com.revature.services.InfoService;
 import com.revature.services.UserService;
 
 @Service
@@ -26,6 +27,9 @@ public class DistanceServiceImpl implements DistanceService {
 	
 	@Autowired
 	private UserService us;
+        
+        @Autowired
+        private InfoService infoService;
 
 	@Override
 	public List<User> distanceMatrix(String[] origins, String[] destinations) throws ApiException, InterruptedException, IOException {
@@ -78,15 +82,7 @@ public class DistanceServiceImpl implements DistanceService {
 				System.out.println("invalid address");
 				}
 			}
-		}
-		
-		
-//		LinkedHashMap<String, Double> sortedMap = new LinkedHashMap<>();
-//		unsortMap.entrySet().stream().sorted(Map.Entry.comparingByValue())
-//                .forEachOrdered(x -> sortedMap.put(x.getKey(), x.getValue()));
-//		
-		
-		
+		}	
 		
 		
 		System.out.println("-");
@@ -145,7 +141,7 @@ public class DistanceServiceImpl implements DistanceService {
 	public String getGoogleMAPKey() {
         Map<String, String> env = System.getenv();
         for (Map.Entry <String, String> entry: env.entrySet()) {
-            if(entry.getKey().equals("googleMapAPIKey")) {
+            if(entry.getKey().equalsIgnoreCase("GOOGLEMAPAPIKEY")) {
                 return entry.getValue();
             }
         }
