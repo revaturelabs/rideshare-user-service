@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import java.util.HashMap;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -72,6 +73,7 @@ public class LoginController {
 			if(u.size() != 0) {
 				
 				session.setAttribute("loggedUser", u.get(0));
+
 			   info.computeIfAbsent("name", key -> new HashSet<>()).add(u.get(0).getFirstName()+" "+u.get(0).getLastName());
 			   info.computeIfAbsent("userid", key -> new HashSet<>()).add(u.get(0).getUserId()+"");
 			}else {
