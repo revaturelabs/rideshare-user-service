@@ -28,9 +28,11 @@ public class DistanceServiceImpl implements DistanceService {
 	private UserService us;
 
 	@Override
-	public List<User> distanceMatrix(String[] origins, String[] destinations) throws ApiException, InterruptedException, IOException {
+	
+	public List<User> distanceMatrix(String[] origins, String[] work, String[] destinations) throws ApiException, InterruptedException, IOException {
 		
 		Map<String, User> userDestMap = new HashMap<String, User>();
+		
 		
 		List<String> destinationList = new ArrayList<String>();
 		
@@ -56,6 +58,7 @@ public class DistanceServiceImpl implements DistanceService {
 		
 		
 		GeoApiContext context = new GeoApiContext.Builder().apiKey(getGoogleMAPKey()).build();
+		
 		List<Double> arrlist = new ArrayList<Double>();
 		DistanceMatrixApiRequest req = DistanceMatrixApi.newRequest(context);
 		DistanceMatrix t = req.origins(origins).destinations(destinations).mode(TravelMode.DRIVING).units(Unit.IMPERIAL)
@@ -79,15 +82,6 @@ public class DistanceServiceImpl implements DistanceService {
 				}
 			}
 		}
-		
-		
-//		LinkedHashMap<String, Double> sortedMap = new LinkedHashMap<>();
-//		unsortMap.entrySet().stream().sorted(Map.Entry.comparingByValue())
-//                .forEachOrdered(x -> sortedMap.put(x.getKey(), x.getValue()));
-//		
-		
-		
-		
 		
 		System.out.println("-");
 		
@@ -115,12 +109,6 @@ public class DistanceServiceImpl implements DistanceService {
 			System.out.println(destList);
 		
 		
-	
-		
-		
-		
-		
-		
 		String [] destArray = new String[destList.size()];
 		
 		destArray = destList.toArray(destArray);
@@ -135,6 +123,104 @@ public class DistanceServiceImpl implements DistanceService {
 			System.out.println(userList);
 		}
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	///WORK ADDRESS DISTANCE	
+		
+		
+		List<Double> arrlist2 = new ArrayList<Double>();
+		DistanceMatrixApiRequest req2 = DistanceMatrixApi.newRequest(context);
+		DistanceMatrix t2 = req2.origins(work).destinations(destinations).mode(TravelMode.DRIVING).units(Unit.IMPERIAL)
+				.await();
+		
+		Map< Double, String> unsortMap2 = new HashMap<>();
+
+		for (int i = 0; i < work.length; i++) {
+			for (int j = 0; j < destinations.length; j++) {
+				try {
+					System.out.println((j+1) + "): " + t2.rows[i].elements[j].distance.inMeters + " meters");
+					arrlist.add((double) t2.rows[i].elements[j].distance.inMeters);
+					
+					unsortMap.put((double) t2.rows[i].elements[j].distance.inMeters, destinations[j]);
+					
+					System.out.println((double) t2.rows[i].elements[j].distance.inMeters);
+					
+					
+				} catch (Exception e) {
+				System.out.println("invalid address");
+				}
+			}
+		}
+		
+		System.out.println("-");
+		
+		
+		Collections.sort(arrlist2);
+		
+		System.out.println(arrlist2);
+		List<String> destList2 = new ArrayList<String>();
+		
+	     arrlist2.removeIf(r ->(arrlist2.indexOf(r)>4));
+	     
+			
+			Double [] arrArray2 = new Double[arrlist2.size()];
+			
+			arrArray2 = arrlist2.toArray(arrArray2);
+			
+			System.out.println(arrArray2);
+			
+			
+			for(int c=0; c< arrArray2.length; c++) {
+				String destination = unsortMap.get(arrArray2[c]);
+				destList2.add(destination);
+			}
+			
+			System.out.println(destList2);
+		
+		
+		String [] destArray2 = new String[destList2.size()];
+		
+		destArray2 = destList2.toArray(destArray2);
+		
+		List<User> userList2 = new ArrayList<User>();
+		
+		
+		for(int x=0; x< destArray2.length; x++) {
+			User b = userDestMap.get(destArray2[x]);
+			System.out.println(b);
+			userList2.add(b);
+			System.out.println(userList2);
+		}
+		
+		
+		System.out.println("label"+userList2);
+		
+		
+		
+		for(User u : userList2) {
+			userList.add(u);
+		}
 		
 		return userList;
 
