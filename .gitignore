@@ -101,3 +101,5 @@ Week1-CoreJava/TheGame/src/main/resources/Associates.txt
 #MacOs file
 
 .DS_Store
+/nb-configuration.xml
+/nbactions.xml
