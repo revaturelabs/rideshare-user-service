@@ -66,14 +66,6 @@ public class UserController {
 	 * @return A list of all the users, users by is-driver, user by username and
 	 *         users by is-driver and location.
 	 */
-
-	/*
-	 * @ApiOperation(value="Returns user drivers", tags= {"User"})
-	 * 
-	 * @GetMapping public List<User> getActiveDrivers() { return
-	 * us.getActiveDrivers(); }
-	 */
-
 	@ApiOperation(value = "Returns user drivers", tags = { "User" })
 	@GetMapping("/driver/{address}")
 	public List<User> getTopFiveDrivers(@PathVariable("address") String address)
@@ -94,7 +86,6 @@ public class UserController {
 		String[] destinations = new String[destinationList.size()];
 		destinations = destinationList.toArray(destinations);
 		return ds.distanceMatrix(origins, destinations);
-
 	}
 
 	/**

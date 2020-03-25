@@ -1,6 +1,8 @@
 package com.revature.services.impl;
 
 import java.util.List;
+import org.jboss.logging.Logger;
+import org.jboss.logging.Logger.Level;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +24,7 @@ import com.revature.services.CarService;
 @Service
 public class CarServiceImpl implements CarService {
 	
+	private static Logger logger = Logger.getLogger(CarServiceImpl.class);
 	@Autowired
 	private CarRepository cr;
 	
@@ -33,6 +36,7 @@ public class CarServiceImpl implements CarService {
 	
 	@Override
 	public List<Car> getCars() {
+		logger.trace("finding all cars");
 		return cr.findAll();
 	}
 
@@ -45,6 +49,7 @@ public class CarServiceImpl implements CarService {
 	
 	@Override
 	public Car getCarById(int id) {
+		logger.trace("Updated car by id");
 		return cr.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
 	}
 
@@ -57,6 +62,7 @@ public class CarServiceImpl implements CarService {
 	
 	@Override
 	public Car getCarByUserId(int userId) {
+		logger.trace("finding car by user id");
 		return cr.getCarByUserId(userId);
 	}
 	
@@ -69,6 +75,7 @@ public class CarServiceImpl implements CarService {
 	
 	@Override
 	public Car addCar(Car car) {
+		logger.info("added car");
 		return cr.save(car);
 	}
 
@@ -81,6 +88,7 @@ public class CarServiceImpl implements CarService {
 	
 	@Override
 	public Car updateCar(Car car) {
+		logger.info("Updated car");
 		return cr.save(car);
 	}
 
@@ -94,6 +102,8 @@ public class CarServiceImpl implements CarService {
 	@Override
 	public String deleteCarById(int id) {
 		cr.deleteById(id);
+		
+		logger.info("deleted car with " + id);
 		return "Car with id: " + id + " was deleted.";
 	}
 

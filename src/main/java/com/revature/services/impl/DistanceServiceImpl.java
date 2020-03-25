@@ -1,11 +1,14 @@
 package com.revature.services.impl;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.jboss.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,8 @@ import com.revature.services.UserService;
 
 @Service
 public class DistanceServiceImpl implements DistanceService {
+
+	private static Logger logger = Logger.getLogger(DistanceServiceImpl.class);
 
 	@Autowired
 	private UserService us;
@@ -62,29 +67,19 @@ public class DistanceServiceImpl implements DistanceService {
 		for (int i = 0; i < origins.length; i++) {
 			for (int j = 0; j < mappedDestinations.length; j++) {
 				try {
-					System.out.println((j + 1) + "): " + t.rows[i].elements[j].distance.inMeters + " meters");
 					arrlist.add((double) t.rows[i].elements[j].distance.inMeters);
-
-					unsortMap.put((double) t.rows[i].elements[j].distance.inMeters, mappedDestinations[j]);
-
-					System.out.println((double) t.rows[i].elements[j].distance.inMeters);
-
+					unsortMap.put((double) t.rows[i].elements[j].distance.inMeters, destinations[j]);
+					logger.trace("distance to destination " + (double) t.rows[i].elements[j].distance.inMeters
+							+ " in meters");
 				} catch (Exception e) {
-					System.out.println("invalid address");
+					logger.warn("invalid address");
 				}
 			}
 		}
 
-//		LinkedHashMap<String, Double> sortedMap = new LinkedHashMap<>();
-//		unsortMap.entrySet().stream().sorted(Map.Entry.comparingByValue())
-//                .forEachOrdered(x -> sortedMap.put(x.getKey(), x.getValue()));
-//		
-
-		System.out.println("-");
 
 		Collections.sort(arrlist);
 
-		System.out.println(arrlist);
 		List<String> destList = new ArrayList<String>();
 
 		arrlist.removeIf(r -> (arrlist.indexOf(r) > 4));
@@ -93,14 +88,10 @@ public class DistanceServiceImpl implements DistanceService {
 
 		arrArray = arrlist.toArray(arrArray);
 
-		System.out.println(arrArray);
-
 		for (int c = 0; c < arrArray.length; c++) {
 			String destination = unsortMap.get(arrArray[c]);
 			destList.add(destination);
 		}
-
-		System.out.println(destList);
 
 		String[] destArray = new String[destList.size()];
 
@@ -110,23 +101,28 @@ public class DistanceServiceImpl implements DistanceService {
 
 		for (int x = 0; x < destArray.length; x++) {
 			User a = userDestMap.get(destArray[x]);
-			System.out.println(a);
+			logger.trace("User " + a);
+			logger.trace("Destination " + x);
 			userList.add(a);
-			System.out.println(userList);
 		}
 
+		logger.trace("user list was successfully returned");
 		return userList;
 
 	}
 
 	public String getGoogleMAPKey() {
-		Map<String, String> env = System.getenv();
-		for (Map.Entry<String, String> entry : env.entrySet()) {
-			if (entry.getKey().equals("googleMapAPIKey")) {
-				return entry.getValue();
-			}
+		// Map<String, String> env = System.getenv();
+		// for (Map.Entry <String, String> entry: env.entrySet()) {
+		String apiKey = System.getenv("googleMapAPIKey");
+		if (apiKey.equals("googleMapAPIKey")) {
+			logger.info("entry was a good map API key");
+		} else if (apiKey.equals("")) {
+			logger.warn("entry was null");
+			return null;
 		}
-		return null;
+
+		return apiKey;
 	}
 
 }

@@ -1,6 +1,10 @@
 package com.revature.controllers;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -17,8 +21,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.maps.errors.ApiException;
 import com.revature.beans.Car;
+import com.revature.beans.User;
 import com.revature.services.CarService;
+import com.revature.services.DistanceService;
+import com.revature.services.UserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,6 +48,12 @@ public class CarController {
 	
 	@Autowired
 	private CarService cs;
+	
+	@Autowired
+	private DistanceService ds;
+	
+	@Autowired
+	private UserService us;
 	
 	/**
 	 * HTTP GET method (/cars)
@@ -122,5 +136,51 @@ public class CarController {
 	public String deleteCarById(@PathVariable("id")int id) {
 		
 		return cs.deleteCarById(id);
+	}
+	
+	/**
+	 * HTTP GET method (/cars/driver/{address})
+	 * 
+	 * @param address represents the users location.
+	 * @return the top five closest drivers cars to the location.
+	 */
+	
+	@ApiOperation(value="Returns user drivers", tags= {"User"})
+	@GetMapping("/driver/{address}")
+	public List <Car> getTopFiveDrivers(@PathVariable("address")String address) throws ApiException, InterruptedException, IOException {
+		List<String> destinationList = new ArrayList<>();
+		String [] origins = {address};
+		
+	    Map<String, User> topfive = new HashMap<>();
+		
+		for(User d : us.getActiveDrivers()) {
+			
+			if(cs.getCarByUserId(d.getUserId()) != null)
+			{
+			
+			String add = d.gethAddress();
+			String city = d.gethCity();
+			String state = d.gethState();
+			
+			String fullAdd = add + ", " + city + ", " + state;
+			
+			destinationList.add(fullAdd);
+			
+			topfive.put(fullAdd, d);
+			}
+						
+	}	
+	String [] destinations = new String[destinationList.size()];
+		
+	destinations = destinationList.toArray(destinations);
+	
+	List<Car> carList = new ArrayList<>();
+	
+	for(User u: ds.distanceMatrix(origins, destinations)){
+		carList.add(cs.getCarByUserId(u.getUserId()));
+	}
+	
+	return	carList;	
+		
 	}
 }

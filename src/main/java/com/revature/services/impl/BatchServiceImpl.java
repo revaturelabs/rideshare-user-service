@@ -1,6 +1,10 @@
 package com.revature.services.impl;
 
+
+
 import java.util.List;
+
+import org.jboss.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +26,8 @@ import com.revature.services.BatchService;
 @Service
 public class BatchServiceImpl implements BatchService {
 	
+	private static Logger logger = Logger.getLogger(BatchServiceImpl.class);
+	
 	@Autowired
 	private BatchRepository br;
 	
@@ -33,6 +39,7 @@ public class BatchServiceImpl implements BatchService {
 	
 	@Override
 	public List<Batch> getBatches() {
+		logger.trace("Get all batches ");
 		return br.findAll();
 	}
 
@@ -45,6 +52,7 @@ public class BatchServiceImpl implements BatchService {
 	
 	@Override
 	public Batch getBatchByNumber(int id) {
+		logger.trace("Get batch with ID number: " + id);
 		return br.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
 	}
 
@@ -57,6 +65,7 @@ public class BatchServiceImpl implements BatchService {
 	
 	@Override
 	public List<Batch> getBatchByLocation(String location) {
+		logger.trace("Get batch with location: " + location);
 		return br.getBatchByLocation(location);
 	}
 	
@@ -69,6 +78,7 @@ public class BatchServiceImpl implements BatchService {
 	
 	@Override
 	public Batch addBatch(Batch batch) {
+		logger.info("Batch created ");
 		return br.save(batch);
 	}
 
@@ -81,6 +91,7 @@ public class BatchServiceImpl implements BatchService {
 	
 	@Override
 	public Batch updateBatch(Batch batch) {
+		logger.info("Btach updated ");
 		return br.save(batch);
 	}
 
@@ -93,6 +104,7 @@ public class BatchServiceImpl implements BatchService {
 	
 	@Override
 	public String deleteBatchByNumber(int number) {
+		logger.info("Batch delted ");
 		br.deleteById(number);
 		return "Batch number: " + number + " was deleted.";
 	}
