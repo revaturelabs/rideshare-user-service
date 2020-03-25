@@ -31,7 +31,7 @@ public class InfoController {
         InfoService infoService;
         
         @ApiOperation(value = "Fetches the Google Maps API key from environment"
-                + " variables", tags="information")
+                + " variables", tags="Information")
     	@GetMapping("/maps-api")
 	public Map<String, String> getGoogleApi() {
 		Map<String, String> info = new HashMap<>();
