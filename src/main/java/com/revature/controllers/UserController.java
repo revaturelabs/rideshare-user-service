@@ -112,7 +112,7 @@ public class UserController {
 ////		
 	destinations = destinationList.toArray(destinations);
 //		
-	return	ds.distanceMatrix(origins, destinations);
+	return	ds.distanceMatrix(origins, work, destinations);
 //		
 //		
 		//return ds.distanceMatrix();	
