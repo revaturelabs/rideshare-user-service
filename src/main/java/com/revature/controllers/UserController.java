@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.validation.Validator;
 
@@ -79,7 +80,7 @@ public class UserController {
 	
 	@ApiOperation(value="Returns user drivers", tags= {"User"})
 	@GetMapping("/driver/{address}")
-	public List <User> getTopFiveDrivers(@PathVariable("address")String address) throws ApiException, InterruptedException, IOException {
+	public List <User> getTopFiveDrivers(@PathVariable("address")String address, HttpSession session) throws ApiException, InterruptedException, IOException {
 		//List<User> aps =  new ArrayList<User>();
 		System.out.println(address);
 		List<String> destinationList = new ArrayList<String>();
