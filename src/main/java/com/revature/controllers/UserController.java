@@ -89,6 +89,7 @@ public class UserController {
 		List<String> destinationList = new ArrayList<String>();
 		String [] origins = {address};
 		String [] work = {"New York City, NY"};
+
 	
 //		
 	    Map<String, User> topfive = new HashMap<String, User>();

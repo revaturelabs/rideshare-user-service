@@ -71,8 +71,11 @@ public class LoginController {
 			
 			List<User> u=us.getUserByUsername(userName);
 			if(u.size() != 0) {
+
+
 				
 				session.setAttribute("loggedUser", u.get(0));
+				System.out.println(u.get(0));
 
 			   info.computeIfAbsent("name", key -> new HashSet<>()).add(u.get(0).getFirstName()+" "+u.get(0).getLastName());
 			   info.computeIfAbsent("userid", key -> new HashSet<>()).add(u.get(0).getUserId()+"");
