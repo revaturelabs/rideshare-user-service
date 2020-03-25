@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,7 @@ public class LoginController {
 	@GetMapping//("/{userName}/{passWord}")
 	public Map<String, Set<String>> login(
 							   @RequestParam(name="userName")String userName,
-							   @RequestParam(name="passWord")String passWord) {
+							   @RequestParam(name="passWord")String passWord, HttpSession session) {
 		
 		System.out.println(userName);
 		Map<String, Set<String>> errors = new HashMap<>();
@@ -68,6 +69,7 @@ public class LoginController {
 			//call login service here
 			List<User> u=us.getUserByUsername(userName);
 			if(u.size() != 0) {
+				session.setAttribute("loggedUser", u.get(0));
 			   info.computeIfAbsent("name", key -> new HashSet<>()).add(u.get(0).getFirstName()+" "+u.get(0).getLastName());
 			   info.computeIfAbsent("userid", key -> new HashSet<>()).add(u.get(0).getUserId()+"");
 			}else {
