@@ -138,10 +138,10 @@ public class UserController {
 		}
 	}
 	
-	System.out.println("Default list: "+defaultDriversList);
 	
 	if("none".equals(sort)) {
 		System.out.println("No sorting");
+		System.out.println("Default list: "+defaultDriversList);
 		return defaultDriversList;
 	}
 

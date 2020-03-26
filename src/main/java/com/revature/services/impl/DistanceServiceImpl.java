@@ -123,8 +123,9 @@ public class DistanceServiceImpl implements DistanceService {
 		for (int x = 0; x < destArray.length; x++) {
 			User a = userDestMap.get(destArray[x]);
 			userList.add(a);
-			System.out.println(userList);
 		}
+		System.out.println(userList);
+
 
 		return userList;
 

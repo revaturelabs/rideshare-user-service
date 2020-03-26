@@ -26,7 +26,14 @@ insert into users values
 (18, 'wviani@homestead.com', 'Wain', '4 Sommers Way', 'Charlotte', 'NC', '28210', false, false, true, 'Vian', '704-338-2790', 'wviani', '99 Delaware Hill', 'Athens', 'GA', '30605', 1),
 (19, 'gtootellj@latimes.com', 'Geneva', '27592 La Follette Trail', 'Anaheim', 'CA', '92812', false, false, false, 'Tootell', '714-167-0152', 'gtootellj', '61696 Algoma Park', 'Terre Haute', 'IN', '47812', 1),
 (20, 'cgeertzk@senate.gov', 'Cissy', '5 Spaight Court', 'Spring', 'TX', '77386', false, false, true, 'Geertz', '281-310-3238', 'cgeertzk', '3 Dexter Alley', 'Frederick', 'MD', '21705', 1),
-(21, 'lozintsevl@freewebs.com', 'Lynn', '112 Silo CT', 'Columbia', 'SC', '29201', true, true, true, 'Ozintsev', '704-108-6483', 'lozintsevl', '38 Muir Plaza', 'Pittsburgh', 'PA', '15210', 1);
+(21, 'lozintsevl@freewebs.com', 'Lynn', '112 Silo CT', 'Columbia', 'SC', '29201', true, true, true, 'Ozintsev', '704-108-6483', 'lozintsevl', '38 Muir Plaza', 'Pittsburgh', 'PA', '15210', 1),
+(22, 'caoufamin-19971@equility.info', 'Jan', '5341 Medical Dr', 'San Antonio', 'TX', '78229', true, true, true, 'March', '646-911-8154', 'jmarch89', '1008 Pleasure Terrace', 'San Diego', 'CA', '92176', 1),
+(23, 'dramog@branden1121.club', 'Mary', '7245 Lamb Rd', 'San Antonio', 'TX', '78229', true, true, true, 'Edward', '213-633-6433', 'medwards14', '1008 Pleasure Terrace', 'San Diego', 'CA', '92176', 1),
+(24, '1jawadekechf@tboostpro.com', 'Wyatt', '7426 John Smith Dr', 'San Antonio', 'TX', '78229', true, true, true, 'Marksman', '404-808-7092', 'wmarksman64', '1008 Pleasure Terrace', 'San Diego', 'CA', '92176', 1),
+(25, 'talexandra.flor@poney.xyz', 'Joe', '6451 Madeleine Dr', 'San Antonio', 'TX', '78229', true, true, true, 'Lawnchair', '512-835-2292', 'jlawn39', '1008 Pleasure Terrace', 'San Diego', 'CA', '92176', 1);
+
+
+
 
 insert into cars values 
 (1, 'Teal', 'Ford', 'Thunderbird', 3, 1972, 1),
