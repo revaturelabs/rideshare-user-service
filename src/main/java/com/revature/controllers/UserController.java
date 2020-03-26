@@ -72,14 +72,22 @@ public class UserController {
 	 */
 	
 	@ApiOperation(value="Returns user drivers", tags= {"User"})
-	@GetMapping("/driver/{address}")
-	public List <User> getTopFiveDrivers(@PathVariable("address")String address) throws ApiException, InterruptedException, IOException {
+	@GetMapping("/driver/{address}/{work}/{sort}")
+	public List <User> getTopFiveDrivers(@PathVariable("address")String address, @PathVariable("work")String work, @PathVariable("sort")String sort) throws ApiException, InterruptedException, IOException {
 
+		List<User> driversGoingToSameBldg = new ArrayList<>();
+		List<User> driversWithin5miles = new ArrayList<>();
+		List<User> defaultDriversList = new ArrayList<>();
+		
 
+		
+		
+		
 		System.out.println(address);
 		List<String> destinationList = new ArrayList<String>();
 		String [] origins = {address};
-		String [] work = {"New York City, NY"};
+		String [] workArr = {work};
+
 
 	
 //		
@@ -104,11 +112,51 @@ public class UserController {
 		String [] destinations = new String[destinationList.size()];
 ////		
 	destinations = destinationList.toArray(destinations);
+	
+	
+	//Generate list of driver going to same work address
+
+
+	String wrk = work.substring(0, work.indexOf(','));
+	
+	System.out.println("Work Address: "+wrk);
+	
+	driversGoingToSameBldg = us.getActiveDriversByWorkAddress(wrk);
+
+	//Drivers within 5 miles of location (Defaults to Home).
+	driversWithin5miles = ds.distanceMatrix(origins, workArr, destinations);
+	
+	
+	//figure out default list
+	for(User u : driversGoingToSameBldg) {
+		for(User l : driversWithin5miles) {
+			if (u.equals(l)) {
+				defaultDriversList.add(u);
+			}
+		}
+	}
+	
+	if(sort == null) {
+		return defaultDriversList;
+	}
+	
+	if(sort != null) {
+		if (sort == "name") {
+			return us.sortDriversByName(defaultDriversList);		
+		}
+	}
+	//Sorting.
+	
+	
+	//Sort by name
+	
+	
+	
+	
+	
+	return null;
 //		
-	return	ds.distanceMatrix(origins, work, destinations);
 //		
-//		
-		//return ds.distanceMatrix();	
 		
 	}
 	

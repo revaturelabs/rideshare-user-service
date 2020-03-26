@@ -1,5 +1,7 @@
 package com.revature.services.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,8 +129,20 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> getActiveDriversByWorkAddress(String wAddress) {
-		// TODO Auto-generated method stub
 		return ur.getActiveDriversByWorkAddress(wAddress);
 	}
 
+	@Override
+	public List<User> sortDriversByName(List<User> drivers) {
+		
+		for (int i=0; i<drivers.size()-1; i++) {
+			if (drivers.get(i).getFirstName().compareToIgnoreCase(drivers.get(i+1).getFirstName()) > 0) {
+				Collections.swap(drivers, i, i+1);
+			}
+		}
+		
+		return drivers;
+	}
+
+	
 }
