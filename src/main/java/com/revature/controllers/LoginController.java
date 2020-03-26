@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.revature.beans.User;
 import com.revature.services.DistanceService;
@@ -44,6 +47,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @CrossOrigin
 @RequestMapping("/login")
+@SessionAttributes(value= "user")
 public class LoginController {
 	
 	@Autowired
@@ -55,7 +59,7 @@ public class LoginController {
 	@GetMapping//("/{userName}/{passWord}")
 	public Map<String, Set<String>> login(
 							   @RequestParam(name="userName")String userName,
-							   @RequestParam(name="passWord")String passWord, HttpSession session) {
+							   @RequestParam(name="passWord")String passWord, HttpSession session, Model model) {
 		
 		System.out.println(userName);
 		Map<String, Set<String>> errors = new HashMap<>();
@@ -71,12 +75,19 @@ public class LoginController {
 			
 			List<User> u=us.getUserByUsername(userName);
 			if(u.size() != 0) {
-
+				
 
 				
+				
 				session.setAttribute("loggedUser", u.get(0));
+				System.out.println("Session obj "+session.getAttribute("loggedUser"));
 				System.out.println(u.get(0));
-
+				
+				model.addAttribute("user", u.get(0));
+				System.out.println("user in session: "+model.asMap().get("user"))
+				
+				
+				;
 			   info.computeIfAbsent("name", key -> new HashSet<>()).add(u.get(0).getFirstName()+" "+u.get(0).getLastName());
 			   info.computeIfAbsent("userid", key -> new HashSet<>()).add(u.get(0).getUserId()+"");
 			}else {

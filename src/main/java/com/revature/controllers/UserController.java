@@ -13,6 +13,7 @@ import javax.validation.Valid;
 import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.google.maps.errors.ApiException;
 import com.revature.Driver;
@@ -50,6 +52,8 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/users")
 @CrossOrigin
 @Api(tags= {"User"})
+@SessionAttributes(value= "user")
+
 public class UserController {
 	
 	@Autowired
@@ -80,10 +84,16 @@ public class UserController {
 	
 	@ApiOperation(value="Returns user drivers", tags= {"User"})
 	@GetMapping("/driver/{address}")
-	public List <User> getTopFiveDrivers(@PathVariable("address")String address, HttpSession session) throws ApiException, InterruptedException, IOException {
+	public List <User> getTopFiveDrivers(@PathVariable("address")String address, HttpSession session, Model model) throws ApiException, InterruptedException, IOException {
 		//List<User> aps =  new ArrayList<User>();
 		User u = (User) session.getAttribute("loggedUser");
+		System.out.println(session.isNew());
 		System.out.println("user: "+ u);
+		
+
+			User user = (User) model.asMap().get("user");
+			System.out.println("Logged User?? "+user);
+		
 
 		System.out.println(address);
 		List<String> destinationList = new ArrayList<String>();
