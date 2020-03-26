@@ -79,6 +79,8 @@ public class UserController {
 		List<User> driversWithin5miles = new ArrayList<>();
 		List<User> defaultDriversList = new ArrayList<>();
 		
+		System.out.println("sort by: "+sort);
+		
 
 		
 		
@@ -136,19 +138,18 @@ public class UserController {
 		}
 	}
 	
-	if(sort == null) {
+	System.out.println("Default list: "+defaultDriversList);
+	
+	if("none".equals(sort)) {
+		System.out.println("No sorting");
 		return defaultDriversList;
 	}
-	
-	if(sort != null) {
-		if (sort == "name") {
+
+	else if ("name".equals(sort)) {
+		System.out.println("Sorting by name");
 			return us.sortDriversByName(defaultDriversList);		
 		}
-	}
-	//Sorting.
 	
-	
-	//Sort by name
 	
 	
 	
