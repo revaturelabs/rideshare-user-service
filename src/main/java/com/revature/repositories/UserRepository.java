@@ -53,4 +53,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query("select u from User u where u.isDriver = true and u.isActive = true and u.isAcceptingRides = true")
 	public List<User> getActiveDrivers();
 	
+	@Query("select u from User u where u.isDriver = true and u.isActive = true and u.isAcceptingRides = true and u.wAddress = ?1")
+	public List<User> getActiveDriversByWorkAddress(String wAddress);
+	
 }

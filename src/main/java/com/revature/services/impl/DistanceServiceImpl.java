@@ -91,7 +91,7 @@ public class DistanceServiceImpl implements DistanceService {
 		List<String> destList = new ArrayList<String>();
 		List<Double> distance = new ArrayList<>();
 		
-		//Trim list to drivers less that 5 miles away
+		//Trim list to drivers less than 5 miles away
 			for (Double m : arrlist) {
 				if(m < 8046.72) {
 					distance.add(m);
@@ -131,34 +131,13 @@ public class DistanceServiceImpl implements DistanceService {
 			System.out.println(userList);
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
-		
 		return userList;
 
 
 
 	}
+	
+	
 	
 	public String getGoogleMAPKey() {
         Map<String, String> env = System.getenv();

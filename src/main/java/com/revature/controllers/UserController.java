@@ -84,16 +84,8 @@ public class UserController {
 	
 	@ApiOperation(value="Returns user drivers", tags= {"User"})
 	@GetMapping("/driver/{address}")
-	public List <User> getTopFiveDrivers(@PathVariable("address")String address, HttpSession session, Model model) throws ApiException, InterruptedException, IOException {
-		//List<User> aps =  new ArrayList<User>();
-		User u = (User) session.getAttribute("loggedUser");
-		System.out.println(session.isNew());
-		System.out.println("user: "+ u);
-		
+	public List <User> getTopFiveDrivers(@PathVariable("address")String address) throws ApiException, InterruptedException, IOException {
 
-			User user = (User) model.asMap().get("user");
-			System.out.println("Logged User?? "+user);
-		
 
 		System.out.println(address);
 		List<String> destinationList = new ArrayList<String>();

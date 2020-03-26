@@ -59,7 +59,7 @@ public class LoginController {
 	@GetMapping//("/{userName}/{passWord}")
 	public Map<String, Set<String>> login(
 							   @RequestParam(name="userName")String userName,
-							   @RequestParam(name="passWord")String passWord, HttpSession session, Model model) {
+							   @RequestParam(name="passWord")String passWord) {
 		
 		System.out.println(userName);
 		Map<String, Set<String>> errors = new HashMap<>();
@@ -76,20 +76,18 @@ public class LoginController {
 			List<User> u=us.getUserByUsername(userName);
 			if(u.size() != 0) {
 				
-
-				
-				
-				session.setAttribute("loggedUser", u.get(0));
-				System.out.println("Session obj "+session.getAttribute("loggedUser"));
-				System.out.println(u.get(0));
-				
-				model.addAttribute("user", u.get(0));
-				System.out.println("user in session: "+model.asMap().get("user"))
 				
 				
 				;
 			   info.computeIfAbsent("name", key -> new HashSet<>()).add(u.get(0).getFirstName()+" "+u.get(0).getLastName());
 			   info.computeIfAbsent("userid", key -> new HashSet<>()).add(u.get(0).getUserId()+"");
+			   info.computeIfAbsent("wAddress", key -> new HashSet<>()).add(u.get(0).getwAddress()+", "+u.get(0).getwCity()+", "+u.get(0).getwState());
+			   info.computeIfAbsent("hAddress", key -> new HashSet<>()).add(u.get(0).gethAddress()+", "+u.get(0).gethCity()+", "+u.get(0).gethState());
+			   
+
+			   
+			   
+			   
 			}else {
 				info.computeIfAbsent("userNotFound", key -> new HashSet<>()).add("User not found!");
 			}
