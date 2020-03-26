@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
@@ -42,9 +43,13 @@ public class Car implements Serializable {
 	private int seats;
 	
 	@NotBlank
+	@Size(min=3,max=15)
+	@Pattern(regexp="^[A-Za-z\\\\\\s-]+$")
 	private String make;
 	
 	@NotBlank
+	@Size(max=25)
+	@Pattern(regexp="^[0-9A-Za-z\\s\\-]+$")
 	private String model;
 	
 	@Positive
