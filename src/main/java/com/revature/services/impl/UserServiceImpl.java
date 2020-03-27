@@ -2,12 +2,20 @@ package com.revature.services.impl;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import com.revature.beans.User;
+import com.revature.beans.dtos.LoginRequest;
+import com.revature.beans.dtos.UserCreationRequest;
+import com.revature.exceptions.InvalidCredentialsException;
 import com.revature.repositories.UserRepository;
+import com.revature.services.BatchService;
 import com.revature.services.UserService;
 
 /**
@@ -24,6 +32,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserRepository ur;
+	
+	@Autowired
+	private BatchService batchService;
 	
 	@Override
 	public List<User> getActiveDrivers() {
@@ -54,7 +65,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getUserById(int id) {
 		logger.trace("getting user by id");
-		return ur.findById(id).get();
+		return ur.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
 	}
 	
 	/**
@@ -105,8 +116,10 @@ public class UserServiceImpl implements UserService {
 	 */
 	
 	@Override
-	public User addUser(User user) {
+	public User addUser(UserCreationRequest userRequest) {
 		logger.info("Adding user to database");
+		User user = userRequest.toUser();
+		user.setBatch(batchService.getBatchByNumber(userRequest.getBatch().getBatchNumber()));
 		return ur.save(user);
 	}
 
@@ -135,6 +148,15 @@ public class UserServiceImpl implements UserService {
 		logger.info("removing user from database based on ID");
 		ur.deleteById(id);
 		return "User with id: " + id + " was deleted.";
+	}
+
+	@Override
+	public User login(@Valid LoginRequest loginRequest) {
+		logger.warn("Development only login action");
+		return ur.getUserByUsername(loginRequest.getUsername())
+					.stream()
+					.findFirst()
+					.orElseThrow(() -> new InvalidCredentialsException());
 	}
 
 }

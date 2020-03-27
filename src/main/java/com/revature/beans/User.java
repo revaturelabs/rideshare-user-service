@@ -20,7 +20,6 @@ import javax.validation.constraints.Size;
 import org.springframework.stereotype.Component;
 
 
-import org.springframework.stereotype.Component;
 
 @Component
 @Entity

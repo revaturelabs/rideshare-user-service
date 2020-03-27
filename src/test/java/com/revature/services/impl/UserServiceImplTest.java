@@ -11,11 +11,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.revature.beans.Batch;
 import com.revature.beans.User;
+import com.revature.beans.dtos.UserCreationRequest;
 import com.revature.repositories.UserRepository;
+import com.revature.services.BatchService;
 
 @RunWith(SpringRunner.class)
 public class UserServiceImplTest {
@@ -25,6 +28,9 @@ public class UserServiceImplTest {
 	
 	@Mock
 	private UserRepository ur;
+	
+	@Mock
+	private BatchService bs;
 	
 	@Test
 	public void testGettingUsers() {
@@ -83,9 +89,13 @@ public class UserServiceImplTest {
 	@Test
 	public void testAddingUser() {
 		
-		User expected = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789");
-		when(ur.save(expected)).thenReturn(expected);
-		User actual = usi.addUser(expected);
+		UserCreationRequest userRequest = new UserCreationRequest();
+		User expected = userRequest.toUser();
+		userRequest.setBatch(new Batch(1, "USF"));
+		
+		when(bs.getBatchByNumber(userRequest.getBatch().getBatchNumber())).thenReturn(userRequest.getBatch());
+		when(ur.save(Mockito.any(User.class))).thenReturn(expected);
+		User actual = usi.addUser(userRequest);
 		
 		assertEquals(expected, actual);
 	}

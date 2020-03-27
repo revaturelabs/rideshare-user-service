@@ -1,13 +1,12 @@
 package com.revature.services.impl;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.util.List;
 
 import org.jboss.logging.Logger;
-import org.jboss.logging.Logger.Level;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import com.revature.beans.Admin;
 import com.revature.repositories.AdminRepository;
@@ -50,10 +49,8 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public Admin getAdminById(int id) {
-		
 		logger.trace("Get admin with ID number: " + id);
-		return ar.findById(id).get();
-		
+		return ar.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
 	}
 
 	/**
