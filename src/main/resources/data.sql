@@ -30,7 +30,12 @@ insert into users values
 (22, 'caoufamin-19971@equility.info', 'Jan', '5341 Medical Dr', 'San Antonio', 'TX', '78229', true, true, true, 'March', '646-911-8154', 'jmarch89', '1008 Pleasure Terrace', 'San Diego', 'CA', '92176', 1),
 (23, 'dramog@branden1121.club', 'Mary', '7245 Lamb Rd', 'San Antonio', 'TX', '78229', true, true, true, 'Edward', '213-633-6433', 'medwards14', '1008 Pleasure Terrace', 'San Diego', 'CA', '92176', 1),
 (24, '1jawadekechf@tboostpro.com', 'Wyatt', '7426 John Smith Dr', 'San Antonio', 'TX', '78229', true, true, true, 'Marksman', '404-808-7092', 'wmarksman64', '1008 Pleasure Terrace', 'San Diego', 'CA', '92176', 1),
-(25, 'talexandra.flor@poney.xyz', 'Joe', '6451 Madeleine Dr', 'San Antonio', 'TX', '78229', true, true, true, 'Lawnchair', '512-835-2292', 'jlawn39', '1008 Pleasure Terrace', 'San Diego', 'CA', '92176', 1);
+(25, 'talexandra.flor@poney.xyz', 'Joe', '6451 Madeleine Dr', 'San Antonio', 'TX', '78229', true, true, true, 'Lawnchair', '512-835-2292', 'jlawn39', '1008 Pleasure Terrace', 'San Diego', 'CA', '92176', 1),
+(26, 'fmedo.hakr.7@jaqueline1121.club', 'Kobe', '235 St James Pl', 'Brooklyn', 'NY', '11238', true, true, true, 'Turd', '646-919-8955', 'kturd', '127 Dunning Plaza', 'Saint Louis', 'MO', '63131', 1),
+(27, 'onassim.khaled.3r@korkorts-foto.se', 'Sobe', '966 Fulton St', 'Brooklyn', 'NY', '11238', true, true, true, 'Burd', '646-919-8956', 'sburd', '127 Dunning Plaza', 'Saint Louis', 'MO', '63131', 1),
+(28, '3jinny.park.3577@gorbapa.com', 'Jobe', '2-54 Lefferts Pl', 'Brooklyn', 'NY', '11238', true, true, true, 'Hurd', '646-919-8957', 'jhurd', '127 Dunning Plaza', 'Saint Louis', 'MO', '63131', 1),
+(29, 'dsidahmed.xbr@smellri.xyz', 'Dobe', '563-497 Waverly Ave', 'Brooklyn', 'NY', '11238', true, true, true, 'Durd', '646-919-8958', 'ddurd', '127 Dunning Plaza', 'Saint Louis', 'MO', '63131', 1),
+(30, 'udafjones13y@secretsaiyan.xyz', 'Qobe', '503 Vanderbilt Ave', 'Brooklyn', 'NY', '11238', true, true, true, 'Nurd', '646-919-8958', 'qnurd', '127 Dunning Plaza', 'Saint Louis', 'MO', '63131', 1);
 
 
 
