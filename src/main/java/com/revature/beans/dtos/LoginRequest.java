@@ -3,14 +3,15 @@ package com.revature.beans.dtos;
 import java.util.Arrays;
 
 import javax.validation.constraints.NotBlank;
-
-import org.hibernate.validator.constraints.Length;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class LoginRequest {
-	@NotBlank
+	@NotBlank(message="Username is required")
 	private String username;
 
-	@Length(min = 1)
+	@Size(min=1, message="Password is required.")
+	@NotNull
 	private char[] password;
 
 	public String getUsername() {

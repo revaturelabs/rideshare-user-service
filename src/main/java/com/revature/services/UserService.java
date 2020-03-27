@@ -2,7 +2,10 @@ package com.revature.services;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.revature.beans.User;
+import com.revature.beans.dtos.LoginRequest;
 import com.revature.beans.dtos.UserCreationRequest;
 
 public interface UserService {
@@ -16,4 +19,5 @@ public interface UserService {
 	public User updateUser(User user);
 	public String deleteUserById(int id);
 	public List<User> getActiveDrivers();
+	public User login(@Valid LoginRequest loginCredentials);
 }

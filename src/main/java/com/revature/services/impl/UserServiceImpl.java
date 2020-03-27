@@ -2,6 +2,8 @@ package com.revature.services.impl;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,7 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.revature.beans.User;
+import com.revature.beans.dtos.LoginRequest;
 import com.revature.beans.dtos.UserCreationRequest;
+import com.revature.exceptions.InvalidCredentialsException;
 import com.revature.repositories.UserRepository;
 import com.revature.services.BatchService;
 import com.revature.services.UserService;
@@ -144,6 +148,15 @@ public class UserServiceImpl implements UserService {
 		logger.info("removing user from database based on ID");
 		ur.deleteById(id);
 		return "User with id: " + id + " was deleted.";
+	}
+
+	@Override
+	public User login(@Valid LoginRequest loginRequest) {
+		logger.warn("Development only login action");
+		return ur.getUserByUsername(loginRequest.getUsername())
+					.stream()
+					.findFirst()
+					.orElseThrow(() -> new InvalidCredentialsException());
 	}
 
 }
