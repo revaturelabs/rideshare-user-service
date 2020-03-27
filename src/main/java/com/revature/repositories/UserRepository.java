@@ -47,6 +47,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	 * @return Check {@link com.revature.services.impl.UserServiceImpl}
 	 */
 	
+	@Query("select u from User u where u.firstName = ?1")
+	public User getUserByFirstname(String firstname);
+	
 	@Query("select u from User u where u.isDriver = ?1 and u.batch.batchLocation = ?2")
 	public List<User> getUserByRoleAndLocation(boolean isDriver, String location);
 	

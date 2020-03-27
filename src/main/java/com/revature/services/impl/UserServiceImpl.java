@@ -135,13 +135,20 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> sortDriversByName(List<User> drivers) {
 		
-		for (int i=0; i<drivers.size()-1; i++) {
-			if (drivers.get(i).getFirstName().compareToIgnoreCase(drivers.get(i+1).getFirstName()) > 0) {
-				Collections.swap(drivers, i, i+1);
-			}
+		//create a list of firstnames. 
+		List<String> firstnames = new ArrayList<>();
+		for(User u : drivers) {
+			firstnames.add(u.getFirstName());
+		}
+		Collections.sort(firstnames);
+		
+		List<User> sortByFirstnames = new ArrayList<>();
+		for(String f : firstnames) {
+			
+			sortByFirstnames.add(ur.getUserByFirstname(f));
 		}
 		
-		return drivers;
+		return sortByFirstnames;
 	}
 
 	

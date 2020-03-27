@@ -139,23 +139,27 @@ public class UserController {
 	}
 	
 	
-	if("none".equals(sort)) {
-		System.out.println("No sorting");
-		System.out.println("Default list: "+defaultDriversList);
-		return defaultDriversList;
-	}
 
-	else if ("name".equals(sort)) {
+
+	if ("name".equals(sort)) {
 		System.out.println("Sorting by name");
+		
+		for(User l : us.sortDriversByName(defaultDriversList)) {
+			System.out.println(l);
+
+		}
 			return us.sortDriversByName(defaultDriversList);		
 		}
+	else {
+		return defaultDriversList;
+		
+	}
 	
 	
 	
 	
 	
 	
-	return null;
 //		
 //		
 		
