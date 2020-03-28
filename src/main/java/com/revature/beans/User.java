@@ -238,10 +238,10 @@ public class User implements Serializable {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	public boolean isDriver() {
+	public boolean getIsDriver() {
 		return isDriver;
 	}
-	public void setDriver(boolean isDriver) {
+	public void setIsDriver(boolean isDriver) {
 		this.isDriver = isDriver;
 	}
 	public boolean isActive() {
@@ -250,10 +250,10 @@ public class User implements Serializable {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	public boolean isAcceptingRides() {
+	public boolean getIsAcceptingRides() {
 		return isAcceptingRides;
 	}
-	public void setAcceptingRides(boolean isAcceptingRides) {
+	public void setIsAcceptingRides(boolean isAcceptingRides) {
 		this.isAcceptingRides = isAcceptingRides;
 	}
 
