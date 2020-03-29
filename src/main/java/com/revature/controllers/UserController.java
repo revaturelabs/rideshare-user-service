@@ -109,7 +109,6 @@ public class UserController {
 //						
 	}
 //		
-//		System.out.println(destinationList);
 //		
 		String [] destinations = new String[destinationList.size()];
 ////		
@@ -141,19 +140,9 @@ public class UserController {
 	
 
 
-	if ("name".equals(sort)) {
-		System.out.println("Sorting by name");
-		
-		for(User l : us.sortDriversByName(defaultDriversList)) {
-			System.out.println(l);
-
-		}
-			return us.sortDriversByName(defaultDriversList);		
-		}
-	else {
 		return defaultDriversList;
 		
-	}
+	
 	
 	
 	
