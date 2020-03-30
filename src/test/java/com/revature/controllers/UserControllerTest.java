@@ -105,7 +105,7 @@ public class UserControllerTest {
 		
 		mvc.perform(get("/users?is-driver=true"))
 		   .andExpect(status().isOk())
-		   .andExpect(jsonPath("$[0].driver").value("true"));
+		   .andExpect(jsonPath("$[0].isDriver").value("true"));
 	}
 	
 	@Test
@@ -121,7 +121,7 @@ public class UserControllerTest {
 		
 		mvc.perform(get("/users?is-driver=true&location=location"))
 		   .andExpect(status().isOk())
-		   .andExpect(jsonPath("$[0].driver").value("true"));
+		   .andExpect(jsonPath("$[0].isDriver").value("true"));
 	}
 	
 	@Test
