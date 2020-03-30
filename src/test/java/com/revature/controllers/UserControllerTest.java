@@ -70,9 +70,9 @@ public class UserControllerTest {
 	public void testGettingUserById() throws Exception {
 		
 		User user = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789");
-		user.setDriver(true);
+		user.setIsDriver(true);
 		user.setActive(true);
-		user.setAcceptingRides(true);
+		user.setIsAcceptingRides(true);
 		when(us.getUserById(1)).thenReturn(user);
 		
 		mvc.perform(get("/users/{id}", 1))
@@ -97,15 +97,15 @@ public class UserControllerTest {
 		
 		List<User> users = new ArrayList<>();
 		User user = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789");
-		user.setDriver(true);
+		user.setIsDriver(true);
 		user.setActive(true);
-		user.setAcceptingRides(true);
+		user.setIsAcceptingRides(true);
 		users.add(user);
 		when(us.getUserByRole(true)).thenReturn(users);
 		
 		mvc.perform(get("/users?is-driver=true"))
 		   .andExpect(status().isOk())
-		   .andExpect(jsonPath("$[0].driver").value("true"));
+		   .andExpect(jsonPath("$[0].isDriver").value("true"));
 	}
 	
 	@Test
@@ -113,15 +113,15 @@ public class UserControllerTest {
 		
 		List<User> users = new ArrayList<>();
 		User user = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789");
-		user.setDriver(true);
+		user.setIsDriver(true);
 		user.setActive(true);
-		user.setAcceptingRides(true);
+		user.setIsAcceptingRides(true);
 		users.add(user);
 		when(us.getUserByRoleAndLocation(true, "location")).thenReturn(users);
 		
 		mvc.perform(get("/users?is-driver=true&location=location"))
 		   .andExpect(status().isOk())
-		   .andExpect(jsonPath("$[0].driver").value("true"));
+		   .andExpect(jsonPath("$[0].isDriver").value("true"));
 	}
 	
 	@Test
@@ -129,9 +129,9 @@ public class UserControllerTest {
 		
 		Batch batch = new Batch(111, "address");
 		User user = new User(1, "userName", batch, "adonis", "cabreja", "adonis@gmail.com", "123-456-7891");
-		user.setDriver(true);
+		user.setIsDriver(true);
 		user.setActive(true);
-		user.setAcceptingRides(true);
+		user.setIsAcceptingRides(true);
 		user.sethAddress("123 MyStreet Rd");
 		user.sethCity("Tampa");
 		user.sethState("FL");

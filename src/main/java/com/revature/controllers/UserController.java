@@ -12,6 +12,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -166,18 +167,17 @@ public class UserController {
 	 */
 	
 	@ApiOperation(value="Adds a new user", tags= {"User"})
-	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
-	public Map<String, Set<String>> addUser(@Valid @RequestBody User user, BindingResult result) {
+	public ResponseEntity<Map<String, Set<String>>> addUser(@Valid @RequestBody User user, BindingResult result) {
 		
-		System.out.println(user.isDriver());
+		System.out.println(user.getIsDriver());
 		 Map<String, Set<String>> errors = new HashMap<>();
 		 
 		 for (FieldError fieldError : result.getFieldErrors()) {
 		      String code = fieldError.getCode();
 		      String field = fieldError.getField();
 		      if (code.equals("NotBlank") || code.equals("NotNull")) {
-//		    	  
+
 		    	  switch (field) {
 		    	  case "userName":
 		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Username field required");
@@ -255,16 +255,27 @@ public class UserController {
 	              errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid Phone Number");
 		      }
 		    }
-
+		 
 			if (errors.isEmpty()) {
 				
-				user.setBatch(bs.getBatchByNumber(user.getBatch().getBatchNumber()));
-		 		us.addUser(user);
+				//if batch and location set
+				if(user.getBatch() != null && user.getBatch().getBatchLocation() != null) {
+					user.setBatch(bs.getBatchByNumber(user.getBatch().getBatchNumber()));
+				}
+				else {
+					//else make sure batch is null, else a server error will occur because batch location can't be blank
+					user.setBatch(null);
+				}
 		 		
-
+				us.addUser(user);
+				
+			    return ResponseEntity
+						.status(201) //success (created)
+						.body(errors);
 		 	}
-		    return errors;
-		
+		    return ResponseEntity
+					.status(400) //client error
+					.body(errors); //return validation errors
 	}
 	
 	/**
