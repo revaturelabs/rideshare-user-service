@@ -1,5 +1,7 @@
 package com.revature.services.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,4 +127,29 @@ public class UserServiceImpl implements UserService {
 		return "User with id: " + id + " was deleted.";
 	}
 
+	@Override
+	public List<User> getActiveDriversByWorkAddress(String wAddress) {
+		return ur.getActiveDriversByWorkAddress(wAddress);
+	}
+
+	@Override
+	public List<User> sortDriversByName(List<User> drivers) {
+		
+		//create a list of firstnames. 
+		List<String> firstnames = new ArrayList<>();
+		for(User u : drivers) {
+			firstnames.add(u.getFirstName());
+		}
+		Collections.sort(firstnames);
+		
+		List<User> sortByFirstnames = new ArrayList<>();
+		for(String f : firstnames) {
+			
+			sortByFirstnames.add(ur.getUserByFirstname(f));
+		}
+		
+		return sortByFirstnames;
+	}
+
+	
 }
