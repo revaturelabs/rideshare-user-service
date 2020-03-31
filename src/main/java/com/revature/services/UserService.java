@@ -15,4 +15,9 @@ public interface UserService {
 	public User updateUser(User user);
 	public String deleteUserById(int id);
 	public List<User> getActiveDrivers();
+	public List<User> getActiveDriversByWorkAddress(String Address);
+	public List<User> sortDriversByName(List<User> drivers);
+
+
+
 }
