@@ -7,8 +7,7 @@ import com.revature.beans.User;
 
 
 public interface DistanceService {
- 
-	public List<User> distanceMatrix (String[] origins, String[] destinations) throws ApiException, InterruptedException, IOException;
-	
+
+	public List<User> distanceMatrix (String[] origins, String[] work, String[] destinations) throws ApiException, InterruptedException, IOException ;
 	
 }
