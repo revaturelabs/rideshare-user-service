@@ -8,9 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.google.maps.errors.ApiException;
 import com.revature.beans.User;
@@ -46,6 +49,8 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/users")
 @CrossOrigin
 @Api(tags= {"User"})
+@SessionAttributes(value= "user")
+
 public class UserController {
 	
 	@Autowired
@@ -67,12 +72,26 @@ public class UserController {
 	 */
 	
 	@ApiOperation(value="Returns user drivers", tags= {"User"})
-	@GetMapping("/driver/{address}")
-	public List <User> getTopFiveDrivers(@PathVariable("address")String address) throws ApiException, InterruptedException, IOException {
-		//List<User> aps =  new ArrayList<User>();
+	@GetMapping("/driver/{address}/{work}/{sort}")
+	public List <User> getTopFiveDrivers(@PathVariable("address")String address, @PathVariable("work")String work, @PathVariable("sort")String sort) throws ApiException, InterruptedException, IOException {
+
+		List<User> driversGoingToSameBldg = new ArrayList<>();
+		List<User> driversWithin5miles = new ArrayList<>();
+		List<User> defaultDriversList = new ArrayList<>();
+		
+		System.out.println("sort by: "+sort);
+		
+
+		
+		
+		
 		System.out.println(address);
 		List<String> destinationList = new ArrayList<String>();
 		String [] origins = {address};
+		String [] workArr = {work};
+
+
+	
 //		
 	    Map<String, User> topfive = new HashMap<String, User>();
 //		
@@ -90,16 +109,48 @@ public class UserController {
 //						
 	}
 //		
-//		System.out.println(destinationList);
 //		
 		String [] destinations = new String[destinationList.size()];
 ////		
 	destinations = destinationList.toArray(destinations);
+	
+	
+	//Generate list of driver going to same work address
+
+
+	String wrk = work.substring(0, work.indexOf(','));
+	
+	System.out.println("Work Address: "+wrk);
+	
+	driversGoingToSameBldg = us.getActiveDriversByWorkAddress(wrk);
+
+	//Drivers within 5 miles of location (Defaults to Home).
+	driversWithin5miles = ds.distanceMatrix(origins, workArr, destinations);
+	
+	
+	//figure out default list
+	for(User u : driversGoingToSameBldg) {
+		for(User l : driversWithin5miles) {
+			if (u.equals(l)) {
+				defaultDriversList.add(u);
+			}
+		}
+	}
+	
+	
+
+
+		return defaultDriversList;
+		
+	
+	
+	
+	
+	
+	
+	
 //		
-	return	ds.distanceMatrix(origins, destinations);
 //		
-//		
-		//return ds.distanceMatrix();	
 		
 	}
 	
