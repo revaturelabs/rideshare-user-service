@@ -110,7 +110,7 @@ public class CarController {
 	 */
 	
 	@ApiOperation(value="Updates car by id", tags= {"Car"})
-	@PutMapping
+	@PutMapping("/{id}")
 	public Map<String, Set<String>> updateCar(@Valid @RequestBody Car car, BindingResult result) {
 		
 		Map<String, Set<String>> errors = new HashMap<>();
