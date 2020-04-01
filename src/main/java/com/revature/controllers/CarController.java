@@ -1,12 +1,18 @@
 package com.revature.controllers;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +40,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/cars")
-@CrossOrigin
+@CrossOrigin(origins="http://localhost:4200")
 @Api(tags= {"Car"})
 public class CarController {
 	
@@ -105,9 +111,47 @@ public class CarController {
 	
 	@ApiOperation(value="Updates car by id", tags= {"Car"})
 	@PutMapping("/{id}")
-	public Car updateCar(@Valid @RequestBody Car car) {
+	public Map<String, Set<String>> updateCar(@Valid @RequestBody Car car, BindingResult result) {
 		
-		return cs.updateCar(car);
+		Map<String, Set<String>> errors = new HashMap<>();
+		
+		// Validation for car fields. Checks for empty input first, then checks input to match constraints. 
+		for (FieldError fieldError : result.getFieldErrors()) {
+		      String code = fieldError.getCode();
+		      String field = fieldError.getField();
+		      if (code.equals("NotBlank") || code.equals("NotNull")) {
+		    	  switch (field) {
+		    	  case "make":
+		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Make field required");
+		    		  break;
+		    	  case "model":
+		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Make field required");
+		    		  break;
+		    	  default:
+		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add(field+" required");
+		    	  }
+		      }
+		      
+		      else if (code.equals("Size") && field.equals("make")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Make must be between 3 and 15 characters in length.");
+		      }
+		      else if (code.equals("Pattern") && field.equals("make")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Make only allows letters, spaces, and hyphens.");
+		      }
+		      else if (code.equals("Size") && field.equals("model")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Model must be between 1 and 25 characters in length.");
+		      }
+		      else if (code.equals("Pattern") && field.equals("model")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Model only allows letters, numbers, spaces, and hyphens.");
+		      }
+		}
+		// If no errors are found.
+		if (errors.isEmpty()) {
+
+			cs.updateCar(car);
+	 	}
+		
+		return errors;
 	}
 	
 	/**

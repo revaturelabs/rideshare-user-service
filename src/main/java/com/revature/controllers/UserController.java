@@ -324,10 +324,74 @@ public class UserController {
 	 */
 	
 	@ApiOperation(value="Updates user by id", tags= {"User"})
-	@PutMapping
-	public User updateUser(@Valid @RequestBody User user) {
-		//System.out.println(user);
-		return us.updateUser(user);
+	@PutMapping("/{id}")
+	public Map<String, Set<String>> updateUser(@Valid @RequestBody User user, BindingResult result) {
+		
+		 Map<String, Set<String>> errors = new HashMap<>();
+		 
+		 for (FieldError fieldError : result.getFieldErrors()) {
+		      String code = fieldError.getCode();
+		      String field = fieldError.getField();
+		      if (code.equals("NotBlank") || code.equals("NotNull")) {
+//		    	  
+		    	  switch (field) {
+		    	  case "firstName":
+		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("First name field required");
+		    		  break;
+		    	  case "lastName":
+		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Last name field required");
+		    		  break;
+		    	  case "email":
+		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Email field required");
+		    		  break;
+		    	  case "phoneNumber":
+		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Phone number field required");
+		    		  break;
+		    	  default:
+		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add(field+" required");
+		    	  }
+		      }
+		      //first name custom error message
+		      else if (code.equals("Size") && field.equals("firstName")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("First name cannot be more than 30 characters in length");
+		      }
+		      else if (code.equals("Pattern") && field.equals("firstName")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("First name allows only 1 space or hyphen and no illegal characters");
+		      }
+		      else if (code.equals("Valid") && field.equals("firstName")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid first name");
+		      }
+		      //last name custom error message
+		      else if (code.equals("Size") && field.equals("lastName")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Last name cannot be more than 30 characters in length");
+		      }
+		      else if (code.equals("Pattern") && field.equals("lastName")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Last name allows only 1 space or hyphen and no illegal characters");
+		      }
+		      else if (code.equals("Valid") && field.equals("lastName")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid last name");
+		      }
+		      //email custom error messages
+		      else if (code.equals("Email") && field.equals("email")) {
+		              errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid Email");
+		      }
+		      else if (code.equals("Pattern") && field.equals("email")) {
+	              errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid Email");
+		      }
+		      //phone number custom error messages
+		      else if (code.equals("Pattern") && field.equals("phoneNumber")) {
+	              errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid Phone Number");
+		      }
+		    }
+
+			if (errors.isEmpty()) {
+
+				us.updateUser(user);
+		 		
+
+		 	}
+		    return errors;
+		
 	}
 	
 	/**
