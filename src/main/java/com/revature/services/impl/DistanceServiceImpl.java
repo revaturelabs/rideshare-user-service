@@ -33,7 +33,7 @@ public class DistanceServiceImpl implements DistanceService {
 
 	@Override
 
-	public List<User> distanceMatrix(String[] origins, String[] work, String[] destinations)
+	public List<User> distanceMatrix(String[] origins, String[] work, String[] destinations, Integer range)
 			throws ApiException, InterruptedException, IOException {
 
 		Map<String, User> userDestMap = new HashMap<String, User>();
@@ -93,13 +93,13 @@ public class DistanceServiceImpl implements DistanceService {
 
 		// Trim list to drivers less than 5 miles away
 		for (Double m : arrlist) {
-			if (m < 8046.72) {
+			if (m < (1609.34 * range)) {
 				distance.add(m);
 			}
 		}
 
-		arrlist.removeIf(r -> (arrlist.indexOf(r) > 4));
-		distance.removeIf(f -> (distance.indexOf(f) > 5));
+//		arrlist.removeIf(r -> (arrlist.indexOf(r) > 4));
+//		distance.removeIf(f -> (distance.indexOf(f) > 5));
 
 		Double[] arrArray = new Double[distance.size()];
 

@@ -72,14 +72,16 @@ public class UserController {
 	 */
 	
 	@ApiOperation(value="Returns user drivers", tags= {"User"})
-	@GetMapping("/driver/{address}/{work}/{sort}")
-	public List <User> getTopFiveDrivers(@PathVariable("address")String address, @PathVariable("work")String work, @PathVariable("sort")String sort) throws ApiException, InterruptedException, IOException {
+	@GetMapping("/driver/{address}/{work}/{range}/{sameOffice}")
+	public List <User> getTopFiveDrivers(@PathVariable("address")String address, @PathVariable("work")String work, @PathVariable("range")Integer range, @PathVariable("sameOffice")Boolean sameOffice) throws ApiException, InterruptedException, IOException {
 
 		List<User> driversGoingToSameBldg = new ArrayList<>();
-		List<User> driversWithin5miles = new ArrayList<>();
+		List<User> driversWithinXmiles = new ArrayList<>();
 		List<User> defaultDriversList = new ArrayList<>();
 		
-		System.out.println("sort by: "+sort);
+		System.out.println("Range: "+range);
+		System.out.println("Same Office: "+sameOffice);
+
 		
 
 		
@@ -125,12 +127,12 @@ public class UserController {
 	driversGoingToSameBldg = us.getActiveDriversByWorkAddress(wrk);
 
 	//Drivers within 5 miles of location (Defaults to Home).
-	driversWithin5miles = ds.distanceMatrix(origins, workArr, destinations);
+	driversWithinXmiles = ds.distanceMatrix(origins, workArr, destinations, range);
 	
 	
 	//figure out default list
 	for(User u : driversGoingToSameBldg) {
-		for(User l : driversWithin5miles) {
+		for(User l : driversWithinXmiles) {
 			if (u.equals(l)) {
 				defaultDriversList.add(u);
 			}
@@ -138,7 +140,17 @@ public class UserController {
 	}
 	
 	
+	System.out.println("Same Office: "+sameOffice);
+	if (sameOffice.equals(false)) {
+		
+		System.out.println("In the if");
 
+		
+		return driversWithinXmiles;
+	}
+	
+	
+	
 
 		return defaultDriversList;
 		
