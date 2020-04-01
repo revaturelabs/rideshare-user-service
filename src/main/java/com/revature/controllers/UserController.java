@@ -312,7 +312,7 @@ public class UserController {
 	 */
 	
 	@ApiOperation(value="Updates user by id", tags= {"User"})
-	@PutMapping
+	@PutMapping("/{id}")
 	public Map<String, Set<String>> updateUser(@Valid @RequestBody User user, BindingResult result) {
 		
 		 Map<String, Set<String>> errors = new HashMap<>();
