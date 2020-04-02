@@ -8,9 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.google.maps.errors.ApiException;
 import com.revature.beans.User;
@@ -48,6 +51,8 @@ import org.springframework.http.ResponseEntity;
 @RequestMapping("/users")
 @CrossOrigin
 @Api(tags= {"User"})
+@SessionAttributes(value= "user")
+
 public class UserController {
 	
 	@Autowired
@@ -69,12 +74,28 @@ public class UserController {
 	 */
 	
 	@ApiOperation(value="Returns user drivers", tags= {"User"})
-	@GetMapping("/driver/{address}")
-	public List <User> getTopFiveDrivers(@PathVariable("address")String address) throws ApiException, InterruptedException, IOException {
-		//List<User> aps =  new ArrayList<User>();
+	@GetMapping("/driver/{address}/{work}/{range}/{sameOffice}")
+	public List <User> getTopFiveDrivers(@PathVariable("address")String address, @PathVariable("work")String work, @PathVariable("range")Integer range, @PathVariable("sameOffice")Boolean sameOffice) throws ApiException, InterruptedException, IOException {
+
+		List<User> driversGoingToSameBldg = new ArrayList<>();
+		List<User> driversWithinXmiles = new ArrayList<>();
+		List<User> defaultDriversList = new ArrayList<>();
+		
+		System.out.println("Range: "+range);
+		System.out.println("Same Office: "+sameOffice);
+
+		
+
+		
+		
+		
 		System.out.println(address);
 		List<String> destinationList = new ArrayList<String>();
 		String [] origins = {address};
+		String [] workArr = {work};
+
+
+	
 //		
 	    Map<String, User> topfive = new HashMap<String, User>();
 //		
@@ -92,16 +113,58 @@ public class UserController {
 //						
 	}
 //		
-//		System.out.println(destinationList);
 //		
 		String [] destinations = new String[destinationList.size()];
 ////		
 	destinations = destinationList.toArray(destinations);
+	
+	
+	//Generate list of driver going to same work address
+
+
+	String wrk = work.substring(0, work.indexOf(','));
+	
+	System.out.println("Work Address: "+wrk);
+	
+	driversGoingToSameBldg = us.getActiveDriversByWorkAddress(wrk);
+
+	//Drivers within 5 miles of location (Defaults to Home).
+	driversWithinXmiles = ds.distanceMatrix(origins, workArr, destinations, range);
+	
+	
+	//figure out default list
+	for(User u : driversGoingToSameBldg) {
+		for(User l : driversWithinXmiles) {
+			if (u.equals(l)) {
+				defaultDriversList.add(u);
+			}
+		}
+	}
+	
+	
+	System.out.println("Same Office: "+sameOffice);
+	if (sameOffice.equals(false)) {
+		
+		System.out.println("In the if");
+
+		
+		return driversWithinXmiles;
+	}
+	
+	
+	
+
+		return defaultDriversList;
+		
+	
+	
+	
+	
+	
+	
+	
 //		
-	return	ds.distanceMatrix(origins, destinations);
 //		
-//		
-		//return ds.distanceMatrix();	
 		
 	}
 	
@@ -157,10 +220,50 @@ public class UserController {
 	@ApiOperation(value="Adds a new user", tags= {"User"})
 	@PostMapping
 	public ResponseEntity<Map<String, Set<String>>> addUser(@Valid @RequestBody User user, BindingResult result) {
+            Map<String, Set<String>> errors = validate(result);
+            if (errors.isEmpty()){
+                    us.updateUser(user);
+                    return ResponseEntity.status(HttpStatus.CREATED).body(errors);
+            } 
+            else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
 		
-             
-		System.out.println(user.isDriver());
-		 Map<String, Set<String>> errors = new HashMap<>();
+	}
+	
+	/**
+	 * HTTP PUT method (/users)
+	 * 
+	 * @param user represents the updated User object being sent.
+	 * @return The newly updated object.
+	 */
+	
+	@ApiOperation(value="Updates user by id", tags= {"User"})
+	@PutMapping("/{id}")
+	public Map<String, Set<String>> updateUser(@Valid @RequestBody User user, BindingResult result) {
+		
+            Map<String, Set<String>> errors = validate(result);
+            if (errors.isEmpty()){
+                    us.updateUser(user);
+                    return errors;
+            } 
+            else return errors;
+	}
+	
+	/**
+	 * HTTP DELETE method (/users)
+	 * 
+	 * @param id represents the user's id.
+	 * @return A string that says which user was deleted.
+	 */
+	
+	@ApiOperation(value="Deletes user by id", tags= {"User"})
+	@DeleteMapping("/{id}")
+	public String deleteUserById(@PathVariable("id")int id) {
+		
+		return us.deleteUserById(id);
+	}
+	
+        private Map<String, Set<String>> validate(BindingResult result){
+            		 Map<String, Set<String>> errors = new HashMap<>();
 		 
 		 for (FieldError fieldError : result.getFieldErrors()) {
 		      String code = fieldError.getCode();
@@ -168,49 +271,21 @@ public class UserController {
 		      if (code.equals("NotBlank") || code.equals("NotNull")) {
 //		    	  
 		    	  switch (field) {
-		    	  case "userName":
-		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Username field required");
-		    		  break;
 		    	  case "firstName":
 		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("First name field required");
 		    		  break;
 		    	  case "lastName":
 		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Last name field required");
 		    		  break;
-		    	  case "wAddress":
-		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Work address field required");
-		    		  break;
-		    	  case "wState":
-		    	  case "hState":
-		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("State field required");
+		    	  case "email":
+		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Email field required");
 		    		  break;
 		    	  case "phoneNumber":
 		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Phone number field required");
 		    		  break;
-		    	  case "hAddress":
-		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Home address field required");
-		    		  break;
-		    	  case "hZip":
-		    	  case "wZip":
-		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Zip code field required");
-		    		  break;
-		    	  case "hCity":
-		    	  case "wCity":
-		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("City field required");
-		    		  break;
 		    	  default:
 		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add(field+" required");
 		    	  }
-		      }
-		      //username custom error message
-		      else if (code.equals("Size") && field.equals("userName")) {
-		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Username must be between 3 and 12 characters in length");
-		      }
-		      else if (code.equals("Pattern") && field.equals("userName")) {
-		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Username may not have any illegal characters such as $@-");
-		      }
-		      else if (code.equals("Valid") && field.equals("userName")) {
-		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid username");
 		      }
 		      //first name custom error message
 		      else if (code.equals("Size") && field.equals("firstName")) {
@@ -244,45 +319,8 @@ public class UserController {
 	              errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid Phone Number");
 		      }
 		    }
-
-			if (errors.isEmpty()) {
-				
-				user.setBatch(bs.getBatchByNumber(user.getBatch().getBatchNumber()));
-		 		us.addUser(user);
-		 		
-
-		 	}
-		    return ResponseEntity.status(HttpStatus.CREATED).body(errors);
-		
-	}
-	
-	/**
-	 * HTTP PUT method (/users)
-	 * 
-	 * @param user represents the updated User object being sent.
-	 * @return The newly updated object.
-	 */
-	
-	@ApiOperation(value="Updates user by id", tags= {"User"})
-	@PutMapping("/{id}")
-	public User updateUser(@Valid @RequestBody User user) {
-		//System.out.println(user);
-		return us.updateUser(user);
-	}
-	
-	/**
-	 * HTTP DELETE method (/users)
-	 * 
-	 * @param id represents the user's id.
-	 * @return A string that says which user was deleted.
-	 */
-	
-	@ApiOperation(value="Deletes user by id", tags= {"User"})
-	@DeleteMapping("/{id}")
-	public String deleteUserById(@PathVariable("id")int id) {
-		
-		return us.deleteUserById(id);
-	}
-	
+                 return errors;
+        }
+        
 	
 }
