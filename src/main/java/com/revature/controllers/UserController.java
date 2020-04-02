@@ -32,6 +32,8 @@ import com.revature.services.UserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 /**
  * UserController takes care of handling our requests to /users.
@@ -154,8 +156,9 @@ public class UserController {
 	
 	@ApiOperation(value="Adds a new user", tags= {"User"})
 	@PostMapping
-	public Map<String, Set<String>> addUser(@Valid @RequestBody User user, BindingResult result) {
+	public ResponseEntity<Map<String, Set<String>>> addUser(@Valid @RequestBody User user, BindingResult result) {
 		
+             
 		System.out.println(user.isDriver());
 		 Map<String, Set<String>> errors = new HashMap<>();
 		 
@@ -249,7 +252,7 @@ public class UserController {
 		 		
 
 		 	}
-		    return errors;
+		    return ResponseEntity.status(HttpStatus.CREATED).body(errors);
 		
 	}
 	
@@ -261,7 +264,7 @@ public class UserController {
 	 */
 	
 	@ApiOperation(value="Updates user by id", tags= {"User"})
-	@PutMapping
+	@PutMapping("/{id}")
 	public User updateUser(@Valid @RequestBody User user) {
 		//System.out.println(user);
 		return us.updateUser(user);

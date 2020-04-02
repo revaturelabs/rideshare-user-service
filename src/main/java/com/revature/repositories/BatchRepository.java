@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.revature.beans.Batch;
+import org.springframework.data.repository.query.Param;
 
 /**
  * BatchRepository which extends the JpaRepository.
@@ -26,6 +27,6 @@ public interface BatchRepository extends JpaRepository<Batch, Integer> {
 	 * @return Check {@link com.revature.services.impl.BatchServiceImpl}
 	 */
 	
-	@Query("select b from Batch b where b.batchLocation = ?1")
-	public List<Batch> getBatchByLocation(String location);
+	@Query("select b from Batch b where b.batchLocation = :location")
+	public List<Batch> getBatchByLocation(@Param("location") String location);
 }
