@@ -8,9 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.google.maps.errors.ApiException;
 import com.revature.beans.User;
@@ -46,6 +49,8 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/users")
 @CrossOrigin
 @Api(tags= {"User"})
+@SessionAttributes(value= "user")
+
 public class UserController {
 	
 	@Autowired
@@ -67,12 +72,28 @@ public class UserController {
 	 */
 	
 	@ApiOperation(value="Returns user drivers", tags= {"User"})
-	@GetMapping("/driver/{address}")
-	public List <User> getTopFiveDrivers(@PathVariable("address")String address) throws ApiException, InterruptedException, IOException {
-		//List<User> aps =  new ArrayList<User>();
+	@GetMapping("/driver/{address}/{work}/{range}/{sameOffice}")
+	public List <User> getTopFiveDrivers(@PathVariable("address")String address, @PathVariable("work")String work, @PathVariable("range")Integer range, @PathVariable("sameOffice")Boolean sameOffice) throws ApiException, InterruptedException, IOException {
+
+		List<User> driversGoingToSameBldg = new ArrayList<>();
+		List<User> driversWithinXmiles = new ArrayList<>();
+		List<User> defaultDriversList = new ArrayList<>();
+		
+		System.out.println("Range: "+range);
+		System.out.println("Same Office: "+sameOffice);
+
+		
+
+		
+		
+		
 		System.out.println(address);
 		List<String> destinationList = new ArrayList<String>();
 		String [] origins = {address};
+		String [] workArr = {work};
+
+
+	
 //		
 	    Map<String, User> topfive = new HashMap<String, User>();
 //		
@@ -90,16 +111,58 @@ public class UserController {
 //						
 	}
 //		
-//		System.out.println(destinationList);
 //		
 		String [] destinations = new String[destinationList.size()];
 ////		
 	destinations = destinationList.toArray(destinations);
+	
+	
+	//Generate list of driver going to same work address
+
+
+	String wrk = work.substring(0, work.indexOf(','));
+	
+	System.out.println("Work Address: "+wrk);
+	
+	driversGoingToSameBldg = us.getActiveDriversByWorkAddress(wrk);
+
+	//Drivers within 5 miles of location (Defaults to Home).
+	driversWithinXmiles = ds.distanceMatrix(origins, workArr, destinations, range);
+	
+	
+	//figure out default list
+	for(User u : driversGoingToSameBldg) {
+		for(User l : driversWithinXmiles) {
+			if (u.equals(l)) {
+				defaultDriversList.add(u);
+			}
+		}
+	}
+	
+	
+	System.out.println("Same Office: "+sameOffice);
+	if (sameOffice.equals(false)) {
+		
+		System.out.println("In the if");
+
+		
+		return driversWithinXmiles;
+	}
+	
+	
+	
+
+		return defaultDriversList;
+		
+	
+	
+	
+	
+	
+	
+	
 //		
-	return	ds.distanceMatrix(origins, destinations);
 //		
-//		
-		//return ds.distanceMatrix();	
 		
 	}
 	
@@ -261,10 +324,74 @@ public class UserController {
 	 */
 	
 	@ApiOperation(value="Updates user by id", tags= {"User"})
-	@PutMapping
-	public User updateUser(@Valid @RequestBody User user) {
-		//System.out.println(user);
-		return us.updateUser(user);
+	@PutMapping("/{id}")
+	public Map<String, Set<String>> updateUser(@Valid @RequestBody User user, BindingResult result) {
+		
+		 Map<String, Set<String>> errors = new HashMap<>();
+		 
+		 for (FieldError fieldError : result.getFieldErrors()) {
+		      String code = fieldError.getCode();
+		      String field = fieldError.getField();
+		      if (code.equals("NotBlank") || code.equals("NotNull")) {
+//		    	  
+		    	  switch (field) {
+		    	  case "firstName":
+		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("First name field required");
+		    		  break;
+		    	  case "lastName":
+		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Last name field required");
+		    		  break;
+		    	  case "email":
+		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Email field required");
+		    		  break;
+		    	  case "phoneNumber":
+		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Phone number field required");
+		    		  break;
+		    	  default:
+		    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add(field+" required");
+		    	  }
+		      }
+		      //first name custom error message
+		      else if (code.equals("Size") && field.equals("firstName")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("First name cannot be more than 30 characters in length");
+		      }
+		      else if (code.equals("Pattern") && field.equals("firstName")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("First name allows only 1 space or hyphen and no illegal characters");
+		      }
+		      else if (code.equals("Valid") && field.equals("firstName")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid first name");
+		      }
+		      //last name custom error message
+		      else if (code.equals("Size") && field.equals("lastName")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Last name cannot be more than 30 characters in length");
+		      }
+		      else if (code.equals("Pattern") && field.equals("lastName")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Last name allows only 1 space or hyphen and no illegal characters");
+		      }
+		      else if (code.equals("Valid") && field.equals("lastName")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid last name");
+		      }
+		      //email custom error messages
+		      else if (code.equals("Email") && field.equals("email")) {
+		              errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid Email");
+		      }
+		      else if (code.equals("Pattern") && field.equals("email")) {
+	              errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid Email");
+		      }
+		      //phone number custom error messages
+		      else if (code.equals("Pattern") && field.equals("phoneNumber")) {
+	              errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid Phone Number");
+		      }
+		    }
+
+			if (errors.isEmpty()) {
+
+				us.updateUser(user);
+		 		
+
+		 	}
+		    return errors;
+		
 	}
 	
 	/**
