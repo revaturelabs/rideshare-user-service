@@ -40,24 +40,24 @@ insert into users values
 
 
 
-insert into cars values 
-(1, 'Teal', 'Ford', 'Thunderbird', 3, 1972, 1),
-(2, 'Orange', 'Lexus', 'IS', 1, 2012, 2),
-(3, 'Puce', 'Saab', '9-3', 2, 2000, 3),
-(4, 'Fuscia', 'Isuzu', 'Rodeo', 3, 2003, 4),
-(5, 'Violet', 'GMC', 'Sierra 2500', 2, 2007, 5),
-(6, 'Orange', 'Hyundai', 'Santa Fe', 1, 2003, 6),
-(7, 'Yellow', 'Chrysler', 'Fifth Ave', 5, 1992, 7),
-(8, 'Maroon', 'Honda', 'Ridgeline', 5, 2010, 8),
-(9, 'Teal', 'Ford', 'Aerostar', 3, 1990, 9),
-(10, 'Pink', 'Mercedes-Benz', '300CE', 2, 1993, 10),
-(11, 'Crimson', 'MINI', 'Cooper Countryman', 2, 2011, 11),
-(12, 'Khaki', 'Dodge', 'Viper', 4, 1994, 12),
-(13, 'Pink', 'Pontiac', 'Bonneville', 2, 1987, 13),
-(14, 'Khaki', 'Buick', 'Electra', 4, 1985, 14),
-(15, 'Puce', 'Lamborghini', 'Countach', 5, 1990, 15),
-(16, 'Indigo', 'Ford', 'Taurus', 1, 2012, 16),
-(17, 'Indigo', 'Volkswagen', 'Golf III', 1, 1994, 17),
-(18, 'Goldenrod', 'Lotus', 'Esprit', 1, 2002, 18),
-(19, 'Red', 'Land Rover', 'Range Rover', 1, 1989, 19),
-(20, 'Pink', 'Mercedes-Benz', 'M-Class', 5, 2000, 20);
+insert into cars values -- # seater -> number of seats including the driver
+(1, 'Teal', 'Ford', 'Thunderbird', 3, 1972, 1), -- 2 seater
+(2, 'Orange', 'Lexus', 'IS', 1, 2012, 2), -- 5 seater
+(3, 'Puce', 'Saab', '9-3', 2, 2000, 3), -- 4 seater
+(4, 'Fuscia', 'Isuzu', 'Rodeo', 3, 2003, 4), -- 5 seater
+(5, 'Violet', 'GMC', 'Sierra 2500', 2, 2007, 5), -- 3,5,6 seater
+(6, 'Orange', 'Hyundai', 'Santa Fe', 1, 2003, 6), -- 5 seater
+(7, 'Yellow', 'Chrysler', 'Fifth Ave', 5, 1992, 7), -- 5 seater
+(8, 'Maroon', 'Honda', 'Ridgeline', 5, 2010, 8), -- 5 seater
+(9, 'Teal', 'Ford', 'Aerostar', 3, 1990, 9), -- 2,7 seater (abduction van)
+(10, 'Pink', 'Mercedes-Benz', '300CE', 2, 1993, 10), -- 4 seater
+(11, 'Crimson', 'MINI', 'Cooper Countryman', 2, 2011, 11), -- 5 seater
+(12, 'Khaki', 'Dodge', 'Viper', 4, 1994, 12), -- 2 seater
+(13, 'Pink', 'Pontiac', 'Bonneville', 2, 1987, 13), -- 5 seater
+(14, 'Khaki', 'Buick', 'Electra', 4, 1985, 14), -- 6 seater
+(15, 'Puce', 'Lamborghini', 'Countach', 5, 1990, 15), -- 2 seater
+(16, 'Indigo', 'Ford', 'Taurus', 1, 2012, 16), -- 5 seater
+(17, 'Indigo', 'Volkswagen', 'Golf III', 1, 1994, 17), -- 5 seater
+(18, 'Goldenrod', 'Lotus', 'Esprit', 1, 2002, 18), -- 2 seater
+(19, 'Red', 'Land Rover', 'Range Rover', 1, 1989, 19), -- 4 seater
+(20, 'Pink', 'Mercedes-Benz', 'M-Class', 5, 2000, 20); -- 5 seater
