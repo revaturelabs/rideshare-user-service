@@ -58,7 +58,7 @@ insert into cars values -- # seater -> number of seats including the driver
 (17, 'Indigo', 'Volkswagen', 'Golf III', 1, 1994, 17), -- 5 seater
 (18, 'Goldenrod', 'Lotus', 'Esprit', 1, 2002, 18), -- 2 seater
 (19, 'Red', 'Land Rover', 'Range Rover', 1, 1989, 19), -- 4 seater
-(20, 'Pink', 'Mercedes-Benz', 'M-Class', 5, 2000, 20); -- 5 seater
+(20, 'Pink', 'Mercedes-Benz', 'M-Class', 5, 2000, 20), -- 5 seater
 (21, 'Red', 'Toyota', 'Camry', 4, 2019, 21), -- 5 seater
 (22, 'Blue', 'Honda', 'Civic', 4, 2018, 22), -- 5 seater
 (23, 'Fuscia', 'BMW', 'i5', 4, 2017, 23), -- 5 seater
