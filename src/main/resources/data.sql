@@ -38,8 +38,6 @@ insert into users values
 (30, 'udafjones13y@secretsaiyan.xyz', 'Qobe', '503 Vanderbilt Ave', 'Brooklyn', 'NY', '11238', true, true, true, 'Nurd', '646-919-8958', 'qnurd', '127 Dunning Plaza', 'Saint Louis', 'MO', '63131', 1);
 
 
-
-
 insert into cars values -- # seater -> number of seats including the driver
 (1, 'Teal', 'Ford', 'Thunderbird', 3, 1972, 1), -- 2 seater
 (2, 'Orange', 'Lexus', 'IS', 1, 2012, 2), -- 5 seater
@@ -61,3 +59,13 @@ insert into cars values -- # seater -> number of seats including the driver
 (18, 'Goldenrod', 'Lotus', 'Esprit', 1, 2002, 18), -- 2 seater
 (19, 'Red', 'Land Rover', 'Range Rover', 1, 1989, 19), -- 4 seater
 (20, 'Pink', 'Mercedes-Benz', 'M-Class', 5, 2000, 20); -- 5 seater
+(21, 'Red', 'Toyota', 'Camry', 4, 2019, 21), -- 5 seater
+(22, 'Blue', 'Honda', 'Civic', 4, 2018, 22), -- 5 seater
+(23, 'Fuscia', 'BMW', 'i5', 4, 2017, 23), -- 5 seater
+(24, 'Suffer', 'Hyundai', 'Kona EV', 4, 2020, 24), -- 5 seater
+(25, 'Silver', 'Nissan', '350z', 1, 2010, 25), -- 2 seater
+(26, 'White', 'Cadillac', 'Eldorado', 4, 1985, 26), -- 5 seater
+(27, 'Black', 'Chrsyler', '300', 4, 2011, 27), -- 5 seater
+(28, 'Metallic', 'Tesla', 'Cybertruck', 4, 2021, 28), -- 5 seater
+(29, 'Forest Green', 'John Deere', 'Lawnmower-sidecar', 1, 1995, 29), -- 2 seater
+(30, 'Skull Color', 'Harley-Davidson', 'Stree 750', 1, 2020, 30); -- 2 seater
