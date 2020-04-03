@@ -60,4 +60,14 @@ insert into cars values
 (17, 'Indigo', 'Volkswagen', 'Golf III', 1, 1994, 17),
 (18, 'Goldenrod', 'Lotus', 'Esprit', 1, 2002, 18),
 (19, 'Red', 'Land Rover', 'Range Rover', 1, 1989, 19),
-(20, 'Pink', 'Mercedes-Benz', 'M-Class', 5, 2000, 20);
+(20, 'Pink', 'Mercedes-Benz', 'M-Class', 5, 2000, 20),
+(21, 'Red', 'Toyota', 'Camry', 4, 2019, 21),
+(22, 'Blue', 'Honda', 'Civic', 4, 2018, 22),
+(23, 'Fuscia', 'BMW', 'i5', 4, 2017, 23),
+(24, 'Suffer', 'Hyundai', 'Kona EV', 4, 2020, 24),
+(25, 'Silver', 'Nissan', '350z', 1, 2010, 25),
+(26, 'White', 'Cadillac', 'Eldorado', 4, 1985, 26),
+(27, 'Black', 'Chrsyler', '300', 4, 2011, 27),
+(28, 'Metallic', 'Tesla', 'Cybertruck', 4, 2021, 28),
+(29, 'Forest Green', 'John Deere', 'Lawnmower-sidecar', 1, 1995, 29),
+(30, 'Skull Color', 'Harley-Davidson', 'Stree 750', 1, 2020, 30);
