@@ -24,14 +24,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.beans.Batch;
 import com.revature.beans.User;
-import com.revature.services.BatchService;
 import com.revature.services.DistanceService;
 import com.revature.services.UserService;
-import org.mockito.Mock;
+import com.revature.services.ValidationService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
-@MockBean(BatchService.class)
+@MockBean(ValidationService.class)
 @MockBean(DistanceService.class)
 public class UserControllerTest {
 	

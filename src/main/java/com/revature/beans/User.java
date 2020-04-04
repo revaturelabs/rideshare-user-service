@@ -45,23 +45,28 @@ public class User implements Serializable {
 	@Valid
 	@NotBlank(message = "First name field required")
 	@Column(name="first_name")
-	@Size(max=30)
-	@Pattern(regexp="^[a-zA-Z\\u00C0-\\u017F]+[- ]?[a-zA-Z\\u00C0-\\u017F]+$")
+	@Size(max=30, message = "First name must be 30 characters or less")
+	@Pattern(regexp="^[a-zA-Z\\u00C0-\\u017F]+[- ]?[a-zA-Z\\u00C0-\\u017F]+$",
+                message = "First name allows only 1 space or hyphen and no illegal characters")
 	private String firstName;
 	
 	@Valid
-	@NotBlank
 	@Column(name="last_name")
-	@Size(max=30)
-	@Pattern(regexp="^[a-zA-Z\\u00C0-\\u017F]+[- ]?[a-zA-Z\\u00C0-\\u017F]+$")
+         @NotBlank(message = "Last name field required")
+         @Size(max=30, message = "Last name must be 30 characters or less")
+	@Pattern(regexp="^[a-zA-Z\\u00C0-\\u017F]+[- ]?[a-zA-Z\\u00C0-\\u017F]+$", 
+                message="Last name allows only 1 space or hyphen and no illegal characters")
+
 	private String lastName;
-	@NotBlank
-	@Email
-	@Pattern(regexp="^\\w+\\.?\\w+@\\w+\\.[a-zA-Z]{2,4}$")
+	@NotBlank(message = "Email address required")
+	@Email(regexp="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$",
+                message = "Invalid email address")
 	private String email;
-	@NotBlank
+	@NotBlank(message = "Telephone number required")
 	@Column(name="phone_number")
-	@Pattern(regexp="^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$")
+	@Pattern(regexp="^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$",
+                message="Invalid telephone number")
 	private String phoneNumber;
 	@Column(name="is_driver")
 	private boolean isDriver;

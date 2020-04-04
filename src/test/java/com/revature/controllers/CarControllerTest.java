@@ -25,9 +25,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.beans.Car;
 import com.revature.beans.User;
 import com.revature.services.CarService;
+import com.revature.services.ValidationService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(CarController.class)
+@MockBean(ValidationService.class)
 public class CarControllerTest {
 	
 	@Autowired

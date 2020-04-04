@@ -39,17 +39,18 @@ public class Car implements Serializable {
 	
 	private String color;
 	
-	@Positive
+	@Positive(message = "Must have 1 or more seats")
 	private int seats;
 	
-	@NotBlank
-	@Size(min=3,max=15)
-	@Pattern(regexp="^[A-Za-z\\\\\\s-]+$")
+	@NotBlank(message = "Make field required")
+	@Size(min=3,max=15, message = "Make must be between {min} and {max} characters"
+                + " in length")
+	@Pattern(regexp="^[A-Za-z\\\\\\s-]+$", message = "Make contains illegal characters")
 	private String make;
 	
-	@NotBlank
-	@Size(max=25)
-	@Pattern(regexp="^[0-9A-Za-z\\s\\-]+$")
+	@NotBlank(message = "Model field required")
+	@Size(max=25, message = "Model must be less than {max} characters long")
+	@Pattern(regexp="^[0-9A-Za-z\\s\\-]+$", message = "Model contains illegal characters")
 	private String model;
 	
 	@Positive
