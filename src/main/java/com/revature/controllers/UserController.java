@@ -232,14 +232,14 @@ public class UserController {
 	
 	@ApiOperation(value="Updates user by id", tags= {"User"})
 	@PutMapping("/{id}")
-	public Map<String, List<String>> updateUser(@Valid @RequestBody User user, BindingResult result) {
-		
+	public ResponseEntity updateUser(@Valid @RequestBody User user, BindingResult result) {
             Map<String, List<String>> errors = validationService.validate(result);
             if (errors.isEmpty()){
-                    us.updateUser(user);
-                    return errors;
+                return ResponseEntity.ok(us.updateUser(user));
             } 
-            else return errors;
+            else {
+                return ResponseEntity.badRequest().body(errors);
+            }
 	}
 	
 	/**
