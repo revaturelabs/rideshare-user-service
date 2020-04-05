@@ -19,14 +19,6 @@ import org.springframework.data.repository.query.Param;
 
 @Repository
 public interface BatchRepository extends JpaRepository<Batch, Integer> {
-	
-	/**
-	 * Custom query that uses the @Query annotation to select a batch by location.
-	 * 
-	 * @param location represents the batch's location.
-	 * @return Check {@link com.revature.services.impl.BatchServiceImpl}
-	 */
-	
-	@Query("select b from Batch b where b.batchLocation = :location")
-	public List<Batch> getBatchByLocation(@Param("location") String location);
+		
+	public List<Batch> getBatchByBatchLocation(String batchLocation);
 }

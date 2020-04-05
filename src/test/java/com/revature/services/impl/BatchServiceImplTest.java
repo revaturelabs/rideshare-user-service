@@ -52,7 +52,7 @@ public class BatchServiceImplTest {
 		List<Batch> batches = new ArrayList<>();
 		batches.add(new Batch(123, "location"));
 		batches.add(new Batch(456, "location"));
-		when(br.getBatchByLocation("location")).thenReturn(batches);
+		when(br.getBatchByBatchLocation("location")).thenReturn(batches);
 		
 		assertEquals(2, bsi.getBatchByLocation("location").size());
 	}
