@@ -216,8 +216,8 @@ public class UserController {
 	public ResponseEntity addUser(@Valid @RequestBody User user, BindingResult result) {
             Map<String, List<String>> errors = validationService.validate(result);
             if (errors.isEmpty()){
-                    us.updateUser(user);
-                    return ResponseEntity.status(HttpStatus.CREATED).body(errors);
+                    return ResponseEntity.status(HttpStatus.CREATED).body(
+                            us.addUser(user));
             } 
             else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
 		
