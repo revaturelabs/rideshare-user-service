@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.revature.beans.Batch;
 import com.revature.beans.User;
 import com.revature.repositories.UserRepository;
+import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 public class UserServiceImplTest {
@@ -40,7 +41,7 @@ public class UserServiceImplTest {
 	public void testGettingUserById() {
 		
 		User expected = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789");
-		when(ur.getOne(1)).thenReturn(expected);
+		when(ur.findById(1)).thenReturn(Optional.of(expected));
 		User actual = usi.getUserById(1);
 		
 		assertEquals(expected, actual);

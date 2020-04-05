@@ -98,7 +98,7 @@ public class CarController {
 	
 	@ApiOperation(value="Adds a new car", tags= {"Car"})
 	@PostMapping
-	public ResponseEntity<Car> addCar(@Valid @RequestBody Car car) {
+	public ResponseEntity addCar(@Valid @RequestBody Car car) {
 		
 		return new ResponseEntity<>(cs.addCar(car), HttpStatus.CREATED);
 	}
@@ -112,14 +112,14 @@ public class CarController {
 	
 	@ApiOperation(value="Updates car by id", tags= {"Car"})
 	@PutMapping("/{id}")
-	public Map<String, List<String>> updateCar(@Valid @RequestBody Car car,
+	public ResponseEntity updateCar(@Valid @RequestBody Car car,
                 BindingResult result) {
             Map<String, List<String>> errors = validationService.validate(result);
-            // If no errors are found.
+            // If no errors are found, return 200 with updated car
             if (errors.isEmpty()) {
-                    cs.updateCar(car);
+                return ResponseEntity.ok(cs.updateCar(car));
             }
-            return errors;
+            else return ResponseEntity.badRequest().body(errors);
 	}
 	
 	/**
