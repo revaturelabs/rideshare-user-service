@@ -97,9 +97,51 @@ public class CarController {
 	
 	@ApiOperation(value="Adds a new car", tags= {"Car"})
 	@PostMapping
-	public ResponseEntity<Car> addCar(@Valid @RequestBody Car car) {
+	public Map<String, Set<String>> addCar(@Valid @RequestBody Car car, BindingResult result) {
 		
-		return new ResponseEntity<>(cs.addCar(car), HttpStatus.CREATED);
+		Map<String, Set<String>> errors = new HashMap<>();
+		
+		// Validation for car fields. Checks for empty input first, then checks input to match constraints. 
+				for (FieldError fieldError : result.getFieldErrors()) {
+				      String code = fieldError.getCode();
+				      String field = fieldError.getField();
+				      if (code.equals("NotBlank") || code.equals("NotNull")) {
+				    	  switch (field) {
+				    	  case "make":
+				    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Make field required");
+				    		  break;
+				    	  case "model":
+				    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add("Make field required");
+				    		  break;
+				    	  default:
+				    		  errors.computeIfAbsent(field, key -> new HashSet<>()).add(field+" required");
+				    	  }
+				      }
+				      
+				      else if (code.equals("Size") && field.equals("make")) {
+				          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Make must be between 3 and 15 characters in length.");
+				      }
+				      else if (code.equals("Pattern") && field.equals("make")) {
+				          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Make only allows letters, spaces, and hyphens.");
+				      }
+				      else if (code.equals("Size") && field.equals("model")) {
+				          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Model must be between 1 and 25 characters in length.");
+				      }
+				      else if (code.equals("Pattern") && field.equals("model")) {
+				          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Model only allows letters, numbers, spaces, and hyphens.");
+				      }
+				      else if (code.equals("Positive") && field.equals("year")) {
+				          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Year field required.");
+				      }
+				}
+				// If no errors are found.
+				if (errors.isEmpty()) {
+
+					cs.addCar(car);
+			 	}
+				
+				return errors;
+//		return new ResponseEntity<>(cs.addCar(car), HttpStatus.CREATED);
 	}
 	
 	/**
@@ -143,6 +185,9 @@ public class CarController {
 		      }
 		      else if (code.equals("Pattern") && field.equals("model")) {
 		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Model only allows letters, numbers, spaces, and hyphens.");
+		      }
+		      else if (code.equals("Positive") && field.equals("year")) {
+		          errors.computeIfAbsent(field, key -> new HashSet<>()).add("Year field required.");
 		      }
 		}
 		// If no errors are found.
