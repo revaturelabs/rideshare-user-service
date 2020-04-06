@@ -37,7 +37,7 @@ public class InfoController {
 		Map<String, String> info = new HashMap<>();
 		 // fetches API key through InfoService
 		String mapsKey = infoService.getGoogleMapsApiKey();
-                 info.putIfAbsent("googleMapsApiKey", mapsKey);
+                 info.putIfAbsent("GOOGLE_MAPS_API_KEY", mapsKey);
                  return info;
 	}
 }
