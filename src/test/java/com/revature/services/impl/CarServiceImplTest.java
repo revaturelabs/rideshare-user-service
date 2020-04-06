@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.revature.beans.Car;
 import com.revature.beans.User;
 import com.revature.repositories.CarRepository;
+import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 public class CarServiceImplTest {
@@ -40,7 +41,7 @@ public class CarServiceImplTest {
 	public void testGettingCarById() {
 		
 		Car expected = new Car(1, "red", 4, "Honda", "Accord", 2015, new User());
-		when(cr.getOne(1)).thenReturn(expected);
+		when(cr.findById(1)).thenReturn(Optional.of(expected));
 		Car actual = csi.getCarById(1);
 		
 		assertEquals(actual, expected);

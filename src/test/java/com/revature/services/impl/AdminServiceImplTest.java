@@ -9,11 +9,12 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.revature.beans.Admin;
 import com.revature.repositories.AdminRepository;
+import java.util.Optional;
+import org.mockito.Mock;
 
 @RunWith(SpringRunner.class)
 public class AdminServiceImplTest {
@@ -40,7 +41,8 @@ public class AdminServiceImplTest {
 	public void testGettingAdminById() {
 		
 		Admin expected = new Admin(1, "username");
-		when(ar.getOne(1)).thenReturn(expected);
+		when(ar.findById(1))
+                        .thenReturn(Optional.of(expected));
 		Admin actual = asi.getAdminById(1);
 		
 		assertEquals(expected, actual);
