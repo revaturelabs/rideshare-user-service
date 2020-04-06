@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.revature.beans.Batch;
 import com.revature.repositories.BatchRepository;
+import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 public class BatchServiceImplTest {
@@ -39,7 +40,7 @@ public class BatchServiceImplTest {
 	public void testGettingBatchByNumber() {
 		
 		Batch expected = new Batch(123, "location");
-		when(br.getOne(123)).thenReturn(expected);
+		when(br.findById(123)).thenReturn(Optional.of(expected));
 		Batch actual = bsi.getBatchByNumber(123);
 		
 		assertEquals(expected, actual);
@@ -51,7 +52,7 @@ public class BatchServiceImplTest {
 		List<Batch> batches = new ArrayList<>();
 		batches.add(new Batch(123, "location"));
 		batches.add(new Batch(456, "location"));
-		when(br.getBatchByLocation("location")).thenReturn(batches);
+		when(br.getBatchByBatchLocation("location")).thenReturn(batches);
 		
 		assertEquals(2, bsi.getBatchByLocation("location").size());
 	}

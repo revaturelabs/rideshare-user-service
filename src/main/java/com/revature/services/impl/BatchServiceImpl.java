@@ -55,7 +55,7 @@ public class BatchServiceImpl implements BatchService {
 	
 	@Override
 	public List<Batch> getBatchByLocation(String location) {
-		return br.getBatchByLocation(location);
+		return br.getBatchByBatchLocation(location);
 	}
 	
 	/**
