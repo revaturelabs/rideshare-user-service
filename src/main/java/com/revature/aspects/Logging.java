@@ -52,11 +52,6 @@ public class Logging {
             }
             throw t;
         }
-        // these need to be repeated after the pjp proceeding, or else the class name
-        // and method names might be stale
-        ms = (MethodSignature) pjp.getSignature();
-        method = ms.getMethod();
-        log = Logger.getLogger(method.getDeclaringClass());
         log.info("(Method call "+logTracking+") "+method.getName()+" returned: "+obj);
 
         return obj;
