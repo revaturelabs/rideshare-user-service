@@ -19,16 +19,22 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class Logging {
     private Logger log;
+    /* since there may be multiple threads calling methods at the same time, tracking 
+    provides a unique identifier, so it's possible to see which returns correspond to
+    which method calls without having to slow down the data processing with
+    the synchronized keyword */
+    private int tracking; 
 
     @Around("everything()")
-    public synchronized Object log(ProceedingJoinPoint pjp) throws Throwable {
+    public Object log(ProceedingJoinPoint pjp) throws Throwable {
         Object obj = null;
+        int logTracking = tracking++;
         MethodSignature ms = (MethodSignature) pjp.getSignature();
         Method method = ms.getMethod();
         Parameter[] parameters = method.getParameters();
         Object[] arguments = pjp.getArgs();
         log = Logger.getLogger(method.getDeclaringClass());
-        StringBuilder logMessage = new StringBuilder(
+        StringBuilder logMessage = new StringBuilder("(Method call "+logTracking+") "+
             "Method called: "
             +method.getName());
         if (arguments.length > 0) logMessage.append(", with arguments: ");
@@ -51,7 +57,7 @@ public class Logging {
         ms = (MethodSignature) pjp.getSignature();
         method = ms.getMethod();
         log = Logger.getLogger(method.getDeclaringClass());
-        log.info(method.getName()+" returned: "+obj);
+        log.info("(Method call "+logTracking+") "+method.getName()+" returned: "+obj);
 
         return obj;
     }
