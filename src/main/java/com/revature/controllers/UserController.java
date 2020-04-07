@@ -12,6 +12,8 @@ import javax.validation.Valid;
 import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -272,10 +274,11 @@ public class UserController {
 	 */
 	
 	@ApiOperation(value="Updates user by id", tags= {"User"})
-	@PutMapping
-	public User updateUser(@Valid @RequestBody User user) {
+	@PutMapping("/{userId}")
+	public ResponseEntity<User> updateUser(@PathVariable(value="userId") @Valid @RequestBody User user) {
 		//System.out.println(user);
-		return us.updateUser(user);
+		
+		return new ResponseEntity<> (us.updateUser(user), HttpStatus.ACCEPTED);
 	}
 	
 	/**
