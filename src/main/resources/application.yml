@@ -12,6 +12,8 @@ spring:
     password:
     platform: org.hibernate.dialect.H2Dialect
     initialization-mode: embedded
+  aop:
+     auto: true
 
 management:
   endpoint:
