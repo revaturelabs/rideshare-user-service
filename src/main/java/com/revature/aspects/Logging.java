@@ -2,7 +2,6 @@ package com.revature.aspects;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.lang.reflect.Proxy;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -47,6 +46,8 @@ public class Logging {
             }
             throw t;
         }
+        // these need to be repeated after the pjp proceeding, or else the class name
+        // and method names might be stale
         ms = (MethodSignature) pjp.getSignature();
         method = ms.getMethod();
         log = Logger.getLogger(method.getDeclaringClass());
@@ -57,12 +58,12 @@ public class Logging {
     // Implemented hooks     
 
     @Pointcut("execution(public !void org.springframework.data.repository.Repository+.*(..))")
-    private void springRepositories() { }
+    private void springRepositories() {/* Allows us to see the returns of some Spring repositories */ }
     
     @Pointcut("execution( * com.revature..*.*(..) )")
-    private void internal() { }
+    private void internal() { /* Our classes in the project are covered by this one */}
     
     @Pointcut("internal() || springRepositories()")
-    private void everything() { /* Empty Method for Hook */ }
+    private void everything() { /* Combination */ }
 
 }
