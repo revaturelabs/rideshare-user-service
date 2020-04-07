@@ -286,10 +286,11 @@ public class UserController {
 	 */
 	
 	@ApiOperation(value="Updates user by id", tags= {"User"})
-	@PutMapping
-	public User updateUser(@Valid @RequestBody User user) {
+	@PutMapping("/{userId}")
+	public ResponseEntity<User> updateUser(@PathVariable(value="userId") @Valid @RequestBody User user) {
 		//System.out.println(user);
-		return us.updateUser(user);
+		
+		return new ResponseEntity<> (us.updateUser(user), HttpStatus.ACCEPTED);
 	}
 	
 	/**
