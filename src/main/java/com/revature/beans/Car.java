@@ -58,6 +58,8 @@ public class Car implements Serializable {
 	private String model;
 	
 	@Positive
+	@Min(value = 1000, message = "Year must be a 4 digit number.")
+	@Max(value = 9999, message = "Year must be a 4 digit number.")
 	@Column(name="car_year")
 	private int year;
 	
