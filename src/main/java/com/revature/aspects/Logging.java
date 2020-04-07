@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Aspect
 public class Logging {
-    private Logger log;
+
     /* since there may be multiple threads calling methods at the same time, tracking 
     provides a unique identifier, so it's possible to see which returns correspond to
     which method calls without having to slow down the data processing with
@@ -33,7 +33,7 @@ public class Logging {
         Method method = ms.getMethod();
         Parameter[] parameters = method.getParameters();
         Object[] arguments = pjp.getArgs();
-        log = Logger.getLogger(method.getDeclaringClass());
+        Logger log = Logger.getLogger(method.getDeclaringClass());
         StringBuilder logMessage = new StringBuilder("(Method call "+logTracking+") "+
             "Method called: "
             +method.getName());
@@ -42,7 +42,7 @@ public class Logging {
              logMessage.append("  "+parameters[i].getType().getSimpleName()+" "+
                     parameters[i].getName()+" = "+arguments[i]);
          }
-         log.trace(logMessage.toString());
+        log.info(logMessage);
          try {
             obj = pjp.proceed();
          } catch (Throwable t) {
@@ -62,14 +62,14 @@ public class Logging {
         return obj;
     }
     // Implemented hooks     
-
-    @Pointcut("execution(public !void org.springframework.data.repository.Repository+.*(..))")
-    private void springRepositories() {/* Allows us to see the returns of some Spring repositories */ }
+    
+    @Pointcut("execution(* com.revature.repositories.*Repository+.*(..))")
+    private void repositories() {/* Allows us to see the returns of some Spring repositories */ }
     
     @Pointcut("execution( * com.revature..*.*(..) )")
     private void internal() { /* Our classes in the project are covered by this one */}
     
-    @Pointcut("internal() || springRepositories()")
+    @Pointcut("internal() || repositories()")
     private void everything() { /* Combination */ }
 
 }
