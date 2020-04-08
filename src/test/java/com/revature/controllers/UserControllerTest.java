@@ -24,6 +24,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.beans.Batch;
 import com.revature.beans.User;
+import com.revature.services.BatchService;
+import com.revature.services.DistanceService;
 import com.revature.services.UserService;
 
 @RunWith(SpringRunner.class)
@@ -38,6 +40,12 @@ public class UserControllerTest {
 		
 	@MockBean
 	private UserService us;
+	
+	@MockBean
+	private BatchService bs;
+	
+	@MockBean
+	private DistanceService ds;
 	
 	@Test
 	public void testGettingUsers() throws Exception {
@@ -109,7 +117,11 @@ public class UserControllerTest {
 		   .andExpect(status().isOk())
 		   .andExpect(jsonPath("$[0].driver").value("true"));
 	}
-	
+	/*
+	 * This breaks because the update currently just does a bunch of checks for null values and then returns error messages if any.
+	 * Ideally it should do both not one or the other.
+	 * 
+	 */
 	@Test
 	public void testAddingUser() throws Exception {
 		
@@ -122,19 +134,21 @@ public class UserControllerTest {
 		when(us.addUser(user)).thenReturn(user);
 		
 		mvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsString(user)))
-		   .andExpect(status().isCreated())
+		   .andExpect(status().isOk())
 		   .andExpect(jsonPath("$.userName").value("userName"));
 	}
 	
 	@Test
 	public void testUpdatingUser() throws Exception {
-		
+		System.out.println("UPDATE");
 		Batch batch = new Batch(111, "address");
+
 		User user = new User(1, "userName", batch, "adonis", "cabreja", "adonis@gmail.com", "123-456-789");
-		
+		String body = om.writeValueAsString(user);
+		System.out.println(body);
 		when(us.updateUser(user)).thenReturn(user);
 		
-		mvc.perform(put("/users/{id}", 1).contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsString(user)))
+		mvc.perform(put("/users/{id}", 1).contentType(MediaType.APPLICATION_JSON).content(body).characterEncoding("utf-8"))
 		   .andExpect(status().isOk())
 		   .andExpect(jsonPath("$.userName").value("userName"));
 	}

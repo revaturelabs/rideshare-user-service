@@ -6,6 +6,8 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -24,6 +26,22 @@ public class AdminServiceImplTest {
 	@Mock
 	private AdminRepository ar;
 	
+	@Before
+	public void setup() {
+		System.out.println("Before");
+		Admin a = new Admin();
+		a.setUserName("username");
+		ar.save(a);
+		System.out.println(ar.count());
+	}
+	
+	@After
+	public void teardown() {
+		System.out.println("After");
+		System.out.println(ar.count());
+		ar.deleteAll();
+	}
+	
 	@Test
 	public void testGettingAdmins() {
 		
@@ -38,7 +56,7 @@ public class AdminServiceImplTest {
 	
 	@Test
 	public void testGettingAdminById() {
-		
+		System.out.println("BY ID:");
 		Admin expected = new Admin(1, "username");
 		when(ar.getOne(1)).thenReturn(expected);
 		Admin actual = asi.getAdminById(1);
@@ -49,7 +67,7 @@ public class AdminServiceImplTest {
 	@Test
 	public void testCreatingAdmin() {
 		
-		Admin expected = new Admin(1, "username");
+		Admin expected = new Admin(2, "otheruser");
 		when(ar.save(expected)).thenReturn(expected);
 		Admin actual = asi.createAdmin(expected);
 		
