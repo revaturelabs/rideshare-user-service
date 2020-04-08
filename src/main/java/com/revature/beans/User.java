@@ -8,7 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
@@ -19,6 +21,7 @@ import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 
 import org.springframework.stereotype.Component;
 
@@ -41,6 +44,12 @@ public class User implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="batch_number")
 	private Batch batch;
+	
+	
+	@OneToOne
+	@JoinColumn(nullable=true, name="car_id")
+	@JsonIdentityReference(alwaysAsId = false)
+	private Car car;
 	
 	@Valid
 	@NotBlank
@@ -213,6 +222,12 @@ public class User implements Serializable {
 	}
 	public void setBatch(Batch batch) {
 		this.batch = batch;
+	}
+	public Car getCar() {
+		return car;
+	}
+	public void setCar(Car car) {
+		this.car = car;
 	}
 	public String getFirstName() {
 		return firstName;
