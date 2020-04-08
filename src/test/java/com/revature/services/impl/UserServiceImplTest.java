@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.revature.beans.Admin;
 import com.revature.beans.Batch;
 import com.revature.beans.User;
 import com.revature.repositories.UserRepository;
@@ -40,7 +42,8 @@ public class UserServiceImplTest {
 	public void testGettingUserById() {
 		
 		User expected = new User(1, "userName", new Batch(), "adonis", "cabreja", "adonis@gmail.com", "123-456-789");
-		when(ur.getOne(1)).thenReturn(expected);
+		Optional<User> o = Optional.of(expected);
+		when(ur.findById(1)).thenReturn(o);
 		User actual = usi.getUserById(1);
 		
 		assertEquals(expected, actual);

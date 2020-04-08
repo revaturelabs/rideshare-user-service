@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.revature.beans.Admin;
 import com.revature.beans.Batch;
 import com.revature.repositories.BatchRepository;
 
@@ -39,7 +41,8 @@ public class BatchServiceImplTest {
 	public void testGettingBatchByNumber() {
 		
 		Batch expected = new Batch(123, "location");
-		when(br.getOne(123)).thenReturn(expected);
+		Optional<Batch> o = Optional.of(expected);
+		when(br.findById(123)).thenReturn(o);
 		Batch actual = bsi.getBatchByNumber(123);
 		
 		assertEquals(expected, actual);
