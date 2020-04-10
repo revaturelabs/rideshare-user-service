@@ -10,11 +10,9 @@ import java.util.Set;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
-import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.maps.errors.ApiException;
-import com.revature.Driver;
 import com.revature.beans.Batch;
 import com.revature.beans.User;
 import com.revature.services.BatchService;
@@ -182,8 +179,8 @@ public class UserController {
 		
 		for (FieldError fieldError : result.getFieldErrors()) {
 			field = fieldError.getField();
-			//errorMessage = getErrorMessage(fieldError);
-			errors.computeIfAbsent(field, key -> new HashSet<>()).add(fieldError.toString());
+			errorMessage = getErrorMessage(fieldError);
+			errors.computeIfAbsent(field, key -> new HashSet<>()).add(errorMessage);
 		}
 		if (errors.isEmpty()) {
 			Batch batch;

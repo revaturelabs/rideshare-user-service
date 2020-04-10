@@ -149,6 +149,7 @@ public class UserControllerTest {
 		
 		mvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsString(user)))
 		   .andExpect(status().isOk());
+;
 	}
 	
 	
