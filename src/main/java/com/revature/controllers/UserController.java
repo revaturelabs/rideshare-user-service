@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import javax.validation.Validator;
 
@@ -162,107 +163,114 @@ public class UserController {
 	 * HTTP POST method (/users)
 	 * 
 	 * @param user represents the new User object being sent.
-	 * @return The newly created object with a 201 code.
+	 * @param BindingResult holds the result of attempting to bind the JSON object in the body with the User object.
 	 * 
 	 *         Sends custom error messages when incorrect input is used
-	 *         
+	 * 
 	 *         TODO: REFACTOR so that errors are added to the result.
 	 */
 
 	@ApiOperation(value = "Adds a new user", tags = { "User" })
 	@PostMapping
-	public User addUser(@Valid @RequestBody User user, BindingResult result) {
+	public Map<String, Set<String>> addUser(@Valid @RequestBody User user, BindingResult result) {
 
 		System.out.println(user.isDriver());
 		Map<String, Set<String>> errors = new HashMap<>();
-
+		String field, errorMessage;
+		
 		for (FieldError fieldError : result.getFieldErrors()) {
-			String code = fieldError.getCode();
-			String field = fieldError.getField();
-			if (code.equals("NotBlank") || code.equals("NotNull")) {
-
-				switch (field) {
-				case "userName":
-					errors.computeIfAbsent(field, key -> new HashSet<>()).add("Username field required");
-					break;
-				case "firstName":
-					errors.computeIfAbsent(field, key -> new HashSet<>()).add("First name field required");
-					break;
-				case "lastName":
-					errors.computeIfAbsent(field, key -> new HashSet<>()).add("Last name field required");
-					break;
-				case "wAddress":
-					errors.computeIfAbsent(field, key -> new HashSet<>()).add("Work address field required");
-					break;
-				case "wState":
-				case "hState":
-					errors.computeIfAbsent(field, key -> new HashSet<>()).add("State field required");
-					break;
-				case "phoneNumber":
-					errors.computeIfAbsent(field, key -> new HashSet<>()).add("Phone number field required");
-					break;
-				case "hAddress":
-					errors.computeIfAbsent(field, key -> new HashSet<>()).add("Home address field required");
-					break;
-				case "hZip":
-				case "wZip":
-					errors.computeIfAbsent(field, key -> new HashSet<>()).add("Zip code field required");
-					break;
-				case "hCity":
-				case "wCity":
-					errors.computeIfAbsent(field, key -> new HashSet<>()).add("City field required");
-					break;
-				default:
-					errors.computeIfAbsent(field, key -> new HashSet<>()).add(field + " required");
-				}
-			}
-			// username custom error message
-			else if (code.equals("Size") && field.equals("userName")) {
-				errors.computeIfAbsent(field, key -> new HashSet<>())
-						.add("Username must be between 3 and 12 characters in length");
-			} else if (code.equals("Pattern") && field.equals("userName")) {
-				errors.computeIfAbsent(field, key -> new HashSet<>())
-						.add("Username may not have any illegal characters such as $@-");
-			} else if (code.equals("Valid") && field.equals("userName")) {
-				errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid username");
-			}
-			// first name custom error message
-			else if (code.equals("Size") && field.equals("firstName")) {
-				errors.computeIfAbsent(field, key -> new HashSet<>())
-						.add("First name cannot be more than 30 characters in length");
-			} else if (code.equals("Pattern") && field.equals("firstName")) {
-				errors.computeIfAbsent(field, key -> new HashSet<>())
-						.add("First name allows only 1 space or hyphen and no illegal characters");
-			} else if (code.equals("Valid") && field.equals("firstName")) {
-				errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid first name");
-			}
-			// last name custom error message
-			else if (code.equals("Size") && field.equals("lastName")) {
-				errors.computeIfAbsent(field, key -> new HashSet<>())
-						.add("Last name cannot be more than 30 characters in length");
-			} else if (code.equals("Pattern") && field.equals("lastName")) {
-				errors.computeIfAbsent(field, key -> new HashSet<>())
-						.add("Last name allows only 1 space or hyphen and no illegal characters");
-			} else if (code.equals("Valid") && field.equals("lastName")) {
-				errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid last name");
-			}
-			// email custom error messages
-			else if (code.equals("Email") && field.equals("email")) {
-				errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid Email");
-			} else if (code.equals("Pattern") && field.equals("email")) {
-				errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid Email");
-			}
-			// phone number custom error messages
-			else if (code.equals("Pattern") && field.equals("phoneNumber")) {
-				errors.computeIfAbsent(field, key -> new HashSet<>()).add("Invalid Phone Number");
-			}
+			field = fieldError.getField();
+			//errorMessage = getErrorMessage(fieldError);
+			errors.computeIfAbsent(field, key -> new HashSet<>()).add(fieldError.toString());
 		}
 		if (errors.isEmpty()) {
-
-			user.setBatch(bs.getBatchByNumber(user.getBatch().getBatchNumber()));
+			Batch batch;
+			try {
+				batch = bs.getBatchByNumber(user.getBatch().getBatchNumber());
+			} catch( EntityNotFoundException e) {
+				batch = bs.addBatch(user.getBatch());
+			}
+			user.setBatch(batch);
+			us.addUser(user);
 		}
-		return us.addUser(user);
-		
+		return errors;
+	}
+
+	/**
+	 * getErrorMeassage
+	 * Takes a field error and translates it to a human readable error message.
+	 * 
+	 * @param FieldError, the error to be parsed
+	 * 
+	 * @return A string that contains a human error message.
+	 * 
+	 */
+	protected String getErrorMessage(FieldError fieldError) {
+		String code = fieldError.getCode();
+		String field = fieldError.getField();
+		if (code.equals("NotBlank") || code.equals("NotNull")) {
+
+			switch (field) {
+			case "userName":
+				return ("Username field required");
+			case "firstName":
+				return ("First name field required");
+			case "lastName":
+				return ("Last name field required");
+			case "wAddress":
+				return ("Work address field required");
+			case "wState":
+			case "hState":
+				return ("State field required");
+			case "phoneNumber":
+				return ("Phone number field required");
+			case "hAddress":
+				return ("Home address field required");
+			case "hZip":
+			case "wZip":
+				return ("Zip code field required");
+			case "hCity":
+			case "wCity":
+				return ("City field required");
+			default:
+				return (field + " required");
+			}
+		}
+		// username custom error message
+		else if (code.equals("Size") && field.equals("userName")) {
+			return ("Username must be between 3 and 12 characters in length");
+		} else if (code.equals("Pattern") && field.equals("userName")) {
+			return ("Username may not have any illegal characters such as $@-");
+		} else if (code.equals("Valid") && field.equals("userName")) {
+			return ("Invalid username");
+		}
+		// first name custom error message
+		else if (code.equals("Size") && field.equals("firstName")) {
+			return ("First name cannot be more than 30 characters in length");
+		} else if (code.equals("Pattern") && field.equals("firstName")) {
+			return ("First name allows only 1 space or hyphen and no illegal characters");
+		} else if (code.equals("Valid") && field.equals("firstName")) {
+			return ("Invalid first name");
+		}
+		// last name custom error message
+		else if (code.equals("Size") && field.equals("lastName")) {
+			return ("Last name cannot be more than 30 characters in length");
+		} else if (code.equals("Pattern") && field.equals("lastName")) {
+			return ("Last name allows only 1 space or hyphen and no illegal characters");
+		} else if (code.equals("Valid") && field.equals("lastName")) {
+			return ("Invalid last name");
+		}
+		// email custom error messages
+		else if (code.equals("Email") && field.equals("email")) {
+			return ("Invalid Email");
+		} else if (code.equals("Pattern") && field.equals("email")) {
+			return ("Invalid Email");
+		}
+		// phone number custom error messages
+		else if (code.equals("Pattern") && field.equals("phoneNumber")) {
+			return ("Invalid Phone Number");
+		}
+		return (fieldError.toString());
 
 	}
 
