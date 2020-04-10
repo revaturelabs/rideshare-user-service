@@ -37,7 +37,7 @@ public class User implements Serializable {
 
 	@Valid
 	@NotBlank
-	@Column(name="user_name")
+	@Column(unique=true, name="user_name")
 	@Size(min=3,max=12)
 	@Pattern(regexp="^\\w+\\.?\\w+$")
 	private String userName;
