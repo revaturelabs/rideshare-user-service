@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,34 +36,72 @@ public class DistanceServiceImpl implements DistanceService {
 		List<User> activeUsers = us.getActiveDrivers();
 		Map<String, User> driverAddresses = new HashMap<String, User>();
 		
-		String[] destinations = {rider.gethAddress(), rider.getwAddress()};
+		String riderHome = rider.gethCity()+ ", " + rider.gethState();
+		String riderWork = rider.getwCity()+ ", " + rider.getwState();
+		
+		String[] destinations = {riderHome, riderWork};
 		String[] origins = new String[activeUsers.size() + 1];
 		
-		origins[0] = rider.gethAddress();
+		origins[0] = riderHome;
 		List<String> driverAdds = getAddressFromUsers(activeUsers);
 		for(int i = 0; i < driverAdds.size(); i++) {
 			origins[i+1] = driverAdds.get(i);
 			driverAddresses.put(driverAdds.get(i), activeUsers.get(i));
 		}
-		HashMap<String, Double> calcDistances;
+		List<Double> calcDistances = new ArrayList<Double>();
+		
+		System.out.println("Printing destinations:");
+		for(int i = 0; i < destinations.length; i++) {
+			System.out.println(destinations[i]);
+		}
+		
+		System.out.println("Printing origins:");
+		for(int i = 0; i < origins.length; i++) {
+			System.out.println(origins[i]);
+		}
+		
+		
+		
+		
 		try {
 			calcDistances = calculateDriverDistances(origins, destinations);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		//Now we have two lists, activeUsers and calcDistances, where indexes are aligned
+		//Need to find the indexes of the n lowest calcDistances
+		final List<Double> finalDist = calcDistances;
+		int[] sortedIndices = IntStream.range(0, finalDist.size())
+						.boxed().sorted((i,j) -> finalDist.get(i).compareTo(finalDist.get(j)))
+						.mapToInt(ele -> ele).toArray();
+		
+		System.out.println("List of calculated distances" + calcDistances);
+		for (int i = 0; i < sortedIndices.length; i++) {
+			System.out.print(sortedIndices[i] + ", ");
+		}
+		
+		List<User> finalList = new ArrayList<User>();
+		for (int i = 0; i < count; i++) {
+			finalList.add(activeUsers.get(sortedIndices[i]));
+		}
+		
 		/*
 		Map<String, Double> sortedByValue = calcDistances.entrySet().stream()
 				.sorted(Map.Entry.<String, Double>comparingByValue())
 				.collect(toMap(Map.Entry::getKey,Map.Entry::getValue, (e1, e2) 
 				-> e1, LinkedHashMap::new));
 		
-		List<User> finalList = new ArrayList<User>();
+		
 		//Set<String> allAddresses = calcDistances.keySet();
 		for(int i = 0; i < count; i++)
 			finalList[i] = driverAddresses.get(allAddreses);
 			
 			*/
-		return null;
+		for(User u : finalList) {
+			System.out.println(u.getLastName());
+		}
+		return finalList;
 	}
 	
 	@Override
@@ -75,14 +114,14 @@ public class DistanceServiceImpl implements DistanceService {
 			String city = u.gethCity();
 			String state = u.gethState();
 				                                                                                                                                                                                                
-			String fullAdd = add + ", " + city + ", " + state;
+			String fullAdd = city + ", " + state;
 			addresses.add(fullAdd);
 		}
 
 		return addresses;
 	}
 	
-	public HashMap<String, Double>calculateDriverDistances(String[] origins, String[] destinations) throws IOException, InterruptedException, ApiException{
+	public List<Double> calculateDriverDistances(String[] origins, String[] destinations) throws IOException, InterruptedException, ApiException{
 		
 		//Used to get the Key for the Google Map API and run the Calculator
 		GeoApiContext getKey = new GeoApiContext.Builder().apiKey(getGoogleMAPKey()).build();
@@ -91,7 +130,7 @@ public class DistanceServiceImpl implements DistanceService {
 	.mode(TravelMode.DRIVING).units(Unit.IMPERIAL).await();
 
 
-		HashMap<String, Double> addressDistances = new HashMap<String, Double>();
+		List<Double> distances = new ArrayList<Double>();
 		double DtoR;	//Distance :// Driver to Rider
 		double RtoW;	//Distance :// Rider to Work
 		double DtoW; // Distance :// Driver to Work
@@ -99,32 +138,49 @@ public class DistanceServiceImpl implements DistanceService {
 		
 		try {
 			//Find the distance between Rider and Work
+			
 			RtoW = (double) distCalculator.rows[0].elements[1].distance.inMeters;
-
+			System.out.println(RtoW);
 			//Calculate the distances for the Map
-			for (int i = 0; i < origins.length;  i++) {
+			for (int i = 1; i < origins.length;  i++) {
 	
 				//Find the distance between Driver [n] and Rider
-				DtoR = (double) distCalculator.rows[i].elements[0].distance.inMeters;
-	
-				//Find the distance between Driver[n] and Work
-				DtoW = (double) distCalculator.rows[i].elements[1].distance.inMeters;
+				//System.out.println(origins[1] + ", " + destinations[1]);
 				
-				//Find total distance to Rider then Work 
-				DtoRtoW = DtoR + RtoW;
-	
-				//Calculate the difference between Driving to Rider or Straight to Work
-				double distCompare = DtoRtoW - DtoW;
-	
-				//Set values into the HashMap (Key-Origin,Value-Distance)
-				addressDistances.put( origins[i], (Double)distCompare);
+				if (distCalculator.rows[i].elements[0].distance== null || distCalculator.rows[i].elements[1].distance == null) {
+					System.out.println("Row " + i + "contains null");
+					distances.add((double) 999999999);
+				}
+				else {
+					//System.out.println(distCalculator.rows[2].elements[0].distance.inMeters);
+					DtoR = distCalculator.rows[i].elements[0].distance.inMeters;
+		
+					//Find the distance between Driver[n] and Work
+					DtoW = (double) distCalculator.rows[i].elements[1].distance.inMeters;
+					
+					//Find total distance to Rider then Work 
+					DtoRtoW = DtoR + RtoW;
+		
+					//Calculate the difference between Driving to Rider or Straight to Work
+					System.out.println(origins[i]);
+					System.out.println("Driver to Rider: " + DtoR);
+					System.out.println("Rider to Work: " + RtoW);
+					System.out.println("Driver to Work: " + DtoW);
+					System.out.println();
+					double distCompare = DtoRtoW - DtoW;
+		
+					//Set values into the HashMap (Key-Origin,Value-Distance)
+					distances.add((Double)distCompare);
+				}
+				
+
 				
 			}
 		} catch (Exception e) {
-			System.out.println("invalid address");
+			e.printStackTrace();
 		}
 		
-	return addressDistances;
+	return distances;
 
 		
 	}
