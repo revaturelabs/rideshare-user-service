@@ -9,6 +9,9 @@ public interface UserService {
 	public List<User> getUsers();
 	public User getUserById(int id);
 	public List<User> getUserByUsername(String username);
+	/*
+	 * If the user is a driver than a check must be made to ensure that said driver has a car.
+	 */
 	public List<User> getUserByRole(boolean isDriver);
 	public List<User> getUserByRoleAndLocation(boolean isDriver, String location);
 	public User addUser(User user);
