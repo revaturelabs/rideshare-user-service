@@ -31,37 +31,31 @@ public class DistanceServiceImpl implements DistanceService {
 	private UserService us;
 	
 	@Override
-	public List<User> recommendDrivers(User rider, int count){
+	//Returns a list of users sorted by distance they would need to add to their commute to pick up the rider
+	//Currently works under the assumption that they will work in the same building, but does not explicitly exclude drivers who don't
+	public List<User> recommendDrivers(User rider, int recCount){
 		
-		List<User> activeUsers = us.getActiveDrivers();
-		Map<String, User> driverAddresses = new HashMap<String, User>();
+		List<User> activeDrivers = us.getActiveDrivers();
+
+		String[] destinations = initDestinations(rider);
+		String[] origins = initOrigins(rider, activeDrivers);
 		
-		String riderHome = rider.gethCity()+ ", " + rider.gethState();
-		String riderWork = rider.getwCity()+ ", " + rider.getwState();
+
 		
-		String[] destinations = {riderHome, riderWork};
-		String[] origins = new String[activeUsers.size() + 1];
-		
-		origins[0] = riderHome;
-		List<String> driverAdds = getAddressFromUsers(activeUsers);
-		for(int i = 0; i < driverAdds.size(); i++) {
-			origins[i+1] = driverAdds.get(i);
-			driverAddresses.put(driverAdds.get(i), activeUsers.get(i));
-		}
-		List<Double> calcDistances = new ArrayList<Double>();
-		
+		//Prints info for testing
 		System.out.println("Printing destinations:");
 		for(int i = 0; i < destinations.length; i++) {
 			System.out.println(destinations[i]);
 		}
 		
+		//Prints info for testing
 		System.out.println("Printing origins:");
 		for(int i = 0; i < origins.length; i++) {
 			System.out.println(origins[i]);
 		}
 		
-		
-		
+		//List of the calculated ((DriverToRider+RiderToWork) - DriverToWork) aka added distances
+		List<Double> calcDistances = new ArrayList<Double>();
 		
 		try {
 			calcDistances = calculateDriverDistances(origins, destinations);
@@ -71,38 +65,65 @@ public class DistanceServiceImpl implements DistanceService {
 		
 		//Now we have two lists, activeUsers and calcDistances, where indexes are aligned
 		//Need to find the indexes of the n lowest calcDistances
-		final List<Double> finalDist = calcDistances;
-		int[] sortedIndices = IntStream.range(0, finalDist.size())
-						.boxed().sorted((i,j) -> finalDist.get(i).compareTo(finalDist.get(j)))
+		
+		//Mapping function below requires a final list/array 
+		final List<Double> finCalcDistances = calcDistances;
+		
+		//This creates a new array, where sortedIndices[0] contains the index of the distance(and user) with shortest distance
+		int[] sortedIndices = IntStream.range(0, finCalcDistances.size())
+						.boxed().sorted((i,j) -> finCalcDistances.get(i).compareTo(finCalcDistances.get(j)))
 						.mapToInt(ele -> ele).toArray();
 		
+		
+		//Prints info for testing
 		System.out.println("List of calculated distances" + calcDistances);
 		for (int i = 0; i < sortedIndices.length; i++) {
 			System.out.print(sortedIndices[i] + ", ");
 		}
 		
-		List<User> finalList = new ArrayList<User>();
-		for (int i = 0; i < count; i++) {
-			finalList.add(activeUsers.get(sortedIndices[i]));
+		List<User> sortedUsers = new ArrayList<User>();
+		for (int i = 0; i < recCount; i++) {
+			sortedUsers.add(activeDrivers.get(sortedIndices[i]));
 		}
 		
-		/*
-		Map<String, Double> sortedByValue = calcDistances.entrySet().stream()
-				.sorted(Map.Entry.<String, Double>comparingByValue())
-				.collect(toMap(Map.Entry::getKey,Map.Entry::getValue, (e1, e2) 
-				-> e1, LinkedHashMap::new));
-		
-		
-		//Set<String> allAddresses = calcDistances.keySet();
-		for(int i = 0; i < count; i++)
-			finalList[i] = driverAddresses.get(allAddreses);
-			
-			*/
-		for(User u : finalList) {
-			System.out.println(u.getLastName());
+		//Prints info for testing
+		for(User u : sortedUsers) {
+			System.out.println(u.getLastName()); 
 		}
-		return finalList;
+		
+		return sortedUsers;
 	}
+	
+	
+	private String[] initOrigins (User rider, List<User> activeDrivers) {
+		String[] origins = new String[activeDrivers.size()+1];
+		
+		//String riderHome = rider.gethAddress + ", " + rider.gethCity()+ ", " + rider.gethState();
+		String riderHome = rider.gethCity()+ ", " + rider.gethState();
+		origins[0] = riderHome;
+		
+		List<String> driverAdds = getAddressFromUsers(activeDrivers);
+		for(int i = 0; i < driverAdds.size(); i++) {
+			origins[i+1] = driverAdds.get(i);
+		}
+		
+		return origins;
+	}
+	
+	private String[] initDestinations (User rider) {
+		//String riderHome = rider.gethAddress + ", " + rider.gethCity()+ ", " + rider.gethState();
+		//String riderWork = rider.getwAddress + ", " + rider.getwCity()+ ", " + rider.getwState();
+		String riderHome = rider.gethCity()+ ", " + rider.gethState();
+		String riderWork = rider.getwCity()+ ", " + rider.getwState();
+		
+		String[] destinations = {riderHome, riderWork};
+		return destinations;
+	}
+	
+	
+	
+	
+	
 	
 	@Override
 	public List<String> getAddressFromUsers( List<User> users){
@@ -194,7 +215,7 @@ public class DistanceServiceImpl implements DistanceService {
 	
 	
 	
-
+	//Returns a list of 5 users, sorted by distance
 	@Override	//Calculates all distances between all origins and all destinations
 	public List<User> distanceMatrix(String[] origins, String[] destinations) throws ApiException, InterruptedException, IOException {
 		
@@ -262,9 +283,6 @@ public class DistanceServiceImpl implements DistanceService {
 //                .forEachOrdered(x -> sortedMap.put(x.getKey(), x.getValue()));
 //		
 		
-		
-		
-		
 		System.out.println("-");
 		
 		//Sorts and prints distances
@@ -276,10 +294,9 @@ public class DistanceServiceImpl implements DistanceService {
 		//Trims distances array to 5 shortest distances
 	    arrlist.removeIf(r ->(arrlist.indexOf(r)>4));
 	     
-		//Creates an array to store the distances in	
+		//Creates an array to store the distances in (no reason to do this)
 		Double [] arrArray = new Double[arrlist.size()];
 		arrArray = arrlist.toArray(arrArray);
-		//Prints that distance array
 		System.out.println(arrArray);
 			
 		//Loops through distance array, looks up address mapped to that distance and adds to destination list
@@ -296,9 +313,8 @@ public class DistanceServiceImpl implements DistanceService {
 		
 		
 		
-		//Makes destination array from destination list
+		//Makes destination array from destination list (no reason to do this either)
 		String [] destArray = new String[destList.size()];
-		
 		destArray = destList.toArray(destArray);
 		
 		List<User> userList = new ArrayList<User>();
@@ -318,6 +334,7 @@ public class DistanceServiceImpl implements DistanceService {
 
 	}
 	
+	//Grabs API key from environment variables
 	public String getGoogleMAPKey() {
         Map<String, String> env = System.getenv();
         for (Map.Entry <String, String> entry: env.entrySet()) {

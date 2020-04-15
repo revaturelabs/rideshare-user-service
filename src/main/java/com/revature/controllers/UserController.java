@@ -75,7 +75,14 @@ public class UserController {
 	public List<User> getActiveDrivers() {
 		return us.getActiveDrivers();
 	}*/
+
 	
+	@GetMapping("/driver/recommend/{id}")
+	public List<User> getTopDrivers(@PathVariable("id")int id) throws ApiException, InterruptedException, IOException {
+		int driverCount = 5;
+		User rider = us.getUserById(id);
+		return ds.recommendDrivers(rider, driverCount);
+	}
 	
 	@ApiOperation(value="Returns user drivers", tags= {"User"})
 	@GetMapping("/driver/{address}")
@@ -85,7 +92,7 @@ public class UserController {
 		List<String> destinationList = new ArrayList<String>();
 		String [] origins = {address};
 //		
-	    Map<String, User> topfive = new HashMap<String, User>();
+	    Map<String, User> topfive = new HashMap<String, User>(); //not actually used for anything at all
 //		
 		for(User d : us.getActiveDrivers()) {
 //			
@@ -97,7 +104,7 @@ public class UserController {
 			
 			destinationList.add(fullAdd);
 //			
-			topfive.put(fullAdd, d);
+			topfive.put(fullAdd, d);//literally does nothing
 //						
 	}
 //		
