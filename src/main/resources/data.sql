@@ -1,4 +1,4 @@
-insert into batches values
+insert into batches (batch_number, batch_location, b_address, b_city, b_state, b_zip) values 
 (1, 'Morgantown', '650 Price Street', 'Morgantown', 'WV', '25605'),
 (2, 'Virginia', '11730 Plaza America Drive', 'Reston', 'VA', '20190'),
 (3, 'Tampa', '4202 E Fowler Ave', 'Tampa', 'FL', '33620'), 
