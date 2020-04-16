@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.revature.beans.Admin;
 import com.revature.beans.Car;
 import com.revature.beans.User;
 import com.revature.repositories.CarRepository;
@@ -40,7 +42,8 @@ public class CarServiceImplTest {
 	public void testGettingCarById() {
 		
 		Car expected = new Car(1, "red", 4, "Honda", "Accord", 2015, new User());
-		when(cr.getOne(1)).thenReturn(expected);
+		Optional<Car> o = Optional.of(expected);
+		when(cr.findById(1)).thenReturn(o);
 		Car actual = csi.getCarById(1);
 		
 		assertEquals(actual, expected);

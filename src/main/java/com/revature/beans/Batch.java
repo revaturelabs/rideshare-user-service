@@ -32,6 +32,19 @@ public class Batch implements Serializable {
 	@Column(name="batch_location")
 	private String batchLocation;
 	
+	@NotBlank
+	@Column(name = "b_address")
+	private String bAddress;
+	@NotBlank
+	@Column(name = "b_city")
+	private String bCity;
+	@NotBlank
+	@Column(name = "b_zip")
+	private String bZip;
+	@NotBlank
+	@Column(name = "b_state")
+	private String bState;
+	
 	public Batch() {
 		super();
 	}
@@ -40,6 +53,17 @@ public class Batch implements Serializable {
 		super();
 		this.batchNumber = batchNumber;
 		this.batchLocation = batchLocation;
+	}
+
+	public Batch(int batchNumber, @NotBlank String batchLocation, @NotBlank String bAddress, @NotBlank String bCity,
+			@NotBlank String bZip, @NotBlank String bState) {
+		super();
+		this.batchNumber = batchNumber;
+		this.batchLocation = batchLocation;
+		this.bAddress = bAddress;
+		this.bCity = bCity;
+		this.bZip = bZip;
+		this.bState = bState;
 	}
 
 	public int getBatchNumber() {
@@ -56,6 +80,38 @@ public class Batch implements Serializable {
 
 	public void setBatchLocation(String batchLocation) {
 		this.batchLocation = batchLocation;
+	}
+
+	public String getbAddress() {
+		return bAddress;
+	}
+
+	public void setbAddress(String bAddress) {
+		this.bAddress = bAddress;
+	}
+
+	public String getbCity() {
+		return bCity;
+	}
+
+	public void setbCity(String bCity) {
+		this.bCity = bCity;
+	}
+
+	public String getbZip() {
+		return bZip;
+	}
+
+	public void setbZip(String bZip) {
+		this.bZip = bZip;
+	}
+
+	public String getbState() {
+		return bState;
+	}
+
+	public void setbState(String bState) {
+		this.bState = bState;
 	}
 
 	@Override
@@ -87,7 +143,8 @@ public class Batch implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Batch [batchNumber=" + batchNumber + ", batchLocation=" + batchLocation + "]";
+		return "Batch [batchNumber=" + batchNumber + ", batchLocation=" + batchLocation + ", bAddress=" + bAddress
+				+ ", bCity=" + bCity + ", bZip=" + bZip + ", bState=" + bState + "]";
 	}
 	
 }
