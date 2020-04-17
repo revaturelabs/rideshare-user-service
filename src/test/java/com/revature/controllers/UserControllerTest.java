@@ -137,7 +137,7 @@ public class UserControllerTest {
 	}
 	
 	@Test
-	public void testAddingInvalidUser() throws Exception {
+	public void testAddingInvalidEmptyUser() throws Exception {
 		
 		Batch batch = new Batch(111, "address");
 		User user = new User();
@@ -148,8 +148,24 @@ public class UserControllerTest {
 		verify(us, never()).addUser(user);
 		
 		mvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsString(user)))
-		   .andExpect(status().isOk());
+		   .andExpect(status().isOk())
+		   .andExpect(jsonPath("$").isNotEmpty());
 ;
+	}
+	
+	@Test
+	public void testAddingInvalidUser() throws Exception {
+		String body = "{\r\n" + 
+		"	\"userName\": \"a*************************************************************s\",\r\n" + 
+		"	\"firstName\": \"asd  hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh     asd\",\r\n" + 
+		"	\"lastName\": \"asd   hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh dsf\",\r\n" + 
+		"	\"phoneNumber\": \"Invalid\",\r\n" + 
+		"	\"email\": \"InvalidEmail\",\r\n" + 
+		"	\"hZip\": \"sdfkjdfsfdsdfkj\"\r\n" + 
+		"}";
+		mvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON).content(body))
+		   .andExpect(status().isOk())
+		   .andExpect(jsonPath("$").isNotEmpty());
 	}
 	
 	
