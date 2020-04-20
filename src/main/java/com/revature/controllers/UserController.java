@@ -161,12 +161,13 @@ public class UserController {
 	/**
 	 * HTTP POST method (/users)
 	 * 
-	 * @param user represents the new User object being sent.
-	 * @param BindingResult holds the result of attempting to bind the JSON object in the body with the User object.
+	 * @param user          represents the new User object being sent.
+	 * @param BindingResult holds the result of attempting to bind the JSON object
+	 *                      in the body with the User object.
 	 * 
-	 *         Sends custom error messages when incorrect input is used
+	 *                      Sends custom error messages when incorrect input is used
 	 * 
-	 *         TODO: REFACTOR so that errors are added to the result.
+	 *                      TODO: REFACTOR so that errors are added to the result.
 	 */
 
 	@ApiOperation(value = "Adds a new user", tags = { "User" })
@@ -176,7 +177,7 @@ public class UserController {
 		System.out.println(user.isDriver());
 		Map<String, Set<String>> errors = new HashMap<>();
 		String field, errorMessage;
-		
+
 		for (FieldError fieldError : result.getFieldErrors()) {
 			field = fieldError.getField();
 			errorMessage = getErrorMessage(fieldError);
@@ -186,7 +187,7 @@ public class UserController {
 			Batch batch;
 			try {
 				batch = bs.getBatchByNumber(user.getBatch().getBatchNumber());
-			} catch( EntityNotFoundException e) {
+			} catch (EntityNotFoundException e) {
 				batch = bs.addBatch(user.getBatch());
 			}
 			user.setBatch(batch);
@@ -196,8 +197,8 @@ public class UserController {
 	}
 
 	/**
-	 * getErrorMeassage
-	 * Takes a field error and translates it to a human readable error message.
+	 * getErrorMeassage Takes a field error and translates it to a human readable
+	 * error message.
 	 * 
 	 * @param FieldError, the error to be parsed
 	 * 
@@ -207,69 +208,93 @@ public class UserController {
 	protected String getErrorMessage(FieldError fieldError) {
 		String code = fieldError.getCode();
 		String field = fieldError.getField();
-		if (code.equals("NotBlank") || code.equals("NotNull")) {
 
-			switch (field) {
-			case "userName":
+		switch (field) {
+
+		case "userName":
+			if (code.equals("NotBlank") || code.equals("NotNull")) {
 				return ("Username field required");
-			case "firstName":
+			} else if (code.equals("Size")) {
+				return ("Username must be between 3 and 12 characters in length");
+			} else if (code.equals("Pattern")) {
+				return ("Username may not have any illegal characters such as $@-");
+			} 
+			return fieldError.getDefaultMessage();
+
+		case "firstName":
+			if (code.equals("NotBlank") || code.equals("NotNull")) {
 				return ("First name field required");
-			case "lastName":
-				return ("Last name field required");
-			case "wAddress":
-				return ("Work address field required");
-			case "wState":
-			case "hState":
-				return ("State field required");
-			case "phoneNumber":
-				return ("Phone number field required");
-			case "hAddress":
-				return ("Home address field required");
-			case "hZip":
-			case "wZip":
-				return ("Zip code field required");
-			case "hCity":
-			case "wCity":
-				return ("City field required");
-			default:
-				return (field + " required");
+			}else if(code.equals("Size")) {
+				return ("First name cannot be more than 30 characters in length");
+			} else if (code.equals("Pattern") ) {
+				return ("First name allows only 1 space or hyphen and no illegal characters");
+			} else if (code.equals("Valid")) {
+				return ("Invalid first name");
 			}
+			return fieldError.getDefaultMessage();
+
+		case "lastName":
+			if (code.equals("NotBlank") || code.equals("NotNull")) {
+				return ("Last name field required");
+			} else if (code.equals("Size")) {
+				return ("Last name cannot be more than 30 characters in length");
+			} else if (code.equals("Pattern")) {
+				return ("Last name allows only 1 space or hyphen and no illegal characters");
+			} else if (code.equals("Valid")) {
+				return ("Invalid last name");
+			}
+			return fieldError.getDefaultMessage();
+
+
+		case "wAddress":
+			if (code.equals("NotBlank") || code.equals("NotNull")) {
+				return ("Work address field required");
+			}
+			return fieldError.getDefaultMessage();
+
+		case "wState":
+		case "hState":
+			if (code.equals("NotBlank") || code.equals("NotNull")) {
+				return ("State field required");
+			} 
+			return fieldError.getDefaultMessage();
+
+		case "phoneNumber":
+			if (code.equals("NotBlank") || code.equals("NotNull")) {
+				return ("Phone number field required");
+			} else if (code.equals("Pattern")) {
+				return("Phone number is not in a valid format.");
+			}
+			return fieldError.getDefaultMessage();
+
+		case "hAddress":
+			if (code.equals("NotBlank") || code.equals("NotNull")) {
+				return ("Home address field required");
+			}
+			return fieldError.getDefaultMessage();
+
+		case "hZip":
+		case "wZip":
+			if (code.equals("NotBlank") || code.equals("NotNull")) {
+				return ("Zip code field required");
+			}
+			return fieldError.getDefaultMessage();
+
+
+		case "hCity":
+		case "wCity":
+			if (code.equals("NotBlank") || code.equals("NotNull")) {
+				return ("City field required");
+			}
+			return fieldError.getDefaultMessage();
+
+		case "email":
+			return (fieldError.getDefaultMessage());
+			
+		default:
+			return (fieldError.getDefaultMessage());
+
 		}
-		// username custom error message
-		else if (code.equals("Size") && field.equals("userName")) {
-			return ("Username must be between 3 and 12 characters in length");
-		} else if (code.equals("Pattern") && field.equals("userName")) {
-			return ("Username may not have any illegal characters such as $@-");
-		} else if (code.equals("Valid") && field.equals("userName")) {
-			return ("Invalid username");
-		}
-		// first name custom error message
-		else if (code.equals("Size") && field.equals("firstName")) {
-			return ("First name cannot be more than 30 characters in length");
-		} else if (code.equals("Pattern") && field.equals("firstName")) {
-			return ("First name allows only 1 space or hyphen and no illegal characters");
-		} else if (code.equals("Valid") && field.equals("firstName")) {
-			return ("Invalid first name");
-		}
-		// last name custom error message
-		else if (code.equals("Size") && field.equals("lastName")) {
-			return ("Last name cannot be more than 30 characters in length");
-		} else if (code.equals("Pattern") && field.equals("lastName")) {
-			return ("Last name allows only 1 space or hyphen and no illegal characters");
-		} else if (code.equals("Valid") && field.equals("lastName")) {
-			return ("Invalid last name");
-		}
-		// email custom error messages
-		else if (code.equals("Email") && field.equals("email")) {
-			return ("Invalid Email");
-		} else if (code.equals("Pattern") && field.equals("email")) {
-			return ("Invalid Email");
-		}
-		// phone number custom error messages
-		else if (code.equals("Pattern") && field.equals("phoneNumber")) {
-			return ("Invalid Phone Number");
-		}
-		return (fieldError.toString());
 
 	}
 
