@@ -40,7 +40,13 @@ public class DistanceServiceImpl implements DistanceService {
 		String[] destinations = initDestinations(rider);
 		String[] origins = initOrigins(rider, activeDrivers);
 		
-
+		//Iterates through list of drivers and removes rider (if there)
+		for(User u : new ArrayList<User>(activeDrivers))
+		{
+			if (u.equals(rider)) {
+				activeDrivers.remove(u);
+			}
+		}
 		
 		//Prints info for testing
 		System.out.println("Printing destinations:");
@@ -98,8 +104,7 @@ public class DistanceServiceImpl implements DistanceService {
 	private String[] initOrigins (User rider, List<User> activeDrivers) {
 		String[] origins = new String[activeDrivers.size()+1];
 		
-		//String riderHome = rider.gethAddress + ", " + rider.gethCity()+ ", " + rider.gethState();
-		String riderHome = rider.gethCity()+ ", " + rider.gethState();
+		String riderHome = rider.gethAddress() + ", " + rider.gethCity()+ ", " + rider.gethState();
 		origins[0] = riderHome;
 		
 		List<String> driverAdds = getAddressFromUsers(activeDrivers);
@@ -111,20 +116,15 @@ public class DistanceServiceImpl implements DistanceService {
 	}
 	
 	private String[] initDestinations (User rider) {
-		//String riderHome = rider.gethAddress + ", " + rider.gethCity()+ ", " + rider.gethState();
-		//String riderWork = rider.getwAddress + ", " + rider.getwCity()+ ", " + rider.getwState();
-		String riderHome = rider.gethCity()+ ", " + rider.gethState();
-		String riderWork = rider.getwCity()+ ", " + rider.getwState();
-		
+		String riderHome = rider.gethAddress() + ", " + rider.gethCity()+ ", " + rider.gethState();
+		String riderWork = rider.gethAddress() + ", " + rider.getwCity()+ ", " + rider.getwState();
+
 		String[] destinations = {riderHome, riderWork};
 		return destinations;
 	}
 	
 	
-	
-	
-	
-	
+	//Takes a list of user objects, concats their address and returns in a list
 	@Override
 	public List<String> getAddressFromUsers( List<User> users){
 
@@ -168,6 +168,7 @@ public class DistanceServiceImpl implements DistanceService {
 				//Find the distance between Driver [n] and Rider
 				//System.out.println(origins[1] + ", " + destinations[1]);
 				
+				//Should this get handled in a better way?
 				if (distCalculator.rows[i].elements[0].distance== null || distCalculator.rows[i].elements[1].distance == null) {
 					System.out.println("Row " + i + "contains null");
 					distances.add((double) 999999999);
@@ -183,11 +184,11 @@ public class DistanceServiceImpl implements DistanceService {
 					DtoRtoW = DtoR + RtoW;
 		
 					//Calculate the difference between Driving to Rider or Straight to Work
-					System.out.println(origins[i]);
-					System.out.println("Driver to Rider: " + DtoR);
-					System.out.println("Rider to Work: " + RtoW);
-					System.out.println("Driver to Work: " + DtoW);
-					System.out.println();
+					//System.out.println(origins[i]);
+					//System.out.println("Driver to Rider: " + DtoR);
+					//System.out.println("Rider to Work: " + RtoW);
+					//System.out.println("Driver to Work: " + DtoW);
+					//System.out.println();
 					double distCompare = DtoRtoW - DtoW;
 		
 					//Set values into the HashMap (Key-Origin,Value-Distance)
@@ -205,13 +206,6 @@ public class DistanceServiceImpl implements DistanceService {
 
 		
 	}
-
-
-	
-	
-	
-	
-	
 	
 	
 	
