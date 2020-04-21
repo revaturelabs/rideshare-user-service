@@ -84,6 +84,8 @@ public class UserController {
 		return ds.recommendDrivers(rider, driverCount);
 	}
 	
+	
+	/*
 	@ApiOperation(value="Returns user drivers", tags= {"User"})
 	@GetMapping("/driver/{address}")
 	public List <User> getTopFiveDrivers(@PathVariable("address")String address) throws ApiException, InterruptedException, IOException {
@@ -120,6 +122,7 @@ public class UserController {
 		//return ds.distanceMatrix();	
 		
 	}
+	*/
 	
 	/**
 	 * HTTP GET method (/users)
