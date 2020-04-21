@@ -14,6 +14,9 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import com.revature.beans.Admin;
+import com.revature.beans.Batch;
+import com.revature.beans.Car;
 import com.revature.beans.User;
 
 @Aspect
@@ -114,7 +117,42 @@ public class AspectLogging {
         
     }
 	
+	/*
+	 * These return methods will log the HTTP response entities of all the controllers.
+	 */
 	
+	@AfterReturning(pointcut="execution(* com.revature.controllers.CarController.*(..))", returning="retVal") 
+	public void logCarHttpStatusResponse(ResponseEntity<Car> retVal) {
+		
+		LOGGER.info(retVal.getStatusCode().getReasonPhrase());
+		
+	}
+	
+	@AfterReturning(pointcut="execution(* com.revature.controllers.UserController.*(..))", returning="retVal") 
+	public void logUserHttpStatusResponse(ResponseEntity<User> retVal) {
+		
+		LOGGER.info(retVal.getStatusCode().getReasonPhrase());
+		
+	
+	
+	}
+	
+	@AfterReturning(pointcut="execution(* com.revature.controllers.AdminController.*(..))", returning="retVal") 
+	public void logAdminHttpStatusResponse(ResponseEntity<Admin> retVal) {
+		
+		LOGGER.info(retVal.getStatusCode().getReasonPhrase());
+		
+	
+	}
+
+	
+	@AfterReturning(pointcut="execution(* com.revature.controllers.BatchController.*(..))", returning="retVal") 
+	public void logBatchHttpStatusResponse(ResponseEntity<Batch> retVal) {
+		
+		LOGGER.info(retVal.getStatusCode().getReasonPhrase());
+		
+	
+	}
 	
 
 }
