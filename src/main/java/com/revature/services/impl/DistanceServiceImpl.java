@@ -26,7 +26,7 @@ import com.revature.services.UserService;
 
 @Service
 public class DistanceServiceImpl implements DistanceService {
-	
+
 	@Autowired
 	private UserService us;
 	
@@ -218,11 +218,11 @@ public class DistanceServiceImpl implements DistanceService {
 			String state = d.gethState();
 			                                                                                                                                                                                                
 			String fullAdd = add + ", " + city + ", " + state;
-			
+
 			destinationList.add(fullAdd);
-			
+
 			userDestMap.put(fullAdd, d);
-						
+
 		}
 		
 		//System.out.println(destinationList);
@@ -255,23 +255,23 @@ public class DistanceServiceImpl implements DistanceService {
 					
 					System.out.println((double) t.rows[i].elements[j].distance.inMeters);	//Prints the same thing as above with less info
 					
-					
 				} catch (Exception e) {
-				System.out.println("invalid address");
+					System.out.println("invalid address");
 				}
 			}
 		}
-		
-		
+
 //		LinkedHashMap<String, Double> sortedMap = new LinkedHashMap<>();
 //		unsortMap.entrySet().stream().sorted(Map.Entry.comparingByValue())
 //                .forEachOrdered(x -> sortedMap.put(x.getKey(), x.getValue()));
 //		
+
 		
 		System.out.println("-");
 		
 		//Sorts and prints distances
 		Collections.sort(arrlist);
+
 		System.out.println(arrlist);
 		
 		List<String> destList = new ArrayList<String>();
@@ -295,8 +295,9 @@ public class DistanceServiceImpl implements DistanceService {
 		
 		//Makes destination array from destination list (no reason to do this either)
 		String [] destArray = new String[destList.size()];
+
 		destArray = destList.toArray(destArray);
-		
+
 		List<User> userList = new ArrayList<User>();
 		
 		//Uses home address to map destination list back to the users
@@ -311,13 +312,10 @@ public class DistanceServiceImpl implements DistanceService {
 		return userList;
 
 
+		return userList;
 
 	}
 
 	*/
-
-	
-	
-	
 
 }

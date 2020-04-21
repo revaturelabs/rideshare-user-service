@@ -1,5 +1,6 @@
 package com.revature.services.impl;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +73,19 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public List<User> getUserByRole(boolean isDriver) {
-		return ur.getUserByRole(isDriver);
+		if(isDriver) {
+			List<User> users = ur.getUserByRole(isDriver);
+			List<User> result = new LinkedList<User>();
+			for( User u: users) {
+				if(u.getCar()!=null) {
+					result.add(u);
+				}
+			}
+			return result;
+		}
+		else {
+			return ur.getUserByRole(isDriver);
+		}
 	}
 	
 	/**

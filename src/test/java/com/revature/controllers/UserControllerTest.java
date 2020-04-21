@@ -1,5 +1,7 @@
 package com.revature.controllers;
 
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -24,6 +26,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.beans.Batch;
 import com.revature.beans.User;
+import com.revature.services.BatchService;
+import com.revature.services.DistanceService;
 import com.revature.services.UserService;
 
 @RunWith(SpringRunner.class)
@@ -38,6 +42,12 @@ public class UserControllerTest {
 		
 	@MockBean
 	private UserService us;
+	
+	@MockBean
+	private BatchService bs;
+	
+	@MockBean
+	private DistanceService ds;
 	
 	@Test
 	public void testGettingUsers() throws Exception {
@@ -110,31 +120,65 @@ public class UserControllerTest {
 		   .andExpect(jsonPath("$[0].driver").value("true"));
 	}
 	
+	
 	@Test
-	public void testAddingUser() throws Exception {
+	public void testAddingValidUser() throws Exception {
+		System.out.println("UPDATE");
+		Batch batch = new Batch(111, "address");
+		User user = new User(1, "gpichmann0", batch, "Grady", "Pichmann", "gpichmann0@artisteer.com", "212-374-3466", false, false, false, "5 Carpenter Plaza", "New York City", "10275", "NY", "30401 Esker Point", "Des Moines", "50347", "IA");
+		String body = om.writeValueAsString(user);
+		System.out.println(body);
+		when(bs.getBatchByNumber(111)).thenReturn(batch);
+		when(us.addUser(user)).thenReturn(user);
+		
+		mvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON).content(body).characterEncoding("utf-8"))
+		   .andExpect(status().isOk())
+		   .andExpect(jsonPath("$").isEmpty());
+	}
+	
+	@Test
+	public void testAddingInvalidEmptyUser() throws Exception {
 		
 		Batch batch = new Batch(111, "address");
-		User user = new User(1, "userName", batch, "adonis", "cabreja", "adonis@gmail.com", "123-456-789");
+		User user = new User();
 		user.setDriver(true);
 		user.setActive(true);
 		user.setAcceptingRides(true);
 		
-		when(us.addUser(user)).thenReturn(user);
+		verify(us, never()).addUser(user);
 		
 		mvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsString(user)))
-		   .andExpect(status().isCreated())
-		   .andExpect(jsonPath("$.userName").value("userName"));
+		   .andExpect(status().isOk())
+		   .andExpect(jsonPath("$").isNotEmpty());
+;
 	}
 	
 	@Test
+	public void testAddingInvalidUser() throws Exception {
+		String body = "{\r\n" + 
+		"	\"userName\": \"a*************************************************************s\",\r\n" + 
+		"	\"firstName\": \"asd  hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh     asd\",\r\n" + 
+		"	\"lastName\": \"asd   hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh dsf\",\r\n" + 
+		"	\"phoneNumber\": \"Invalid\",\r\n" + 
+		"	\"email\": \"InvalidEmail\",\r\n" + 
+		"	\"hZip\": \"sdfkjdfsfdsdfkj\"\r\n" + 
+		"}";
+		mvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON).content(body))
+		   .andExpect(status().isOk())
+		   .andExpect(jsonPath("$").isNotEmpty());
+	}
+	
+	
+	@Test
 	public void testUpdatingUser() throws Exception {
-		
+		System.out.println("UPDATE");
 		Batch batch = new Batch(111, "address");
+
 		User user = new User(1, "userName", batch, "adonis", "cabreja", "adonis@gmail.com", "123-456-789");
-		
+		String body = om.writeValueAsString(user);
 		when(us.updateUser(user)).thenReturn(user);
 		
-		mvc.perform(put("/users/{id}", 1).contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsString(user)))
+		mvc.perform(put("/users/{id}", 1).contentType(MediaType.APPLICATION_JSON).content(body).characterEncoding("utf-8"))
 		   .andExpect(status().isOk())
 		   .andExpect(jsonPath("$.userName").value("userName"));
 	}

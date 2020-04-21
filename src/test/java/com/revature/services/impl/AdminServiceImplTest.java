@@ -5,11 +5,15 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.revature.beans.Admin;
@@ -23,6 +27,7 @@ public class AdminServiceImplTest {
 	
 	@Mock
 	private AdminRepository ar;
+	
 	
 	@Test
 	public void testGettingAdmins() {
@@ -38,9 +43,10 @@ public class AdminServiceImplTest {
 	
 	@Test
 	public void testGettingAdminById() {
-		
+		System.out.println("BY ID:");
 		Admin expected = new Admin(1, "username");
-		when(ar.getOne(1)).thenReturn(expected);
+		Optional<Admin> o = Optional.of(expected);
+		when(ar.findById(1)).thenReturn(o);
 		Admin actual = asi.getAdminById(1);
 		
 		assertEquals(expected, actual);
@@ -49,7 +55,7 @@ public class AdminServiceImplTest {
 	@Test
 	public void testCreatingAdmin() {
 		
-		Admin expected = new Admin(1, "username");
+		Admin expected = new Admin(2, "otheruser");
 		when(ar.save(expected)).thenReturn(expected);
 		Admin actual = asi.createAdmin(expected);
 		
