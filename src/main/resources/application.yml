@@ -37,3 +37,21 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+  
+
+           
+logging:
+    file: logs/application-info.log
+    
+      
+
+    
+        
+  
+   
+    
+   
+    
+   
+  
+
