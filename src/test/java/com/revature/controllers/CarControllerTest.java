@@ -92,7 +92,7 @@ public class CarControllerTest {
 		when(cs.updateCar(new Car(1, "red", 4, "Honda", "Accord", 2015, new User()))).thenReturn(car);
 		
 		mvc.perform(put("/cars/{id}", 1).contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsString(car)))
-		   .andExpect(status().isOk())
+		   .andExpect(status().isAccepted())
 		   .andExpect(jsonPath("$.color").value("red"));
 	}
 	

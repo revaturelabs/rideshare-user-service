@@ -39,6 +39,10 @@ public interface DistanceService {
 	
 	// Place key googleMapAPIKey & value apiKey (to be shared on slack) into Environment Vars.
 	public  String getGoogleMAPKey();
+
+	public List<User> recommendDrivers(User rider, int count);
+
+	List<String> getAddressFromUsers(List<User> users);
 	
 	
 }
