@@ -77,45 +77,6 @@ public class AspectLogging {
 	 * The next few methods log the location of the method used immediately after it is used.
 	 * Someone looking at this code and trying to evaluate it could find what they are look for quicker this way. 
 	 */
-	@Around("execution(* com.revature.controllers.UserController.*(..))")
-    public void logUserMethods(ProceedingJoinPoint jp) throws Throwable {
-
-        LOGGER.info("Package: com.revature.controllers		Class: UserController 		Method: " + jp.getSignature().getName());
-        jp.proceed();	
-        
-    }
-	
-	@Around("execution(* com.revature.controllers.CarController.*(..))")
-    public void logCarMethods(ProceedingJoinPoint jp) throws Throwable {
-
-        LOGGER.info("Package: com.revature.controllers		Class: CarController 		Method: " + jp.getSignature().getName());
-        jp.proceed();
-        
-    }
-	
-	@Around("execution(* com.revature.controllers.LoginController.*(..))")
-    public void logLoginMethod(ProceedingJoinPoint jp) throws Throwable {
-
-        LOGGER.info("Package: com.revature.controllers		Class: LoginController 		Method: " + jp.getSignature().getName());
-        jp.proceed();
-        
-    }
-	
-	@Around("execution(* com.revature.controllers.BatchController.*(..))")
-    public void logBatchMethods(ProceedingJoinPoint jp) throws Throwable {
-
-        LOGGER.info("Package: com.revature.controllers		Class: BatchController 		Method: " + jp.getSignature().getName());
-        jp.proceed();
-        
-    }
-	
-	@Around("execution(* com.revature.controllers.AdminController.*(..))")
-    public void logAdminMethods(ProceedingJoinPoint jp) throws Throwable {
-
-        LOGGER.info("Package: com.revature.controllers		Class: AdminController 		Method: " + jp.getSignature().getName());
-        jp.proceed();
-        
-    }
 	
 	/*
 	 * These return methods will log the HTTP response entities of all the controllers.
