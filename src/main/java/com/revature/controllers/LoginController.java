@@ -42,6 +42,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @CrossOrigin
 @RequestMapping("/login")
+@Api(tags= {"Login"})
 public class LoginController {
 	
 	@Autowired
