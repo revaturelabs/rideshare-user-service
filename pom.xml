@@ -117,10 +117,11 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
  
-		<dependency>
-    		<groupId>postgresql</groupId>
-    		<artifactId>postgresql</artifactId>
-    		<version>9.1-901-1.jdbc4</version>
+	<dependency>
+  		<groupId>org.postgresql</groupId>
+  		<artifactId>postgresql</artifactId>
+  		<!-- <version>9.1-901-1.jdbc4</version> -->
+  		<version>42.2.12</version>
 		</dependency>
  
 		<dependency> 
