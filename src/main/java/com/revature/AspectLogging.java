@@ -78,8 +78,6 @@ public class AspectLogging {
 
 	}
 
-
-
 	/*
 	 * These return methods will log the HTTP response entities of all the
 	 * controllers.
