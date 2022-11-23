@@ -16,6 +16,9 @@ import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 /**
  * Car class that represents a user's car. All cars have an id, color, seats, make, model, year
  * and the corresponding user.
@@ -27,6 +30,8 @@ import org.springframework.stereotype.Component;
 @Component
 @Entity
 @Table(name="cars")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+property = "carId")
 public class Car implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

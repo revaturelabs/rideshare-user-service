@@ -119,9 +119,10 @@ public class CarController {
 	
 	@ApiOperation(value="Updates car by id", tags= {"Car"})
 	@PutMapping("/{id}")
-	public Car updateCar(@Valid @RequestBody Car car) {
+	public ResponseEntity<Car>updateCar(@PathVariable(value="id") int carId, @Valid @RequestBody Car car) {
 		
-		return cs.updateCar(car);
+		
+		return new ResponseEntity<> (cs.updateCar(car), HttpStatus.ACCEPTED);
 	}
 	
 	/**
